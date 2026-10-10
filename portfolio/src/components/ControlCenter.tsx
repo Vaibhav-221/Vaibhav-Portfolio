@@ -134,3 +134,4 @@ export default function ControlCenter({ isOpen, onClose }: ControlCenterProps) {
     </div>
   );
 }
+

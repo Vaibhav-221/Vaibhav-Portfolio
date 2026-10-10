@@ -25,3 +25,4 @@ export interface Track {
   duration: string;
   url: string;
 }
+

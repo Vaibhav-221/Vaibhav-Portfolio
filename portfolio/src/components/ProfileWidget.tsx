@@ -101,3 +101,4 @@ export default function ProfileWidget({ onNavigate, onOpenApp }: ProfileWidgetPr
     </>
   );
 }
+

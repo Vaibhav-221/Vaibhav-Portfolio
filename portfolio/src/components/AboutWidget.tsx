@@ -32,3 +32,4 @@ export default function AboutWidget({ onNavigate }: AboutWidgetProps) {
     </div>
   );
 }
+
