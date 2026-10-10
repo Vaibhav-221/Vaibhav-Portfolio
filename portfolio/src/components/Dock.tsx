@@ -3,6 +3,7 @@
 import React, { useRef, useState } from 'react';
 import Image from 'next/image';
 import { PageId } from '@/types';
+import { personalInfo } from '@/data/portfolioData';
 
 interface DockProps {
   onNavigate: (page: PageId) => void;
@@ -120,7 +121,7 @@ export default function Dock({
             data-name="GitHub"
             onClick={() => {
               triggerBounce('GitHub');
-              window.open('https://github.com/mihir-aditya', '_blank');
+              window.open(personalInfo.github, '_blank');
             }}
           >
             <div style={{ width: '100%', height: '100%', position: 'relative' }}>
@@ -141,7 +142,7 @@ export default function Dock({
             data-name="Gmail"
             onClick={() => {
               triggerBounce('Gmail');
-              window.open('https://mail.google.com/mail/?view=cm&fs=1&to=adityachauhan8079@gmail.com', '_blank');
+              window.open(`https://mail.google.com/mail/?view=cm&fs=1&to=${personalInfo.email}`, '_blank');
             }}
           >
             <div style={{ width: '100%', height: '100%', position: 'relative' }}>
@@ -162,7 +163,7 @@ export default function Dock({
             data-name="LinkedIn"
             onClick={() => {
               triggerBounce('LinkedIn');
-              window.open('https://www.linkedin.com/in/aditya-chauhan-mihir/', '_blank');
+              window.open(personalInfo.linkedin, '_blank');
             }}
           >
             <div style={{ width: '100%', height: '100%', position: 'relative' }}>
@@ -177,25 +178,33 @@ export default function Dock({
             <span className="dock-tooltip">LinkedIn</span>
           </div>
 
-          {/* Instagram */}
+          {/* Contact / Resume */}
           <div
-            className={`dock-icon ${bouncingIcon === 'Instagram' ? 'bouncing' : ''}`}
-            data-name="Instagram"
+            className={`dock-icon ${bouncingIcon === 'Contact' ? 'bouncing' : ''}`}
+            data-name="Contact"
             onClick={() => {
-              triggerBounce('Instagram');
-              window.open('https://www.instagram.com/aditya_.xo._/', '_blank');
+              triggerBounce('Contact');
+              onNavigate('contact');
             }}
           >
-            <div style={{ width: '100%', height: '100%', position: 'relative' }}>
-              <Image
-                src="/assets/icons/instagram.png"
-                alt="Instagram"
-                fill
-                sizes="56px"
-                style={{ objectFit: 'contain', transform: 'scale(1.15)', filter: 'drop-shadow(0 8px 16px rgba(0,0,0,0.4))' }}
-              />
+            <div
+              className="icon-tile"
+              style={{
+                width: '100%',
+                height: '100%',
+                borderRadius: '14px',
+                background: 'linear-gradient(135deg, #0a84ff 0%, #30d158 100%)',
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+                boxShadow: '0 8px 16px rgba(0,0,0,0.3)',
+              }}
+            >
+              <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#ffffff" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z" />
+              </svg>
             </div>
-            <span className="dock-tooltip">Instagram</span>
+            <span className="dock-tooltip">Contact Me</span>
           </div>
 
           {/* Free Rider HD */}

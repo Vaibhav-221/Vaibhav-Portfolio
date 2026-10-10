@@ -3,6 +3,7 @@
 import React from 'react';
 import Image from 'next/image';
 import { PageId } from '@/types';
+import { personalInfo } from '@/data/portfolioData';
 
 interface ProfileWidgetProps {
   onNavigate: (page: PageId) => void;
@@ -12,16 +13,60 @@ interface ProfileWidgetProps {
 export default function ProfileWidget({ onNavigate, onOpenApp }: ProfileWidgetProps) {
   return (
     <>
-      <div className="profile-widget">
+      <div className="profile-widget group relative overflow-hidden">
         <div style={{ position: 'relative', width: '100%', height: '100%' }}>
           <Image
             src="/assets/images/1779272491822.png"
-            alt="Aditya Chauhan Profile"
+            alt={`${personalInfo.name} Profile`}
             fill
             priority
             sizes="(max-width: 768px) 50vw, 280px"
             style={{ objectFit: 'cover' }}
           />
+        </div>
+
+        {/* Dynamic status pill overlay inspired by creative developer references */}
+        <div
+          style={{
+            position: 'absolute',
+            bottom: '12px',
+            left: '12px',
+            right: '12px',
+            padding: '6px 10px',
+            background: 'rgba(21, 19, 18, 0.85)',
+            backdropFilter: 'blur(12px)',
+            borderRadius: '12px',
+            border: '1px solid rgba(255, 255, 255, 0.15)',
+            display: 'flex',
+            alignItems: 'center',
+            gap: '8px',
+            boxShadow: '0 4px 16px rgba(0,0,0,0.4)',
+          }}
+        >
+          <span
+            style={{
+              width: '8px',
+              height: '8px',
+              borderRadius: '50%',
+              backgroundColor: '#c5ff41',
+              boxShadow: '0 0 8px #c5ff41',
+              display: 'inline-block',
+              flexShrink: 0,
+            }}
+          />
+          <span
+            style={{
+              fontSize: '11px',
+              fontWeight: 600,
+              color: '#ffffff',
+              letterSpacing: '0.4px',
+              whiteSpace: 'nowrap',
+              overflow: 'hidden',
+              textOverflow: 'ellipsis',
+            }}
+          >
+            Open for SDE Roles • CSE &apos;29
+          </span>
         </div>
       </div>
 
@@ -30,7 +75,7 @@ export default function ProfileWidget({ onNavigate, onOpenApp }: ProfileWidgetPr
         {/* Mail */}
         <div
           className="mobile-app-icon"
-          onClick={() => window.open('https://mail.google.com/mail/?view=cm&fs=1&to=adityachauhan8079@gmail.com', '_blank')}
+          onClick={() => window.open(`https://mail.google.com/mail/?view=cm&fs=1&to=${personalInfo.email}`, '_blank')}
         >
           <div className="mobile-app-squircle">
             <div style={{ position: 'relative', width: '100%', height: '100%' }}>
@@ -101,4 +146,3 @@ export default function ProfileWidget({ onNavigate, onOpenApp }: ProfileWidgetPr
     </>
   );
 }
-

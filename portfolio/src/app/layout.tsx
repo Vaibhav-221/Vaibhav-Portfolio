@@ -21,13 +21,27 @@ const coiny = Coiny({
 });
 
 export const metadata: Metadata = {
-  title: "Aditya Chauhan Portfolio",
-  description: "Web Developer and Designer Portfolio with interactive macOS desktop experience",
-  keywords: ["Aditya Chauhan", "Portfolio", "Web Developer", "Designer", "Full Stack", "React", "Next.js", "Laravel"],
-  authors: [{ name: "Aditya Chauhan" }],
+  title: "Vaibhav Singh | Full Stack Developer & Open Source Contributor",
+  description:
+    "Personal developer portfolio of Vaibhav Singh (CSE '29) featuring real-time web applications, AI integrations, GSSoC '26 top 1% open source contributions, and interactive macOS desktop UI.",
+  keywords: [
+    "Vaibhav Singh",
+    "Portfolio",
+    "Full Stack Developer",
+    "Open Source",
+    "GSSoC",
+    "Next.js",
+    "React",
+    "FastAPI",
+    "Tailwind CSS",
+    "Firebase",
+    "VBSPU",
+  ],
+  authors: [{ name: "Vaibhav Singh" }],
   openGraph: {
-    title: "Aditya Chauhan Portfolio",
-    description: "Web Developer and Designer Portfolio with interactive macOS desktop experience",
+    title: "Vaibhav Singh | Full Stack Developer & Open Source Contributor",
+    description:
+      "Explore the work, projects, open-source milestones, and interactive desktop experience of Vaibhav Singh.",
     type: "website",
   },
 };

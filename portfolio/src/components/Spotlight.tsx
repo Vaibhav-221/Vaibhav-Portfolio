@@ -2,6 +2,7 @@
 
 import React, { useState, useEffect, useRef } from 'react';
 import { PageId } from '@/types';
+import { personalInfo } from '@/data/portfolioData';
 
 interface SpotlightProps {
   isOpen: boolean;
@@ -30,31 +31,31 @@ export default function Spotlight({
   const searchItems: SearchItem[] = [
     {
       id: 'about',
-      title: 'About Me — Bio & Overview',
+      title: `About Me — ${personalInfo.name} Bio & Overview`,
       category: 'Portfolio Section',
       action: () => onNavigate('about'),
     },
     {
       id: 'projects',
-      title: 'Projects — Peyebouste, AyitiBook, Peelr & more',
+      title: 'Projects — StatKarmyog, VBSPU PYQ Hub, Get-Me-A-Chai & more',
       category: 'Portfolio Section',
       action: () => onNavigate('projects'),
     },
     {
       id: 'experience',
-      title: 'Experience — SypnoWeb, ASDN Cybernetics',
+      title: 'Experience — GSSoC \'26 (Top 1%), GAOTek Inc. (3 Promotions)',
       category: 'Portfolio Section',
       action: () => onNavigate('experience'),
     },
     {
       id: 'skills',
-      title: 'Skills — Web Dev, App Dev, Laravel, React',
+      title: 'Skills — Full Stack, Next.js, FastAPI, Python, React, Firebase',
       category: 'Portfolio Section',
       action: () => onNavigate('skills'),
     },
     {
       id: 'resume',
-      title: 'Resume — Education & Experience PDF',
+      title: 'Resume — B.Tech CSE \'29 & Verified Experience PDF',
       category: 'Portfolio Section',
       action: () => onNavigate('resume'),
     },
@@ -78,27 +79,21 @@ export default function Spotlight({
     },
     {
       id: 'github',
-      title: 'GitHub — @mihir-aditya',
+      title: `GitHub — @${personalInfo.githubUsername}`,
       category: 'External Link',
-      action: () => window.open('https://github.com/mihir-aditya', '_blank'),
+      action: () => window.open(personalInfo.github, '_blank'),
     },
     {
       id: 'linkedin',
-      title: 'LinkedIn — Aditya Chauhan',
+      title: `LinkedIn — ${personalInfo.name}`,
       category: 'External Link',
-      action: () => window.open('https://www.linkedin.com/in/aditya-chauhan-mihir/', '_blank'),
-    },
-    {
-      id: 'instagram',
-      title: 'Instagram — @aditya_.xo._',
-      category: 'External Link',
-      action: () => window.open('https://www.instagram.com/aditya_.xo._/', '_blank'),
+      action: () => window.open(personalInfo.linkedin, '_blank'),
     },
     {
       id: 'mail',
-      title: 'Email — adityachauhan8079@gmail.com',
+      title: `Email — ${personalInfo.email}`,
       category: 'Contact',
-      action: () => window.open('mailto:adityachauhan8079@gmail.com', '_blank'),
+      action: () => window.open(`mailto:${personalInfo.email}`, '_blank'),
     },
   ];
 

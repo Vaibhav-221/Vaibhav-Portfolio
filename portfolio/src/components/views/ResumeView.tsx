@@ -1,36 +1,42 @@
 'use client';
 
 import React from 'react';
+import { personalInfo, experienceData, projectsData, achievementsData } from '@/data/portfolioData';
 
 export default function ResumeView() {
   const handleDownload = () => {
     const link = document.createElement('a');
-    link.href = '/assets/docs/aditya-resume.pdf';
-    link.download = 'Aditya_Chauhan_Resume.pdf';
+    link.href = personalInfo.resumeUrl;
+    link.download = personalInfo.resumeFileName;
     document.body.appendChild(link);
     link.click();
     document.body.removeChild(link);
   };
 
   return (
-    <div>
+    <div style={{ maxWidth: '900px', margin: '0 auto' }}>
       <div
         style={{
           display: 'flex',
           justifyContent: 'space-between',
           alignItems: 'center',
-          marginBottom: '30px',
+          marginBottom: '24px',
           flexWrap: 'wrap',
-          gap: '20px',
+          gap: '16px',
         }}
       >
-        <h2 style={{ fontSize: '32px', fontWeight: 700, margin: 0 }}>Resume</h2>
+        <div>
+          <h2 style={{ fontSize: '32px', fontWeight: 700, margin: 0 }}>Resume</h2>
+          <p style={{ fontSize: '14px', color: 'var(--text-muted)', margin: '4px 0 0 0' }}>
+            Verified curriculum vitae, professional history, and project portfolio.
+          </p>
+        </div>
 
         <button
           onClick={handleDownload}
           style={{
-            padding: '12px 24px',
-            background: '#0a84ff',
+            padding: '12px 22px',
+            background: 'linear-gradient(135deg, #0a84ff 0%, #0070f3 100%)',
             color: '#ffffff',
             border: 'none',
             borderRadius: '12px',
@@ -40,7 +46,8 @@ export default function ResumeView() {
             alignItems: 'center',
             gap: '8px',
             cursor: 'pointer',
-            transition: 'background 0.2s, transform 0.1s',
+            boxShadow: '0 4px 14px rgba(10, 132, 255, 0.35)',
+            transition: 'transform 0.15s ease, box-shadow 0.15s ease',
           }}
         >
           <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
@@ -48,40 +55,61 @@ export default function ResumeView() {
             <polyline points="7 10 12 15 17 10" />
             <line x1="12" y1="15" x2="12" y2="3" />
           </svg>
-          Download Resume
+          Download PDF Resume
         </button>
       </div>
 
-      {/* Resume Document Content */}
+      {/* Resume Document Content Box */}
       <div
         style={{
           display: 'flex',
           flexDirection: 'column',
-          gap: '30px',
-          padding: '30px',
+          gap: '28px',
+          padding: '32px',
           background: 'var(--glass-bg)',
           border: '1px solid var(--glass-border)',
           borderRadius: '20px',
         }}
       >
-        {/* Header */}
-        <div style={{ textAlign: 'center', borderBottom: '1px solid var(--glass-border)', paddingBottom: '20px' }}>
-          <h1 style={{ fontSize: '36px', margin: '0 0 10px 0', fontWeight: 700 }}>ADITYA CHAUHAN</h1>
+        {/* Header Section */}
+        <div style={{ textAlign: 'center', borderBottom: '1px solid var(--glass-border)', paddingBottom: '24px' }}>
+          <h1 style={{ fontSize: '32px', margin: '0 0 8px 0', fontWeight: 700, letterSpacing: '0.5px' }}>
+            {personalInfo.name.toUpperCase()}
+          </h1>
+          <div style={{ fontSize: '15px', color: '#0a84ff', fontWeight: 600, marginBottom: '10px' }}>
+            {personalInfo.role} • {personalInfo.location}
+          </div>
           <div
             style={{
               display: 'flex',
               justifyContent: 'center',
-              gap: '16px',
+              gap: '14px',
               flexWrap: 'wrap',
-              fontSize: '15px',
+              fontSize: '13.5px',
               color: 'var(--text-main)',
             }}
           >
-            <span>adityachauhan8079@gmail.com</span>
+            <span>{personalInfo.email}</span>
             <span>•</span>
-            <span>+91 7849813424</span>
+            <span>{personalInfo.phoneDisplay}</span>
             <span>•</span>
-            <span>GitHub: mihir-aditya</span>
+            <a
+              href={personalInfo.github}
+              target="_blank"
+              rel="noreferrer"
+              style={{ color: '#c5ff41', textDecoration: 'none' }}
+            >
+              GitHub: {personalInfo.githubUsername}
+            </a>
+            <span>•</span>
+            <a
+              href={personalInfo.linkedin}
+              target="_blank"
+              rel="noreferrer"
+              style={{ color: '#0a84ff', textDecoration: 'none' }}
+            >
+              LinkedIn Profile
+            </a>
           </div>
         </div>
 
@@ -89,38 +117,31 @@ export default function ResumeView() {
         <div>
           <h3
             style={{
-              fontSize: '18px',
-              fontWeight: 600,
+              fontSize: '16px',
+              fontWeight: 700,
               color: '#0a84ff',
-              marginBottom: '16px',
+              marginBottom: '14px',
               textTransform: 'uppercase',
               letterSpacing: '1px',
             }}
           >
             Education
           </h3>
-          <div style={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
-            <div style={{ display: 'flex', justifyContent: 'space-between', flexWrap: 'wrap', gap: '8px' }}>
-              <div>
-                <div style={{ fontWeight: 600, fontSize: '17px' }}>University Of Kota</div>
-                <div style={{ fontSize: '15px', color: 'var(--text-main)' }}>
-                  Integrated Master of Computer Application (GPA: 7.46)
-                </div>
+          <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', flexWrap: 'wrap', gap: '8px' }}>
+            <div>
+              <div style={{ fontSize: '16px', fontWeight: 600, color: 'var(--text-main)' }}>
+                {personalInfo.institution}
               </div>
-              <div style={{ fontSize: '14px', color: 'var(--text-muted)', textAlign: 'right' }}>
-                Kota, India<br />Aug 2023 - Aug 2028
+              <div style={{ fontSize: '14px', color: 'var(--text-muted)' }}>
+                Bachelor of Technology (B.Tech) in {personalInfo.department}
               </div>
             </div>
-
-            <div style={{ display: 'flex', justifyContent: 'space-between', flexWrap: 'wrap', gap: '8px' }}>
-              <div>
-                <div style={{ fontWeight: 600, fontSize: '17px' }}>Global Public School</div>
-                <div style={{ fontSize: '15px', color: 'var(--text-main)' }}>
-                  Senior Secondary Education, Mathematics (GPA: 7.90)
-                </div>
+            <div style={{ textAlign: 'right' }}>
+              <div style={{ fontSize: '13.5px', fontWeight: 600, color: '#c5ff41' }}>
+                CGPA: {personalInfo.cgpa} / 10.0
               </div>
-              <div style={{ fontSize: '14px', color: 'var(--text-muted)', textAlign: 'right' }}>
-                Kota, India<br />Mar 2021 - Mar 2023
+              <div style={{ fontSize: '12.5px', color: 'var(--text-muted)' }}>
+                Aug 2025 – May 2029
               </div>
             </div>
           </div>
@@ -130,133 +151,111 @@ export default function ResumeView() {
         <div>
           <h3
             style={{
-              fontSize: '18px',
-              fontWeight: 600,
+              fontSize: '16px',
+              fontWeight: 700,
               color: '#0a84ff',
               marginBottom: '16px',
               textTransform: 'uppercase',
               letterSpacing: '1px',
             }}
           >
-            Experience
+            Work &amp; Open Source Experience
           </h3>
-          <div style={{ display: 'flex', flexDirection: 'column', gap: '20px' }}>
-            <div>
-              <div style={{ display: 'flex', justifyContent: 'space-between', flexWrap: 'wrap', marginBottom: '8px', gap: '8px' }}>
-                <div style={{ fontWeight: 600, fontSize: '17px' }}>
-                  Freelance Full Stack Developer{' '}
-                  <span style={{ fontWeight: 400, color: 'var(--text-muted)' }}>| International Clients</span>
-                </div>
-                <div style={{ fontSize: '14px', color: 'var(--text-muted)' }}>Jan 2026 - Present</div>
-              </div>
-              <ul
-                style={{
-                  margin: 0,
-                  paddingLeft: '20px',
-                  fontSize: '15px',
-                  color: 'var(--text-main)',
-                  lineHeight: 1.8,
-                  display: 'flex',
-                  flexDirection: 'column',
-                  gap: '6px',
-                }}
-              >
-                <li>Developing and maintaining scalable web solutions for e-commerce and digital marketing clients.</li>
-                <li>Led projects like AyitiBook (multi-vendor e-commerce) and Peyebouste (marketing automation) using Laravel, PHP, Python, and MySQL.</li>
-                <li>Integrated third-party APIs (like Meta Ads), automated workflows with cron jobs, and managed cloud deployments.</li>
-              </ul>
-            </div>
 
-            <div>
-              <div style={{ display: 'flex', justifyContent: 'space-between', flexWrap: 'wrap', marginBottom: '8px', gap: '8px' }}>
-                <div style={{ fontWeight: 600, fontSize: '17px' }}>
-                  Full Stack Web Development Intern{' '}
-                  <span style={{ fontWeight: 400, color: 'var(--text-muted)' }}>| ASDN Cybernetics Inc.</span>
+          <div style={{ display: 'flex', flexDirection: 'column', gap: '20px' }}>
+            {experienceData.map((exp) => (
+              <div key={exp.id}>
+                <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', flexWrap: 'wrap', gap: '6px', marginBottom: '6px' }}>
+                  <div>
+                    <span style={{ fontSize: '15.5px', fontWeight: 600, color: 'var(--text-main)' }}>
+                      {exp.role}
+                    </span>
+                    <span style={{ fontSize: '14px', color: exp.color, fontWeight: 500, marginLeft: '6px' }}>
+                      — {exp.company}
+                    </span>
+                  </div>
+                  <span style={{ fontSize: '12.5px', color: 'var(--text-muted)' }}>
+                    {exp.period}
+                  </span>
                 </div>
-                <div style={{ fontSize: '14px', color: 'var(--text-muted)' }}>May 2025 - July 2025</div>
+                <ul style={{ margin: 0, paddingLeft: '18px', fontSize: '13px', color: 'var(--text-muted)', lineHeight: 1.55 }}>
+                  {exp.achievements.map((bullet, idx) => (
+                    <li key={idx} style={{ marginBottom: '4px' }}>
+                      {bullet}
+                    </li>
+                  ))}
+                </ul>
               </div>
-              <ul
-                style={{
-                  margin: 0,
-                  paddingLeft: '20px',
-                  fontSize: '15px',
-                  color: 'var(--text-main)',
-                  lineHeight: 1.8,
-                  display: 'flex',
-                  flexDirection: 'column',
-                  gap: '6px',
-                }}
-              >
-                <li>Independently developed multiple live applications including an Employee Management System and a Vulnerability Scanner.</li>
-                <li>Designed database structures with PHP/MySQL and built responsive interfaces using React, Tailwind CSS, and Bootstrap.</li>
-              </ul>
-            </div>
+            ))}
           </div>
         </div>
 
-        {/* Projects */}
+        {/* Key Projects */}
         <div>
           <h3
             style={{
-              fontSize: '18px',
-              fontWeight: 600,
+              fontSize: '16px',
+              fontWeight: 700,
               color: '#0a84ff',
               marginBottom: '16px',
               textTransform: 'uppercase',
               letterSpacing: '1px',
             }}
           >
-            Projects
+            Featured Projects
           </h3>
-          <div style={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
-            <div>
-              <div style={{ fontWeight: 600, fontSize: '16px', marginBottom: '4px' }}>
-                macOS Web Environment (This Portfolio!){' '}
-                <span style={{ fontSize: '13px', fontWeight: 400, color: 'var(--text-muted)', float: 'right' }}>Present</span>
-              </div>
-              <p style={{ margin: 0, fontSize: '14.5px', color: 'var(--text-main)', lineHeight: 1.7 }}>
-                Architected a fully functional, interactive macOS replica directly in Next.js/React to serve as an engaging portfolio.
-                Engineered a Multi-Window Manager with background media rendering, dynamic Light/Dark glassmorphism themes, and Apple-authentic physics.
-              </p>
-            </div>
 
-            <div>
-              <div style={{ fontWeight: 600, fontSize: '16px', marginBottom: '4px' }}>
-                <a href="https://peyebouste.com" target="_blank" rel="noopener noreferrer" style={{ color: 'inherit', textDecoration: 'none' }}>
-                  Peyebouste Marketing Platform
-                </a>{' '}
-                <span style={{ fontSize: '13px', fontWeight: 400, color: 'var(--text-muted)', float: 'right' }}>Apr 2026 - Jun 2026</span>
+          <div style={{ display: 'flex', flexDirection: 'column', gap: '18px' }}>
+            {projectsData.map((proj) => (
+              <div key={proj.id}>
+                <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', flexWrap: 'wrap', gap: '6px', marginBottom: '4px' }}>
+                  <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+                    <span style={{ fontSize: '15px', fontWeight: 600, color: 'var(--text-main)' }}>
+                      {proj.title}
+                    </span>
+                    <span style={{ fontSize: '12.5px', color: 'var(--text-muted)' }}>
+                      | {proj.subtitle}
+                    </span>
+                  </div>
+                  <span style={{ fontSize: '12px', color: 'var(--text-muted)' }}>
+                    {proj.timeline}
+                  </span>
+                </div>
+                <div style={{ fontSize: '12px', color: '#c5ff41', fontWeight: 500, marginBottom: '4px' }}>
+                  Tech: {proj.techStack.join(' • ')}
+                </div>
+                <p style={{ fontSize: '13px', color: 'var(--text-muted)', lineHeight: 1.5, margin: 0 }}>
+                  {proj.description}
+                </p>
               </div>
-              <p style={{ margin: 0, fontSize: '14.5px', color: 'var(--text-main)', lineHeight: 1.7 }}>
-                Scalable marketing automation using PHP/Python. Integrated Meta Ads APIs, an AI-powered chatbot, and automated cron jobs for campaign tracking.
-              </p>
-            </div>
-
-            <div>
-              <div style={{ fontWeight: 600, fontSize: '16px', marginBottom: '4px' }}>
-                AyitiBook E-Commerce Platform{' '}
-                <span style={{ fontSize: '13px', fontWeight: 400, color: 'var(--text-muted)', float: 'right' }}>Jan 2026 - Present</span>
-              </div>
-              <p style={{ margin: 0, fontSize: '14.5px', color: 'var(--text-main)', lineHeight: 1.7 }}>
-                Large-scale Laravel e-commerce platform with dedicated portals for customers, sellers, affiliates, and admins utilizing role-based access control.
-              </p>
-            </div>
-
-            <div>
-              <div style={{ fontWeight: 600, fontSize: '16px', marginBottom: '4px' }}>
-                <a href="http://peelr.myddns.net" target="_blank" rel="noopener noreferrer" style={{ color: 'inherit', textDecoration: 'none' }}>
-                  Peelr Sticker Store
-                </a>{' '}
-                <span style={{ fontSize: '13px', fontWeight: 400, color: 'var(--text-muted)', float: 'right' }}>Recent Project</span>
-              </div>
-              <p style={{ margin: 0, fontSize: '14.5px', color: 'var(--text-main)', lineHeight: 1.7 }}>
-                Built a full-stack Laravel e-commerce website. Engineered an automated product uploading pipeline using JS and Python that crawls sites, removes backgrounds, generates mockups using OpenCV, and uploads them to the store.
-              </p>
-            </div>
+            ))}
           </div>
+        </div>
+
+        {/* Honors & Hackathons */}
+        <div>
+          <h3
+            style={{
+              fontSize: '16px',
+              fontWeight: 700,
+              color: '#0a84ff',
+              marginBottom: '14px',
+              textTransform: 'uppercase',
+              letterSpacing: '1px',
+            }}
+          >
+            Honors &amp; Hackathon Achievements
+          </h3>
+
+          <ul style={{ margin: 0, paddingLeft: '18px', fontSize: '13.5px', color: 'var(--text-muted)', lineHeight: 1.6 }}>
+            {achievementsData.map((item, idx) => (
+              <li key={idx} style={{ marginBottom: '4px' }}>
+                <strong style={{ color: 'var(--text-main)' }}>{item.title}</strong> — {item.badge} ({item.organization}): {item.detail}
+              </li>
+            ))}
+          </ul>
         </div>
       </div>
     </div>
   );
 }
-

@@ -2,6 +2,7 @@
 
 import React, { useState, useEffect, useRef } from 'react';
 import { PageId } from '@/types';
+import { personalInfo } from '@/data/portfolioData';
 
 interface MenubarProps {
   currentPage?: PageId;
@@ -105,7 +106,7 @@ export default function Menubar({
             <div className="mi disabled">Recent Items</div>
             <div className="menu-divider" />
             <div className="mi" onClick={() => handleItemClick(onLockScreen)}>Lock Screen<span className="kbd">⌃⌘Q</span></div>
-            <div className="mi" onClick={() => handleItemClick(() => onNavigate('home'))}>Log Out Aditya...<span className="kbd">⇧⌘Q</span></div>
+            <div className="mi" onClick={() => handleItemClick(() => onNavigate('home'))}>Log Out {personalInfo.shortName}...<span className="kbd">⇧⌘Q</span></div>
           </div>
         </div>
 
@@ -169,7 +170,7 @@ export default function Menubar({
           </span>
           <div className={`menu-dropdown ${openMenu === 'projects' ? 'open' : ''}`}>
             <div className="mi" onClick={() => handleItemClick(() => onNavigate('projects'))}>All Projects<span className="kbd">⌘P</span></div>
-            <div className="mi" onClick={() => handleItemClick(() => window.open('https://github.com/mihir-aditya', '_blank'))}>GitHub Repositories</div>
+            <div className="mi" onClick={() => handleItemClick(() => window.open(personalInfo.github, '_blank'))}>GitHub Repositories</div>
           </div>
         </div>
 
@@ -223,7 +224,7 @@ export default function Menubar({
           </span>
           <div className={`menu-dropdown ${openMenu === 'contact' ? 'open' : ''}`}>
             <div className="mi" onClick={() => handleItemClick(() => onNavigate('contact'))}>Send Message<span className="kbd">⌘M</span></div>
-            <div className="mi" onClick={() => handleItemClick(() => window.open('mailto:adityachauhan8079@gmail.com', '_blank'))}>Open Mail Client</div>
+            <div className="mi" onClick={() => handleItemClick(() => window.open(`mailto:${personalInfo.email}`, '_blank'))}>Open Mail Client</div>
           </div>
         </div>
       </div>

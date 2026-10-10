@@ -1,103 +1,175 @@
 'use client';
 
-import React from 'react';
-
-const coreSkills = [
-  { name: 'Web Development', percentage: 80, gradient: 'linear-gradient(90deg, #0a84ff, #00d2ff)' },
-  { name: 'Content Writing', percentage: 70, gradient: 'linear-gradient(90deg, #ff375f, #ff7e5f)' },
-  { name: 'App Development', percentage: 75, gradient: 'linear-gradient(90deg, #30d158, #34e89e)' },
-  { name: 'Canva, Figma', percentage: 70, gradient: 'linear-gradient(90deg, #bf5af2, #e0c3fc)' },
-];
-
-const technologies = [
-  'Hosting',
-  'Laravel',
-  'Python',
-  'C',
-  'C++',
-  'Java',
-  'OOPs',
-  'Linux',
-  'Next.js',
-  'React',
-  'TypeScript',
-  'Tailwind CSS',
-  'REST APIs',
-  'Firebase',
-  'MySQL',
-  'Git / GitHub',
-];
+import React, { useState } from 'react';
+import { skillCategoriesData } from '@/data/portfolioData';
 
 export default function SkillsView() {
+  const [selectedCat, setSelectedCat] = useState<string>('All');
+
+  const categories = ['All', ...skillCategoriesData.map((c) => c.categoryName)];
+
+  const displayCategories = skillCategoriesData.filter((cat) => {
+    if (selectedCat === 'All') return true;
+    return cat.categoryName === selectedCat;
+  });
+
   return (
-    <div>
-      <h2 style={{ fontSize: '32px', fontWeight: 700, marginBottom: '30px' }}>My Skills</h2>
-
-      <div style={{ display: 'flex', gap: '50px', flexWrap: 'wrap' }}>
-        {/* Core Skills (Progress Bars) */}
-        <div style={{ flex: 1.5, minWidth: '280px' }}>
-          <h3 style={{ fontSize: '20px', fontWeight: 600, marginBottom: '24px', color: 'var(--text-main)' }}>
-            Core Expertise
-          </h3>
-
-          <div style={{ display: 'flex', flexDirection: 'column', gap: '20px' }}>
-            {coreSkills.map((skill, idx) => (
-              <div key={idx}>
-                <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '8px' }}>
-                  <span style={{ fontWeight: 500, fontSize: '15px' }}>{skill.name}</span>
-                  <span style={{ color: 'var(--text-muted)', fontSize: '14px' }}>{skill.percentage}%</span>
-                </div>
-                <div
-                  style={{
-                    height: '8px',
-                    background: 'var(--glass-bg-light)',
-                    borderRadius: '4px',
-                    overflow: 'hidden',
-                  }}
-                >
-                  <div
-                    style={{
-                      width: `${skill.percentage}%`,
-                      height: '100%',
-                      background: skill.gradient,
-                      borderRadius: '4px',
-                      transition: 'width 1s ease-in-out',
-                    }}
-                  />
-                </div>
-              </div>
-            ))}
-          </div>
+    <div style={{ maxWidth: '900px', margin: '0 auto' }}>
+      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: '24px', flexWrap: 'wrap', gap: '16px' }}>
+        <div>
+          <h2 style={{ fontSize: '32px', fontWeight: 700, margin: 0 }}>Technical Skills</h2>
+          <p style={{ fontSize: '14px', color: 'var(--text-muted)', margin: '4px 0 0 0' }}>
+            Comprehensive toolkit spanning full-stack web development, AI engineering, and cloud platforms.
+          </p>
         </div>
 
-        {/* Other Skills (Tags) */}
-        <div style={{ flex: 1, minWidth: '250px' }}>
-          <h3 style={{ fontSize: '20px', fontWeight: 600, marginBottom: '24px', color: 'var(--text-main)' }}>
-            Technologies &amp; Tools
-          </h3>
+        {/* Category Filter Pills */}
+        <div
+          style={{
+            display: 'flex',
+            flexWrap: 'wrap',
+            gap: '6px',
+            background: 'var(--glass-bg)',
+            padding: '4px',
+            borderRadius: '14px',
+            border: '1px solid var(--glass-border)',
+          }}
+        >
+          {categories.map((cat) => (
+            <button
+              key={cat}
+              onClick={() => setSelectedCat(cat)}
+              style={{
+                padding: '6px 12px',
+                borderRadius: '10px',
+                border: 'none',
+                background: selectedCat === cat ? 'rgba(255, 255, 255, 0.15)' : 'transparent',
+                color: selectedCat === cat ? '#ffffff' : 'var(--text-muted)',
+                fontSize: '12.5px',
+                fontWeight: selectedCat === cat ? 600 : 500,
+                cursor: 'pointer',
+                transition: 'all 0.2s ease',
+              }}
+            >
+              {cat}
+            </button>
+          ))}
+        </div>
+      </div>
 
-          <div style={{ display: 'flex', flexWrap: 'wrap', gap: '12px' }}>
-            {technologies.map((tech, idx) => (
+      {/* Skills Category Grid */}
+      <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(380px, 1fr))', gap: '24px' }}>
+        {displayCategories.map((cat, idx) => (
+          <div
+            key={idx}
+            style={{
+              background: 'var(--glass-bg)',
+              border: '1px solid var(--glass-border)',
+              borderRadius: '20px',
+              padding: '24px',
+              display: 'flex',
+              flexDirection: 'column',
+              gap: '16px',
+            }}
+          >
+            <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
+              <h3 style={{ fontSize: '18px', fontWeight: 700, margin: 0, color: 'var(--text-main)' }}>
+                {cat.categoryName}
+              </h3>
               <span
-                key={idx}
                 style={{
-                  padding: '10px 18px',
-                  background: 'var(--glass-bg)',
-                  border: '1px solid var(--glass-border)',
-                  borderRadius: '20px',
-                  fontSize: '14px',
-                  fontWeight: 500,
-                  transition: 'background 0.2s, transform 0.15s',
-                  cursor: 'default',
+                  fontSize: '11px',
+                  fontWeight: 600,
+                  color: '#0a84ff',
+                  background: 'rgba(10, 132, 255, 0.12)',
+                  padding: '3px 8px',
+                  borderRadius: '8px',
                 }}
               >
-                {tech}
+                {cat.skills.length} Technologies
               </span>
-            ))}
+            </div>
+
+            {/* Skill list with progress indicators */}
+            <div style={{ display: 'flex', flexDirection: 'column', gap: '14px' }}>
+              {cat.skills.map((skill, sIdx) => (
+                <div key={sIdx}>
+                  <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '6px' }}>
+                    <span style={{ fontSize: '13.5px', fontWeight: skill.highlight ? 600 : 500, color: skill.highlight ? '#ffffff' : 'var(--text-main)' }}>
+                      {skill.name} {skill.highlight && <span style={{ color: '#c5ff41', fontSize: '11px', marginLeft: '4px' }}>★</span>}
+                    </span>
+                    <span style={{ fontSize: '12px', color: 'var(--text-muted)', fontWeight: 500 }}>
+                      {skill.level}%
+                    </span>
+                  </div>
+
+                  {/* Meter bar */}
+                  <div
+                    style={{
+                      height: '6px',
+                      background: 'var(--glass-bg-light)',
+                      borderRadius: '3px',
+                      overflow: 'hidden',
+                    }}
+                  >
+                    <div
+                      style={{
+                        width: `${skill.level}%`,
+                        height: '100%',
+                        background: skill.highlight
+                          ? 'linear-gradient(90deg, #0a84ff, #c5ff41)'
+                          : 'linear-gradient(90deg, rgba(255,255,255,0.4), rgba(255,255,255,0.8))',
+                        borderRadius: '3px',
+                        transition: 'width 0.8s ease-in-out',
+                      }}
+                    />
+                  </div>
+                </div>
+              ))}
+            </div>
           </div>
+        ))}
+      </div>
+
+      {/* Cloud & Architecture Summary Pill Strip */}
+      <div
+        style={{
+          marginTop: '30px',
+          background: 'var(--glass-bg)',
+          border: '1px solid var(--glass-border)',
+          borderRadius: '16px',
+          padding: '20px 24px',
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'space-between',
+          flexWrap: 'wrap',
+          gap: '14px',
+        }}
+      >
+        <div>
+          <h4 style={{ fontSize: '15px', fontWeight: 600, margin: '0 0 2px 0', color: 'var(--text-main)' }}>
+            Architecture &amp; Best Practices
+          </h4>
+          <p style={{ fontSize: '12.5px', color: 'var(--text-muted)', margin: 0 }}>
+            Component-Driven Architecture • REST &amp; Server Actions • RAG Pipelines • Agile/Scrum
+          </p>
+        </div>
+        <div
+          style={{
+            display: 'inline-flex',
+            alignItems: 'center',
+            gap: '6px',
+            fontSize: '12px',
+            color: '#c5ff41',
+            background: 'rgba(197, 255, 65, 0.1)',
+            padding: '6px 12px',
+            borderRadius: '10px',
+            fontWeight: 600,
+          }}
+        >
+          <span>✓</span> Production Ready
         </div>
       </div>
     </div>
   );
 }
-

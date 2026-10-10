@@ -101,7 +101,7 @@ export default function Lockscreen({ onUnlock }: LockscreenProps) {
       <div className="ls-clock-wrap">
         <div className="ls-clock">{timeStr}</div>
       </div>
-      <div className="ls-name">Aditya&apos;s Portfolio</div>
+      <div className="ls-name">Vaibhav&apos;s Portfolio</div>
 
       {/* Quick Actions (Mobile) */}
       <div className="ls-quick-actions">
