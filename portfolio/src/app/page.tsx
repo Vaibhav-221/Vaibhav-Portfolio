@@ -12,6 +12,7 @@ import ProfileWidget from '@/components/ProfileWidget';
 import ServicesWidget from '@/components/ServicesWidget';
 import AboutWidget from '@/components/AboutWidget';
 import MusicPlayerWidget from '@/components/MusicPlayerWidget';
+import GeminiChatbot from '@/components/GeminiChatbot';
 import WindowManager from '@/components/WindowManager';
 import MobilePageNav from '@/components/MobilePageNav';
 
@@ -288,16 +289,23 @@ export default function HomePage() {
           onLockScreen={() => setUnlocked(false)}
         />
 
-        {/* Home View Widgets */}
+        {/* Home View Widgets: Left Bio/Services & Right Gemini AI Chatbot */}
         {currentPage === 'home' && (
           <div className="profile-widget-container" id="home-view">
-            <div className="widget-row">
-              <ProfileWidget onNavigate={navigateTo} onOpenApp={openApp} />
-              <ServicesWidget />
+            {/* Left Hero Column: Personal Bio & Specializations */}
+            <div className="hero-left-column">
+              <div className="widget-row">
+                <ProfileWidget onNavigate={navigateTo} onOpenApp={openApp} />
+                <ServicesWidget />
+              </div>
+              <AboutWidget onNavigate={navigateTo} />
             </div>
 
-            <AboutWidget onNavigate={navigateTo} />
-            <MusicPlayerWidget />
+            {/* Right Hero Column: Interactive Gemini AI Chatbot & Player */}
+            <div className="hero-right-column">
+              <GeminiChatbot />
+              <MusicPlayerWidget />
+            </div>
           </div>
         )}
 

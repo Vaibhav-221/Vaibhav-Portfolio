@@ -782,15 +782,14 @@ html, body {
 /* ============ HOME VIEW WIDGETS ============ */
 .profile-widget-container {
   position: absolute;
-  top: calc(var(--menubar-h) + 30px);
-  bottom: calc(var(--dock-icon) + 60px);
+  top: calc(var(--menubar-h) + 24px);
+  bottom: calc(var(--dock-icon) + 50px);
   left: 50%;
   transform: translateX(-50%);
-  width: 90%;
-  max-width: 1100px;
+  width: 92%;
+  max-width: 1240px;
   display: grid;
-  grid-template-columns: 1fr 1fr;
-  grid-template-rows: auto 1fr;
+  grid-template-columns: 1.05fr 1fr;
   gap: 20px;
   z-index: 100;
   overflow-y: auto;
@@ -802,10 +801,21 @@ html, body {
   display: none;
 }
 
+.hero-left-column {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.hero-right-column {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
 .widget-row {
-  grid-column: span 2;
   display: grid;
-  grid-template-columns: 280px 1fr;
+  grid-template-columns: 260px 1fr;
   gap: 20px;
 }
 
@@ -1284,24 +1294,33 @@ body.page-active .mobile-page-nav {
     top: calc(var(--menubar-h) + 12px);
     bottom: calc(var(--dock-icon) + 30px);
     width: 94%;
-    display: grid !important;
-    grid-template-columns: 1fr 1fr;
-    grid-template-rows: auto auto auto;
-    gap: 14px;
+    display: flex !important;
+    flex-direction: column;
+    gap: 16px;
+    padding-bottom: 20px;
+  }
+
+  .hero-left-column,
+  .hero-right-column {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    width: 100%;
   }
 
   .widget-row {
-    display: contents;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
   }
 
   .profile-widget {
-    grid-column: 1 / 2;
     aspect-ratio: 1;
     border-radius: 22px;
+    width: 100%;
   }
 
   .mobile-apps-grid {
-    grid-column: 2 / 3;
     display: grid;
     grid-template-columns: 1fr 1fr;
     grid-template-rows: 1fr 1fr;
