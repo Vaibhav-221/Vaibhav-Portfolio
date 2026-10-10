@@ -149,7 +149,7 @@ export default function ExperienceView() {
       {/* Honors & Hackathon Achievements Grid */}
       <div>
         <h3 style={{ fontSize: '22px', fontWeight: 700, marginBottom: '20px' }}>Recognitions &amp; Hackathons</h3>
-        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(260px, 1fr))', gap: '18px' }}>
+        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(min(100%, 250px), 1fr))', gap: '16px' }}>
           {achievementsData.map((item, idx) => (
             <div
               key={idx}

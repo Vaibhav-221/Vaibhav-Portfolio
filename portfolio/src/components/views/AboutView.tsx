@@ -45,8 +45,8 @@ export default function AboutView() {
       <div
         style={{
           display: 'grid',
-          gridTemplateColumns: 'repeat(auto-fit, minmax(180px, 1fr))',
-          gap: '16px',
+          gridTemplateColumns: 'repeat(auto-fit, minmax(min(100%, 140px), 1fr))',
+          gap: '14px',
           marginBottom: '28px',
         }}
       >
@@ -153,7 +153,7 @@ export default function AboutView() {
       {/* What I Do - Pillars */}
       <div>
         <h3 style={{ fontSize: '20px', fontWeight: 600, marginBottom: '20px' }}>Core Engineering Domains</h3>
-        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(260px, 1fr))', gap: '20px' }}>
+        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(min(100%, 250px), 1fr))', gap: '16px' }}>
           <div
             style={{
               background: 'var(--glass-bg)',
@@ -201,7 +201,7 @@ export default function AboutView() {
       {/* Hackathons & Honors Preview */}
       <div style={{ marginTop: '32px' }}>
         <h3 style={{ fontSize: '20px', fontWeight: 600, marginBottom: '20px' }}>Key Hackathons &amp; Honors</h3>
-        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(260px, 1fr))', gap: '16px' }}>
+        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(min(100%, 250px), 1fr))', gap: '16px' }}>
           {achievementsData.slice(0, 3).map((item, idx) => (
             <div
               key={idx}

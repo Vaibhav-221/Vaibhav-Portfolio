@@ -231,8 +231,11 @@ export default function GeminiChatbot() {
         display: 'flex',
         flexDirection: 'column',
         overflow: 'hidden',
+        width: '100%',
+        maxWidth: '100%',
+        boxSizing: 'border-box',
         height: '100%',
-        minHeight: '400px',
+        minHeight: '380px',
         maxHeight: '520px',
         position: 'relative',
       }}
@@ -240,12 +243,15 @@ export default function GeminiChatbot() {
       {/* Terminal Header */}
       <div
         style={{
-          padding: '12px 18px',
+          padding: '10px 14px',
           background: 'rgba(0, 0, 0, 0.3)',
           borderBottom: '1px solid rgba(255, 255, 255, 0.1)',
           display: 'flex',
           alignItems: 'center',
           justifyContent: 'space-between',
+          gap: '8px',
+          flexWrap: 'wrap',
+          minWidth: 0,
         }}
       >
         <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
@@ -326,10 +332,13 @@ export default function GeminiChatbot() {
         style={{
           flex: 1,
           overflowY: 'auto',
-          padding: '16px',
+          overflowX: 'hidden',
+          padding: '14px',
           display: 'flex',
           flexDirection: 'column',
           gap: '12px',
+          width: '100%',
+          boxSizing: 'border-box',
           scrollbarWidth: 'thin',
           scrollbarColor: 'rgba(255, 255, 255, 0.15) transparent',
         }}
@@ -495,12 +504,14 @@ export default function GeminiChatbot() {
       {/* Input Area */}
       <div
         style={{
-          padding: '12px 14px',
+          padding: '10px 12px',
           background: 'rgba(0, 0, 0, 0.35)',
           borderTop: '1px solid rgba(255, 255, 255, 0.1)',
           display: 'flex',
           gap: '8px',
           alignItems: 'flex-end',
+          width: '100%',
+          boxSizing: 'border-box',
         }}
       >
         <textarea

@@ -58,7 +58,7 @@ export default function SkillsView() {
       </div>
 
       {/* Skills Category Grid */}
-      <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(380px, 1fr))', gap: '24px' }}>
+      <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(min(100%, 280px), 1fr))', gap: '20px' }}>
         {displayCategories.map((cat, idx) => (
           <div
             key={idx}

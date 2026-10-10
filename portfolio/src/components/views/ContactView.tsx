@@ -31,9 +31,9 @@ export default function ContactView() {
         </p>
       </div>
 
-      <div style={{ display: 'flex', gap: '30px', flexWrap: 'wrap' }}>
+      <div style={{ display: 'flex', gap: '24px', flexWrap: 'wrap' }}>
         {/* Contact Info Cards */}
-        <div style={{ flex: 1, minWidth: '280px', display: 'flex', flexDirection: 'column', gap: '14px' }}>
+        <div style={{ flex: 1, minWidth: 'min(100%, 280px)', width: '100%', display: 'flex', flexDirection: 'column', gap: '14px' }}>
           {/* Email */}
           <div
             style={{
@@ -212,11 +212,13 @@ export default function ContactView() {
         <div
           style={{
             flex: 1.4,
-            minWidth: '280px',
+            minWidth: 'min(100%, 280px)',
+            width: '100%',
             background: 'var(--glass-bg)',
             border: '1px solid var(--glass-border)',
-            padding: '28px',
+            padding: '24px',
             borderRadius: '20px',
+            boxSizing: 'border-box',
           }}
         >
           <h3 style={{ fontSize: '18px', fontWeight: 700, marginBottom: '20px', color: 'var(--text-main)' }}>

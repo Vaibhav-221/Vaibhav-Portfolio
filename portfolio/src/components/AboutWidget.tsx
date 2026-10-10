@@ -36,6 +36,7 @@ export default function AboutWidget({ onNavigate }: AboutWidgetProps) {
         </span>
       </div>
 
+
       <p>
         Hi, I&apos;m <strong style={{ color: 'var(--text-main)', fontWeight: 600 }}>{personalInfo.name}</strong>, a Full Stack Developer and Open Source Contributor based in {personalInfo.location}. I specialize in architecting real-time web applications with Next.js, React, FastAPI, and Firebase.
       </p>
