@@ -1,36 +1,110 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Aditya Chauhan — Interactive macOS Portfolio (Next.js App Router)
 
-## Getting Started
+A faithfully migrated, modern, high-performance web portfolio styled as an authentic macOS Sonoma desktop environment, built with **Next.js (App Router)**, **TypeScript**, and **Tailwind CSS**.
 
-First, run the development server:
+---
 
+## 🌟 Key Features
+
+### 1. macOS Sonoma Lock Screen
+- Dynamic 12-hour clock, weekday, and date formatting (`Thu Jul 17`).
+- Mobile quick action buttons (flashlight and camera).
+- Swipe up or click anywhere to unlock with smooth macOS zoom & blur transition.
+
+### 2. Glassmorphic Desktop & Vector Wallpaper System
+- Preset wallpapers including image wallpapers (Default, Batman, Dark Scenery, 4K Space, Aesthetic), animated SVG Aurora ribbon, and modern gradient presets (Nebula, Sunset, Ocean, Forest, Candy, Volcano, Galaxy, Rose, Arctic).
+- Custom wallpaper upload support via browser object URLs.
+- Dynamic canvas luminance analysis that automatically flips between Dark and Light mode for optimal contrast and readability.
+- Manual Light/Dark theme toggle.
+
+### 3. macOS Top Menubar & Status Bar
+- Apple logo menu with system actions (About This Mac, System Settings, Lock Screen, Log Out).
+- Navigation menu dropdowns (Portfolio, Resume, About, Projects, Experience, Skills, Contact, Help).
+- Status bar with live clock, Wi-Fi icon, Spotlight trigger (`⌘K`), and Control Centre.
+
+### 4. Spotlight Search Overlay
+- Instant search across portfolio sections, applications, and social links.
+- Keyboard navigation with Arrow keys, Enter, and Escape.
+
+### 5. Control Centre Panel
+- Interactive toggles for Wi-Fi, Bluetooth, and Airplane Mode.
+- Interactive Display Brightness and Sound Volume sliders.
+
+### 6. Interactive Dock
+- Parabolic hover magnification curve.
+- Icon click bounce animation with tooltips.
+- Quick navigation links (About, Projects, Resume, Experience, Skills, Contact).
+- App launchers: GitHub, Gmail, LinkedIn, Instagram, Free Rider HD game, Apple Music player, Wallpaper Picker.
+
+### 7. Vinyl Turntable Music Player Widget
+- Interactive spinning vinyl disc with Seedhe Maut album art.
+- Animated tonearm with rotation physics during play/pause states.
+- Track controls (Play/Pause, Next, Previous).
+
+### 8. Multi-Window Manager
+- Draggable macOS application windows with boundary constraints.
+- Window controls: Close, Minimize, Maximize / Restore.
+- Z-index management and bring-to-front focus.
+- Embedded apps: Free Rider HD solid window, Apple Music player.
+
+### 9. Apple Music Player (`/apple-music`)
+- Standalone route and windowed player.
+- Playlist with 6 focus tracks with dynamic duration updates and playback states:
+  1. *After Hours* — The Weeknd
+  2. *Flashing Lights* — Kanye West
+  3. *RED* — Seedhe Maut
+  4. *Runaway* — Kanye West
+  5. *Sunflower* — Post Malone & Swae Lee
+  6. *The Less I Know The Better* — Tame Impala
+
+### 10. Portfolio Sections & Modals
+- **About Me**: Professional summary, background, and service specializations.
+- **Projects**: Filterable showcase (Peyebouste, AyitiBook, Peelr Sticker Store, Service Management SaaS, Vulcan-Pro, Employee Management System, Vulcan Security Scanner).
+- **Experience**: Timeline (SYPNOWEB Founder & CEO, ASDN Cybernetics Intern, Freelance Designer).
+- **Skills**: Core expertise progress bars & technology tag cloud.
+- **Resume**: Full career & academic summary with direct PDF download (`aditya-resume.pdf`).
+- **Contact**: Contact details (Email, Phone, Location, Birthday) and interactive contact form with validation and submission feedback.
+
+### 11. Mobile-Optimized Capsule Navigation
+- Scroll-direction aware capsule bar that smoothly slides away on scroll down and reappears on scroll up.
+- Touch-friendly 48px+ tap targets and zero horizontal overflow.
+
+---
+
+## 🛠️ Technology Stack
+
+- **Framework**: Next.js 16 (App Router)
+- **Language**: TypeScript (Strict mode)
+- **Styling**: Tailwind CSS v4 & Custom Glassmorphism CSS variables
+- **Fonts**: Oswald, Bubblegum Sans, Coiny, System UI (SF Pro)
+- **Audio Engine**: HTML5 Audio API
+
+---
+
+## 🚀 Getting Started
+
+### 1. Install Dependencies
 ```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+npm install
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+### 2. Run the Development Server
+```bash
+npm run dev
+```
+Open [http://localhost:3000](http://localhost:3000) in your browser.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+### 3. Run Linting
+```bash
+npm run lint
+```
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+### 4. Build for Production
+```bash
+npm run build
+```
 
-## Learn More
-
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+### 5. Start Production Server
+```bash
+npm run start
+```
