@@ -104,16 +104,12 @@ export default function AboutView() {
           <div className="about-sheet-profile-grid">
             <div className="about-sheet-story">
               <h1 className="about-sheet-editorial-title" id="about-profile-title">
-                <span className="about-v-reveal-mask"><span className="about-v-reveal-text" style={{ animationDelay: '0.12s' }}>I&apos;m a</span></span>
-                <span className="about-v-reveal-mask"><span className="about-v-reveal-text" style={{ animationDelay: '0.26s' }}><span className="about-v-gradient-accent">full-stack</span></span></span>
-                <span className="about-v-reveal-mask"><span className="about-v-reveal-text" style={{ animationDelay: '0.4s' }}>developer.</span></span>
+                <span className="about-v-reveal-mask"><span className="about-v-reveal-text" style={{ animationDelay: '0.12s' }}>Beyond the</span></span>
+                <span className="about-v-reveal-mask"><span className="about-v-reveal-text" style={{ animationDelay: '0.26s' }}><span className="about-v-gradient-accent">code.</span></span></span>
               </h1>
               <div className="about-sheet-story-copy">
                 <p className="about-sheet-prose about-v-reveal-item">
-                  I&apos;m {personalInfo.name}, a full-stack developer and open-source contributor studying Computer Science and Engineering at {personalInfo.institution}. I build with Next.js, React, FastAPI, Node.js, and Firebase.
-                </p>
-                <p className="about-sheet-prose about-v-reveal-item">
-                  My work centers on student-first platforms, dependable APIs, and interfaces that make complex tasks straightforward. I care about the system beneath the screen as much as the experience above it.
+                  I&apos;m {personalInfo.name} — a full-stack developer and open-source contributor who learns by building, solves problems through code, and turns ideas into working software.
                 </p>
               </div>
             </div>

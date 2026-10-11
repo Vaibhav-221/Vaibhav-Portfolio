@@ -946,15 +946,15 @@ body.light-theme .about-v-honor-card:hover {
   width: 100%;
   max-width: none;
   margin: 0;
-  padding: 0 clamp(4px, 1vw, 16px);
-  border: 0;
-  border-radius: 0;
+  padding: 0 clamp(8px, 1.2vw, 18px);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-radius: 26px;
   background-color: #08090b;
   background-image:
     linear-gradient(rgba(255, 255, 255, 0.025) 1px, transparent 1px),
     linear-gradient(90deg, rgba(255, 255, 255, 0.025) 1px, transparent 1px);
   background-size: 52px 52px;
-  box-shadow: none;
+  box-shadow: 0 22px 56px rgba(0, 0, 0, 0.28);
   backdrop-filter: none;
   -webkit-backdrop-filter: none;
   overflow: visible;
@@ -967,8 +967,21 @@ body.light-theme .about-v-container {
   background-image:
     linear-gradient(rgba(15, 23, 42, 0.035) 1px, transparent 1px),
     linear-gradient(90deg, rgba(15, 23, 42, 0.035) 1px, transparent 1px);
-  box-shadow: none;
+  border-color: rgba(15, 23, 42, 0.14);
+  box-shadow: 0 16px 44px rgba(15, 23, 42, 0.08);
   color: #111713;
+}
+
+.page-content:has(#about-page-view) {
+  width: min(96%, 1440px);
+  max-width: 1440px;
+  padding: 0;
+  border: 0;
+  border-radius: 26px;
+  background: transparent;
+  box-shadow: none;
+  backdrop-filter: none;
+  -webkit-backdrop-filter: none;
 }
 
 .about-v-content {
@@ -1219,6 +1232,7 @@ body.light-theme .about-sheet-impact-grid {
 }
 
 .about-sheet-impact-item {
+  position: relative;
   display: flex;
   min-height: 205px;
   flex-direction: column;
@@ -1226,6 +1240,35 @@ body.light-theme .about-sheet-impact-grid {
   justify-content: center;
   padding: 20px clamp(12px, 2vw, 26px);
   border-left: 1px solid rgba(255, 255, 255, 0.12);
+  background: transparent;
+  transition: transform 0.32s cubic-bezier(0.22, 1, 0.36, 1), background-color 0.28s ease;
+}
+
+.about-sheet-impact-item::before {
+  position: absolute;
+  top: -1px;
+  right: 0;
+  left: 0;
+  height: 2px;
+  background: var(--about-accent);
+  content: '';
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 0.32s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.about-sheet-impact-item:hover {
+  z-index: 1;
+  transform: translateY(-5px);
+  background: var(--about-accent-soft);
+}
+
+.about-sheet-impact-item:hover::before {
+  transform: scaleX(1);
+}
+
+.about-sheet-impact-item:hover strong {
+  color: var(--about-accent);
 }
 
 .about-sheet-impact-item:first-child {
@@ -1541,6 +1584,10 @@ body.light-theme .about-sheet-closing-copy {
   transform: translateY(0);
 }
 
+.about-sheet-impact-item.about-v-reveal-item:hover {
+  transform: translateY(-5px);
+}
+
 .about-sheet-timeline-item.about-v-reveal-item {
   opacity: 0;
   transform: translateX(64px);
@@ -1566,6 +1613,11 @@ body.light-theme .about-sheet-closing-copy {
 .about-sheet-matrix-group:nth-child(5) { transition-delay: 280ms; }
 
 @media (max-width: 768px) {
+  .page-content:has(#about-page-view) {
+    padding-left: 0 !important;
+    padding-right: 0 !important;
+  }
+
   .about-v-container {
     padding: 0 4px;
   }
@@ -1658,8 +1710,12 @@ body.light-theme .about-sheet-closing-copy {
   }
 
   .about-sheet-timeline-item.about-v-reveal-item {
+    transform: translateX(12px);
+    transition: opacity 0.38s ease, transform 0.38s ease;
+  }
+
+  .about-sheet-impact-item.about-v-reveal-item:hover {
     transform: none;
-    transition: opacity 0.28s ease;
   }
 }
 
