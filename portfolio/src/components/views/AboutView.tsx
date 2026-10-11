@@ -9,18 +9,25 @@ export default function AboutView() {
 
   // Setup scroll-triggered reveals using IntersectionObserver
   useEffect(() => {
-    // If reduced motion is preferred, reveal all immediately
-    if (typeof window !== 'undefined' && window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
-      const items = containerRef.current?.querySelectorAll('.about-v-reveal-item');
-      items?.forEach((el) => el.classList.add('is-revealed'));
-      return;
-    }
-
     const currentContainer = containerRef.current;
     if (!currentContainer) return;
 
-    // Find the scrollable ancestor (either .page-content or the window)
-    const scrollParent = currentContainer.closest('.page-content') || null;
+    const scrollParent = currentContainer.closest('.page-content') as HTMLElement | null;
+    const revealElements = currentContainer.querySelectorAll('.about-v-reveal-item');
+
+    const updateScrollProgress = () => {
+      if (!scrollParent) return;
+      const maxScroll = Math.max(scrollParent.scrollHeight - scrollParent.clientHeight, 1);
+      const progress = maxScroll > 0 ? scrollParent.scrollTop / maxScroll : 0;
+      currentContainer.style.setProperty('--about-scroll', progress.toFixed(4));
+    };
+
+    // If reduced motion is preferred, reveal all immediately
+    if (typeof window !== 'undefined' && window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+      revealElements.forEach((el) => el.classList.add('is-revealed'));
+      updateScrollProgress();
+      return;
+    }
 
     const observer = new IntersectionObserver(
       (entries) => {
@@ -32,22 +39,21 @@ export default function AboutView() {
       },
       {
         root: scrollParent,
-        rootMargin: '0px 0px -40px 0px',
-        threshold: 0.08,
+        rootMargin: '0px 0px -42px 0px',
+        threshold: 0.12,
       }
     );
 
-    const revealElements = currentContainer.querySelectorAll('.about-v-reveal-item');
     revealElements.forEach((el) => observer.observe(el));
 
-    // Fallback safeguard: Reveal all elements after a short timeout so content is never hidden
-    const timer = setTimeout(() => {
-      revealElements.forEach((el) => el.classList.add('is-revealed'));
-    }, 450);
+    updateScrollProgress();
+    scrollParent?.addEventListener('scroll', updateScrollProgress, { passive: true });
+    window.addEventListener('resize', updateScrollProgress);
 
     return () => {
-      clearTimeout(timer);
       observer.disconnect();
+      scrollParent?.removeEventListener('scroll', updateScrollProgress);
+      window.removeEventListener('resize', updateScrollProgress);
     };
   }, []);
 
@@ -65,12 +71,12 @@ export default function AboutView() {
           {/* Eyebrow metadata & Live status badge */}
           <div className="about-v-eyebrow-row">
             <div className="about-v-eyebrow-tag">
-              <span style={{ color: '#c5ff41' }}>{'//'}</span> 01 · VAIBHAV SINGH · PHILOSOPHY &amp; PROFILE
+              <span>{'//'}</span> 01 · VAIBHAV SINGH · FULL-STACK DEVELOPER
             </div>
 
             <div className="about-v-status-pill">
               <span className="about-v-pulsing-dot" />
-              Open for SDE Roles &amp; Internships
+              Available for product &amp; engineering roles
             </div>
           </div>
 
@@ -78,26 +84,26 @@ export default function AboutView() {
           <h1 className="about-v-headline">
             <span className="about-v-reveal-mask">
               <span className="about-v-reveal-text" style={{ animationDelay: '0.08s' }}>
-                Architecting High-Impact
+                Crafting
               </span>
             </span>
             <span className="about-v-reveal-mask">
               <span className="about-v-reveal-text" style={{ animationDelay: '0.2s' }}>
-                <span className="about-v-gradient-accent">Web Systems</span> &amp; AI Workflows
+                <span className="about-v-gradient-accent">full-stack</span> solutions
               </span>
             </span>
             <span className="about-v-reveal-mask">
               <span className="about-v-reveal-text" style={{ animationDelay: '0.32s' }}>
-                With Real-World Scale.
+                for real users.
               </span>
             </span>
           </h1>
 
           {/* Subtitle / Executive Summary */}
           <p className="about-v-hero-subtitle">
-            Full Stack Engineer &amp; Open Source Contributor pursuing B.Tech in CSE (CGPA {personalInfo.cgpa}).
-            Ranked Top 1% nationwide in GSSoC &apos;26 and creator of platforms serving 500+ active students.
-            Focused on high-performance React architectures, FastAPI microservices, and Retrieval-Augmented Generation (RAG).
+            Full Stack Developer and Open Source Contributor pursuing B.Tech in Computer Science and Engineering at
+            Veer Bahadur Singh Purvanchal University. I enjoy building practical web products, clean interfaces,
+            and reliable backend systems that make real work easier for real people.
           </p>
         </header>
 
@@ -117,13 +123,8 @@ export default function AboutView() {
                 className="about-v-glass-card"
                 style={{ transitionDelay: `${idx * 0.06}s` }}
               >
-                <div
-                  className="about-v-card-accent-bar"
-                  style={{ backgroundColor: item.accent }}
-                />
-                <div className="about-v-metric-value" style={{ color: item.accent }}>
-                  {item.value}
-                </div>
+                <div className="about-v-card-accent-bar" />
+                <div className="about-v-metric-value">{item.value}</div>
                 <div className="about-v-metric-label">{item.label}</div>
                 <div className="about-v-metric-sublabel">{item.sublabel}</div>
               </div>
@@ -141,11 +142,8 @@ export default function AboutView() {
           </div>
 
           <div className="about-v-bio-lead-card">
-            <div
-              className="about-v-card-accent-bar"
-              style={{ backgroundColor: '#38bdf8' }}
-            />
-            <h2 className="about-v-section-heading" style={{ color: '#38bdf8', fontSize: '20px' }}>
+            <div className="about-v-card-accent-bar" />
+            <h2 className="about-v-section-heading about-v-inline-heading">
               My Background &amp; Engineering Philosophy
             </h2>
 
@@ -153,7 +151,7 @@ export default function AboutView() {
               <p key={index} className="about-v-bio-paragraph">
                 {index === 0 && (
                   <>
-                    Hi, I&apos;m <strong>{personalInfo.name}</strong>, a passionate{' '}
+                    Hi, I&apos;m <strong>{personalInfo.name}</strong>, a{' '}
                     <span className="about-v-bio-highlight">Full Stack Developer</span> and{' '}
                     <span className="about-v-bio-highlight">Open Source Contributor</span> pursuing B.Tech in Computer
                     Science and Engineering at {personalInfo.institution} (<strong>CGPA {personalInfo.cgpa}</strong>).
@@ -161,17 +159,16 @@ export default function AboutView() {
                 )}
                 {index === 1 && (
                   <>
-                    I specialize in engineering high-impact, real-time web architectures and AI-driven workflows using{' '}
-                    <strong>Next.js, React, FastAPI, Node.js, and Firebase</strong>. From university platforms serving
-                    hundreds of active students to micro-funding platforms and generative AI assessment engines, I focus
-                    on delivering <strong>scalable, bulletproof software with delightful user experience</strong>.
+                    I enjoy turning product ideas into usable software—from responsive frontends and clean UI systems to
+                    backend APIs, database flows, and deployment workflows. My focus is on building maintainable systems
+                    that feel smooth for users and reliable for teams.
                   </>
                 )}
                 {index === 2 && (
                   <>
-                    Recognized in the <span className="about-v-bio-highlight">top 1% nationwide</span> among 50,000+
-                    contributors in GirlScript Summer of Code (GSSoC &apos;26), I thrive in collaborative environments
-                    where performance, accessibility, and clean component systems meet creative interaction design.
+                    I&apos;ve contributed to open-source work, student-first platforms, and practical projects that solve
+                    everyday problems. I&apos;m still learning and exploring AI-assisted workflows, but my core interest remains
+                    building solid software with thoughtful engineering and collaboration.
                   </>
                 )}
               </p>
@@ -194,10 +191,7 @@ export default function AboutView() {
           </div>
 
           <div className="about-v-academic-card">
-            <div
-              className="about-v-card-accent-bar"
-              style={{ backgroundColor: '#bf5af2' }}
-            />
+            <div className="about-v-card-accent-bar" />
             <div className="about-v-academic-header">
               <div>
                 <h3 className="about-v-degree-title">
@@ -249,12 +243,12 @@ export default function AboutView() {
 
           <div className="about-v-pillars-grid">
             <div className="about-v-pillar-card">
-              <div className="about-v-card-accent-bar" style={{ backgroundColor: '#38bdf8' }} />
+              <div className="about-v-card-accent-bar" />
               <div className="about-v-pillar-header">
-                <div className="about-v-pillar-icon" style={{ background: 'rgba(56, 189, 248, 0.15)', color: '#38bdf8' }}>
+                <div className="about-v-pillar-icon">
                   ⚡
                 </div>
-                <h3 className="about-v-pillar-title" style={{ color: '#38bdf8' }}>
+                <h3 className="about-v-pillar-title">
                   Full Stack &amp; Next.js
                 </h3>
               </div>
@@ -264,12 +258,12 @@ export default function AboutView() {
             </div>
 
             <div className="about-v-pillar-card">
-              <div className="about-v-card-accent-bar" style={{ backgroundColor: '#ff9f0a' }} />
+              <div className="about-v-card-accent-bar" />
               <div className="about-v-pillar-header">
-                <div className="about-v-pillar-icon" style={{ background: 'rgba(255, 159, 10, 0.15)', color: '#ff9f0a' }}>
+                <div className="about-v-pillar-icon">
                   🌐
                 </div>
-                <h3 className="about-v-pillar-title" style={{ color: '#ff9f0a' }}>
+                <h3 className="about-v-pillar-title">
                   Open Source &amp; Systems
                 </h3>
               </div>
@@ -279,17 +273,17 @@ export default function AboutView() {
             </div>
 
             <div className="about-v-pillar-card">
-              <div className="about-v-card-accent-bar" style={{ backgroundColor: '#c5ff41' }} />
+              <div className="about-v-card-accent-bar" />
               <div className="about-v-pillar-header">
-                <div className="about-v-pillar-icon" style={{ background: 'rgba(197, 255, 65, 0.15)', color: '#c5ff41' }}>
+                <div className="about-v-pillar-icon">
                   🧠
                 </div>
-                <h3 className="about-v-pillar-title" style={{ color: '#c5ff41' }}>
-                  AI &amp; Vector Search
+                <h3 className="about-v-pillar-title">
+                  AI &amp; Product Thinking
                 </h3>
               </div>
               <p className="about-v-pillar-desc">
-                Developing RAG pipelines and intelligent assessment platforms using FastAPI, Google Gemini API, LangChain, and ChromaDB vector stores.
+                Exploring AI-assisted workflows and prototypes to improve developer productivity, while keeping the core user value, reliability, and usability front and center.
               </p>
             </div>
           </div>
@@ -308,16 +302,7 @@ export default function AboutView() {
             {achievementsData.map((item, idx) => (
               <div key={idx} className="about-v-honor-card">
                 <div className="about-v-card-accent-bar" style={{ backgroundColor: item.color }} />
-                <span
-                  className="about-v-honor-badge"
-                  style={{
-                    color: item.color,
-                    background: `${item.color}18`,
-                    border: `1px solid ${item.color}35`,
-                  }}
-                >
-                  {item.badge}
-                </span>
+                <span className="about-v-honor-badge">{item.badge}</span>
 
                 <h4 className="about-v-honor-title">{item.title}</h4>
                 <div className="about-v-honor-org">{item.organization}</div>

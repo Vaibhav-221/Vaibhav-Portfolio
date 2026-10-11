@@ -5,8 +5,13 @@
 
 /* Main Container & High-Contrast Wallpaper Scrim */
 .about-v-container {
+  --about-accent: #d9ff66;
+  --about-accent-soft: rgba(217, 255, 102, 0.14);
+  --about-ink: #f8fafc;
+  --about-muted: rgba(255, 255, 255, 0.78);
   position: relative;
-  max-width: 960px;
+  width: min(100%, 1120px);
+  max-width: 1120px;
   margin: 0 auto;
   padding: clamp(24px, 4vw, 44px);
   border-radius: 28px;
@@ -19,8 +24,27 @@
     inset 0 1px 0 rgba(255, 255, 255, 0.18),
     inset 0 0 40px rgba(0, 0, 0, 0.35);
   overflow: hidden;
-  color: #ffffff;
+  color: var(--about-ink);
+  animation: aboutPanelIn 0.8s cubic-bezier(0.16, 1, 0.3, 1);
   transition: background 0.3s ease, border-color 0.3s ease, color 0.3s ease;
+}
+
+body.light-theme .about-v-container {
+  --about-accent: #1f3b2d;
+  --about-accent-soft: rgba(31, 59, 45, 0.08);
+  --about-ink: #0f172a;
+  --about-muted: #475569;
+}
+
+@keyframes aboutPanelIn {
+  from {
+    opacity: 0;
+    transform: translateY(18px) scale(0.985);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
 }
 
 /* Light theme contrast adaptation */
@@ -42,10 +66,11 @@ body.light-theme .about-v-container {
   width: 420px;
   height: 420px;
   border-radius: 50%;
-  background: radial-gradient(circle, rgba(136, 85, 255, 0.22) 0%, rgba(136, 85, 255, 0) 70%);
+  background: radial-gradient(circle, rgba(217, 255, 102, 0.2) 0%, rgba(217, 255, 102, 0) 70%);
   pointer-events: none;
   z-index: 0;
   filter: blur(40px);
+  transform: translate3d(0, calc(var(--about-scroll, 0) * -120px), 0);
 }
 
 .about-v-glow-bottom {
@@ -55,18 +80,16 @@ body.light-theme .about-v-container {
   width: 460px;
   height: 460px;
   border-radius: 50%;
-  background: radial-gradient(circle, rgba(197, 255, 65, 0.16) 0%, rgba(21, 214, 196, 0) 70%);
+  background: radial-gradient(circle, rgba(217, 255, 102, 0.16) 0%, rgba(217, 255, 102, 0) 70%);
   pointer-events: none;
   z-index: 0;
   filter: blur(50px);
+  transform: translate3d(0, calc(var(--about-scroll, 0) * 140px), 0);
 }
 
-body.light-theme .about-v-glow-top {
-  background: radial-gradient(circle, rgba(99, 102, 241, 0.12) 0%, rgba(99, 102, 241, 0) 70%);
-}
-
+body.light-theme .about-v-glow-top,
 body.light-theme .about-v-glow-bottom {
-  background: radial-gradient(circle, rgba(16, 185, 129, 0.1) 0%, rgba(16, 185, 129, 0) 70%);
+  background: radial-gradient(circle, rgba(31, 59, 45, 0.12) 0%, rgba(31, 59, 45, 0) 70%);
 }
 
 /* Foreground content layer */
@@ -100,7 +123,7 @@ body.light-theme .about-v-glow-bottom {
   font-size: 11.5px;
   letter-spacing: 0.22em;
   text-transform: uppercase;
-  color: #38bdf8;
+  color: var(--about-accent);
   font-weight: 600;
   display: flex;
   align-items: center;
@@ -108,7 +131,7 @@ body.light-theme .about-v-glow-bottom {
 }
 
 body.light-theme .about-v-eyebrow-tag {
-  color: #0284c7;
+  color: var(--about-accent);
 }
 
 .about-v-status-pill {
@@ -116,41 +139,34 @@ body.light-theme .about-v-eyebrow-tag {
   align-items: center;
   gap: 8px;
   padding: 6px 14px;
-  background: rgba(197, 255, 65, 0.12);
-  border: 1px solid rgba(197, 255, 65, 0.35);
+  background: var(--about-accent-soft);
+  border: 1px solid rgba(217, 255, 102, 0.35);
   border-radius: 9999px;
-  color: #c5ff41;
+  color: var(--about-accent);
   font-size: 12.5px;
   font-weight: 600;
   letter-spacing: 0.02em;
-  box-shadow: 0 0 16px rgba(197, 255, 65, 0.15);
+  box-shadow: 0 0 16px rgba(217, 255, 102, 0.15);
   transition: transform 0.2s ease, box-shadow 0.2s ease;
 }
 
 body.light-theme .about-v-status-pill {
-  background: rgba(16, 185, 129, 0.12);
-  border-color: rgba(16, 185, 129, 0.35);
-  color: #047857;
-  box-shadow: 0 0 12px rgba(16, 185, 129, 0.1);
+  border-color: rgba(31, 59, 45, 0.15);
+  box-shadow: 0 0 12px rgba(31, 59, 45, 0.08);
 }
 
 .about-v-status-pill:hover {
   transform: translateY(-1px);
-  box-shadow: 0 0 20px rgba(197, 255, 65, 0.25);
+  box-shadow: 0 0 20px rgba(217, 255, 102, 0.2);
 }
 
 .about-v-pulsing-dot {
   width: 8px;
   height: 8px;
   border-radius: 50%;
-  background-color: #c5ff41;
-  box-shadow: 0 0 10px #c5ff41;
+  background-color: var(--about-accent);
+  box-shadow: 0 0 10px var(--about-accent);
   animation: pulseGlow 2s infinite ease-in-out;
-}
-
-body.light-theme .about-v-pulsing-dot {
-  background-color: #10b981;
-  box-shadow: 0 0 8px #10b981;
 }
 
 @keyframes pulseGlow {
@@ -204,16 +220,13 @@ body.light-theme .about-v-headline {
 }
 
 .about-v-gradient-accent {
-  background: linear-gradient(135deg, #c5ff41 0%, #00e87a 60%, #38bdf8 100%);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
+  color: var(--about-accent);
   display: inline-block;
+  font-weight: 800;
 }
 
 body.light-theme .about-v-gradient-accent {
-  background: linear-gradient(135deg, #059669 0%, #0284c7 100%);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
+  color: var(--about-accent);
 }
 
 .about-v-hero-subtitle {
@@ -286,8 +299,16 @@ body.light-theme .about-v-section-label {
   color: #ffffff;
 }
 
+.about-v-inline-heading {
+  color: var(--about-accent);
+}
+
 body.light-theme .about-v-section-heading {
   color: #0f172a;
+}
+
+body.light-theme .about-v-inline-heading {
+  color: var(--about-accent);
 }
 
 /* ==========================================================================
@@ -295,14 +316,19 @@ body.light-theme .about-v-section-heading {
    ========================================================================== */
 .about-v-reveal-item {
   opacity: 0;
-  transform: translateY(28px);
-  transition: opacity 0.65s cubic-bezier(0.16, 1, 0.3, 1), transform 0.65s cubic-bezier(0.16, 1, 0.3, 1);
-  will-change: opacity, transform;
+  transform: translateY(34px) scale(0.985);
+  filter: blur(6px);
+  transition:
+    opacity 0.7s cubic-bezier(0.16, 1, 0.3, 1),
+    transform 0.7s cubic-bezier(0.16, 1, 0.3, 1),
+    filter 0.7s cubic-bezier(0.16, 1, 0.3, 1);
+  will-change: opacity, transform, filter;
 }
 
 .about-v-reveal-item.is-revealed {
   opacity: 1;
-  transform: translateY(0);
+  transform: translateY(0) scale(1);
+  filter: blur(0);
 }
 
 /* ==========================================================================
@@ -343,6 +369,7 @@ body.light-theme .about-v-glass-card:hover {
   left: 0;
   right: 0;
   height: 2.5px;
+  background: var(--about-accent);
   transform-origin: left;
   transform: scaleX(0);
   transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
@@ -370,6 +397,7 @@ body.light-theme .about-v-glass-card:hover {
   letter-spacing: -0.01em;
   margin-bottom: 6px;
   line-height: 1.05;
+  color: var(--about-accent);
 }
 
 .about-v-metric-label {
@@ -435,16 +463,16 @@ body.light-theme .about-v-bio-paragraph strong {
 }
 
 .about-v-bio-highlight {
-  color: #c5ff41;
+  color: var(--about-accent);
   font-weight: 600;
 }
 
 body.light-theme .about-v-bio-highlight {
-  color: #059669;
+  color: var(--about-accent);
 }
 
 .about-v-bio-quote {
-  border-left: 3px solid #38bdf8;
+  border-left: 3px solid var(--about-accent);
   padding-left: 18px;
   margin-top: 6px;
   font-style: italic;
@@ -454,7 +482,7 @@ body.light-theme .about-v-bio-highlight {
 }
 
 body.light-theme .about-v-bio-quote {
-  border-left-color: #0284c7;
+  border-left-color: var(--about-accent);
   color: #334155;
 }
 
@@ -503,27 +531,26 @@ body.light-theme .about-v-degree-title {
   font-weight: 700;
   padding: 5px 14px;
   border-radius: 9999px;
-  background: rgba(191, 90, 242, 0.18);
-  border: 1px solid rgba(191, 90, 242, 0.45);
-  color: #bf5af2;
+  background: var(--about-accent-soft);
+  border: 1px solid rgba(217, 255, 102, 0.35);
+  color: var(--about-accent);
   letter-spacing: 0.02em;
 }
 
 body.light-theme .about-v-cgpa-badge {
-  background: rgba(147, 51, 234, 0.14);
-  border-color: rgba(147, 51, 234, 0.35);
-  color: #7e22ce;
+  border-color: rgba(31, 59, 45, 0.15);
+  color: var(--about-accent);
 }
 
 .about-v-institution-name {
   font-size: 15px;
   font-weight: 600;
-  color: #38bdf8;
+  color: var(--about-accent);
   margin: 0;
 }
 
 body.light-theme .about-v-institution-name {
-  color: #0284c7;
+  color: var(--about-accent);
 }
 
 .about-v-academic-meta {
@@ -611,17 +638,19 @@ body.light-theme .about-v-pillar-card:hover {
   justify-content: center;
   font-size: 16px;
   font-weight: 700;
+  background: var(--about-accent-soft);
+  color: var(--about-accent);
 }
 
 .about-v-pillar-title {
   font-size: 16.5px;
   font-weight: 700;
   margin: 0;
-  color: #ffffff;
+  color: var(--about-accent);
 }
 
 body.light-theme .about-v-pillar-title {
-  color: #0f172a;
+  color: var(--about-accent);
 }
 
 .about-v-pillar-desc {
@@ -682,6 +711,9 @@ body.light-theme .about-v-honor-card:hover {
   letter-spacing: 0.08em;
   padding: 4px 10px;
   border-radius: 8px;
+  color: var(--about-accent);
+  background: var(--about-accent-soft);
+  border: 1px solid rgba(217, 255, 102, 0.35);
 }
 
 .about-v-honor-title {
