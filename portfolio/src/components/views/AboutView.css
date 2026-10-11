@@ -1000,6 +1000,10 @@ body.light-theme .about-sheet {
   justify-content: flex-start;
   padding-top: clamp(28px, 4vh, 44px);
   padding-bottom: clamp(40px, 6vh, 72px);
+  opacity: var(--about-profile-opacity, 1);
+  transform: scale(var(--about-profile-scale, 1));
+  transform-origin: center top;
+  will-change: transform, opacity;
 }
 
 .about-sheet-kicker,
@@ -1032,11 +1036,12 @@ body.light-theme .about-sheet {
 .about-sheet-editorial-title {
   margin: 0;
   color: #f5f3ed;
-  font-family: Georgia, 'Times New Roman', serif;
-  font-size: clamp(34px, 4.1vw, 58px);
-  font-style: italic;
-  font-weight: 400;
-  line-height: 1.08;
+  font-family: var(--font-oswald), sans-serif;
+  font-size: clamp(48px, 7.2vw, 88px);
+  font-style: normal;
+  font-weight: 700;
+  line-height: 0.95;
+  text-transform: uppercase;
 }
 
 body.light-theme .about-sheet-editorial-title {
@@ -1403,6 +1408,7 @@ body.light-theme .about-sheet-matrix-group li.is-highlighted {
   display: grid;
   max-width: 940px;
   margin-left: clamp(0px, 3vw, 42px);
+  overflow-x: clip;
 }
 
 .about-sheet-timeline::before {
@@ -1429,15 +1435,29 @@ body.light-theme .about-sheet-matrix-group li.is-highlighted {
   width: 35px;
   aspect-ratio: 1;
   place-items: center;
-  border: 1px solid var(--about-accent);
+  border: 1px solid rgba(255, 255, 255, 0.24);
   border-radius: 50%;
   background: #08090b;
-  color: var(--about-accent);
+  color: rgba(255, 255, 255, 0.5);
   font: 10px/1 ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+  transition: color 0.28s ease, background-color 0.28s ease, border-color 0.28s ease, box-shadow 0.32s ease;
 }
 
 body.light-theme .about-sheet-timeline-index {
+  border-color: rgba(15, 23, 42, 0.2);
   background: #f5f7f2;
+  color: #69756d;
+}
+
+.about-sheet-timeline-item.is-revealed .about-sheet-timeline-index {
+  border-color: var(--about-accent);
+  background: var(--about-accent);
+  box-shadow: 0 0 0 5px var(--about-accent-soft), 0 0 20px var(--about-accent-soft);
+  color: #08090b;
+}
+
+body.light-theme .about-sheet-timeline-item.is-revealed .about-sheet-timeline-index {
+  color: #f5f7f2;
 }
 
 .about-sheet-timeline-period {
@@ -1521,6 +1541,22 @@ body.light-theme .about-sheet-closing-copy {
   transform: translateY(0);
 }
 
+.about-sheet-timeline-item.about-v-reveal-item {
+  opacity: 0;
+  transform: translateX(64px);
+  transition: opacity 0.68s cubic-bezier(0.22, 1, 0.36, 1), transform 0.78s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.about-sheet-timeline-item.about-v-reveal-item.is-revealed {
+  opacity: 1;
+  transform: translateX(0);
+}
+
+.about-sheet-timeline-item:nth-child(2) { transition-delay: 60ms; }
+.about-sheet-timeline-item:nth-child(3) { transition-delay: 120ms; }
+.about-sheet-timeline-item:nth-child(4) { transition-delay: 180ms; }
+.about-sheet-timeline-item:nth-child(5) { transition-delay: 240ms; }
+
 .about-sheet-matrix-group:nth-child(2),
 .about-sheet-impact-item:nth-child(2) { transition-delay: 70ms; }
 .about-sheet-matrix-group:nth-child(3),
@@ -1558,7 +1594,7 @@ body.light-theme .about-sheet-closing-copy {
   }
 
   .about-sheet-editorial-title {
-    font-size: clamp(36px, 8vw, 58px);
+    font-size: clamp(52px, 14vw, 72px);
   }
 
   .about-sheet-terminal-row {
@@ -1602,6 +1638,10 @@ body.light-theme .about-sheet-closing-copy {
     gap: 10px;
   }
 
+  .about-sheet-timeline-item.about-v-reveal-item {
+    transform: translateX(20px);
+  }
+
   .about-sheet-closing-title {
     font-size: clamp(46px, 12vw, 80px);
   }
@@ -1615,6 +1655,11 @@ body.light-theme .about-sheet-closing-copy {
 
   .about-sheet-scroll-cue span {
     animation: none;
+  }
+
+  .about-sheet-timeline-item.about-v-reveal-item {
+    transform: none;
+    transition: opacity 0.28s ease;
   }
 }
 

@@ -13,7 +13,33 @@ export default function AboutView() {
     if (!currentContainer) return;
 
     const scrollParent = currentContainer.closest('.page-content') as HTMLElement | null;
+    const profileSheet = currentContainer.querySelector('.about-sheet-profile') as HTMLElement | null;
     const revealElements = currentContainer.querySelectorAll('.about-v-reveal-item');
+    const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    let profileExitDistance = 1;
+    let animationFrame = 0;
+
+    const updateProfileScroll = () => {
+      if (!profileSheet) return;
+      if (animationFrame) cancelAnimationFrame(animationFrame);
+
+      animationFrame = requestAnimationFrame(() => {
+        const scrollTop = scrollParent?.scrollTop ?? window.scrollY;
+        const progress = Math.min(Math.max(scrollTop / (profileExitDistance * 0.96), 0), 1);
+        const scale = 1 - progress * (prefersReducedMotion ? 0.04 : 0.16);
+        profileSheet.style.setProperty('--about-profile-scale', scale.toFixed(3));
+        profileSheet.style.setProperty('--about-profile-opacity', (1 - progress).toFixed(3));
+      });
+    };
+
+    const measureProfileExit = () => {
+      if (!profileSheet) return;
+      const rootTop = scrollParent?.getBoundingClientRect().top ?? 0;
+      const profileTop = profileSheet.getBoundingClientRect().top;
+      const scrollTop = scrollParent?.scrollTop ?? window.scrollY;
+      profileExitDistance = Math.max(scrollTop + profileTop - rootTop + profileSheet.offsetHeight, 1);
+      updateProfileScroll();
+    };
 
     const observer = new IntersectionObserver(
       (entries) => {
@@ -32,9 +58,15 @@ export default function AboutView() {
     );
 
     revealElements.forEach((el) => observer.observe(el));
+    measureProfileExit();
+    scrollParent?.addEventListener('scroll', updateProfileScroll, { passive: true });
+    window.addEventListener('resize', measureProfileExit);
 
     return () => {
       observer.disconnect();
+      scrollParent?.removeEventListener('scroll', updateProfileScroll);
+      window.removeEventListener('resize', measureProfileExit);
+      if (animationFrame) cancelAnimationFrame(animationFrame);
     };
   }, []);
 
@@ -72,9 +104,9 @@ export default function AboutView() {
           <div className="about-sheet-profile-grid">
             <div className="about-sheet-story">
               <h1 className="about-sheet-editorial-title" id="about-profile-title">
-                <span className="about-v-reveal-mask"><span className="about-v-reveal-text" style={{ animationDelay: '0.12s' }}>I don&apos;t just write code.</span></span>
-                <span className="about-v-reveal-mask"><span className="about-v-reveal-text" style={{ animationDelay: '0.26s' }}><span className="about-v-gradient-accent">I build systems</span></span></span>
-                <span className="about-v-reveal-mask"><span className="about-v-reveal-text" style={{ animationDelay: '0.4s' }}>that solve real problems.</span></span>
+                <span className="about-v-reveal-mask"><span className="about-v-reveal-text" style={{ animationDelay: '0.12s' }}>I&apos;m a</span></span>
+                <span className="about-v-reveal-mask"><span className="about-v-reveal-text" style={{ animationDelay: '0.26s' }}><span className="about-v-gradient-accent">full-stack</span></span></span>
+                <span className="about-v-reveal-mask"><span className="about-v-reveal-text" style={{ animationDelay: '0.4s' }}>developer.</span></span>
               </h1>
               <div className="about-sheet-story-copy">
                 <p className="about-sheet-prose about-v-reveal-item">
@@ -111,11 +143,11 @@ export default function AboutView() {
             <h2 className="about-sheet-section-title" id="about-impact-title">Work should leave <em>evidence.</em></h2>
           </div>
           <div className="about-sheet-impact-grid">
-            {impactMetrics.map((item) => (
+            {impactMetrics.map((item, index) => (
               <article className="about-sheet-impact-item about-v-reveal-item" key={item.id}>
-                <span className="about-sheet-impact-index">{item.id}</span>
-                <strong>{item.value}</strong>
-                <span className="about-sheet-impact-label">{item.label}</span>
+                <span className="about-sheet-impact-index">{String(index + 1).padStart(2, '0')}</span>
+                <strong>{item.id === 'downloads' ? '15K+' : item.value}</strong>
+                <span className="about-sheet-impact-label">{item.id === 'downloads' ? 'Academic File Downloads' : item.label}</span>
                 <span className="about-sheet-impact-detail">{item.sublabel}</span>
               </article>
             ))}
