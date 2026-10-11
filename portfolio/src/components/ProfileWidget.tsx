@@ -48,8 +48,8 @@ export default function ProfileWidget({ onNavigate, onOpenApp }: ProfileWidgetPr
               width: '8px',
               height: '8px',
               borderRadius: '50%',
-              backgroundColor: '#c5ff41',
-              boxShadow: '0 0 8px #c5ff41',
+              backgroundColor: 'var(--portfolio-accent)',
+              boxShadow: '0 0 8px var(--portfolio-accent)',
               display: 'inline-block',
               flexShrink: 0,
             }}

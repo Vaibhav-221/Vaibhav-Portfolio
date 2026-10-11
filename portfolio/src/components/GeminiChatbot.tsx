@@ -149,7 +149,7 @@ export default function GeminiChatbot() {
       const parsedParts = parts.map((part, pIdx) => {
         if (part.startsWith('**') && part.endsWith('**')) {
           return (
-            <strong key={pIdx} style={{ color: '#ffffff', fontWeight: 600 }}>
+              <strong key={pIdx} style={{ color: 'var(--text-main)', fontWeight: 600 }}>
               {part.slice(2, -2)}
             </strong>
           );
@@ -164,7 +164,7 @@ export default function GeminiChatbot() {
                 borderRadius: '4px',
                 fontSize: '12px',
                 fontFamily: 'monospace',
-                color: '#c5ff41',
+                color: 'var(--portfolio-accent)',
               }}
             >
               {part.slice(1, -1)}
@@ -180,7 +180,7 @@ export default function GeminiChatbot() {
               target="_blank"
               rel="noopener noreferrer"
               style={{
-                color: '#0a84ff',
+                color: 'var(--portfolio-accent)',
                 textDecoration: 'underline',
                 fontWeight: 500,
                 wordBreak: 'break-word',
@@ -204,7 +204,7 @@ export default function GeminiChatbot() {
               paddingLeft: '6px',
             }}
           >
-            <span style={{ color: '#c5ff41', lineHeight: 1.5 }}>•</span>
+            <span style={{ color: 'var(--portfolio-accent)', lineHeight: 1.5 }}>•</span>
             <span style={{ flex: 1, lineHeight: 1.55 }}>{parsedParts}</span>
           </div>
         );
@@ -242,6 +242,7 @@ export default function GeminiChatbot() {
     >
       {/* Terminal Header */}
       <div
+        className="gemini-chatbot-header"
         style={{
           padding: '10px 14px',
           background: 'rgba(0, 0, 0, 0.3)',
@@ -263,16 +264,16 @@ export default function GeminiChatbot() {
           </div>
 
           <div style={{ marginLeft: '6px', display: 'flex', alignItems: 'center', gap: '6px' }}>
-            <span style={{ fontSize: '13px', fontWeight: 600, color: '#ffffff', letterSpacing: '0.3px' }}>
+            <span style={{ fontSize: '13px', fontWeight: 600, color: 'var(--text-main)', letterSpacing: '0.3px' }}>
               Vaibhav AI
             </span>
             <span
               style={{
                 fontSize: '10px',
                 fontWeight: 600,
-                color: '#c5ff41',
-                background: 'rgba(197, 255, 65, 0.12)',
-                border: '1px solid rgba(197, 255, 65, 0.3)',
+                color: 'var(--portfolio-accent)',
+                background: 'var(--portfolio-accent-soft)',
+                border: '1px solid var(--portfolio-accent-border)',
                 padding: '1px 6px',
                 borderRadius: '6px',
               }}
@@ -290,8 +291,8 @@ export default function GeminiChatbot() {
                 width: '7px',
                 height: '7px',
                 borderRadius: '50%',
-                background: '#c5ff41',
-                boxShadow: '0 0 6px #c5ff41',
+                background: 'var(--portfolio-accent)',
+                boxShadow: '0 0 6px var(--portfolio-accent)',
                 display: 'inline-block',
               }}
             />
@@ -329,6 +330,7 @@ export default function GeminiChatbot() {
 
       {/* Messages Scrollable Container */}
       <div
+        className="gemini-chat-messages"
         style={{
           flex: 1,
           overflowY: 'auto',
@@ -348,6 +350,7 @@ export default function GeminiChatbot() {
           return (
             <div
               key={msg.id}
+                className={`gemini-message-bubble ${isUser ? 'is-user' : ''} ${msg.isError ? 'is-error' : ''}`}
               style={{
                 display: 'flex',
                 justifyContent: isUser ? 'flex-end' : 'flex-start',
@@ -360,21 +363,21 @@ export default function GeminiChatbot() {
                   padding: isUser ? '10px 14px' : '12px 16px',
                   borderRadius: isUser ? '16px 16px 4px 16px' : '16px 16px 16px 4px',
                   background: isUser
-                    ? 'linear-gradient(135deg, rgba(10, 132, 255, 0.8) 0%, rgba(0, 112, 243, 0.85) 100%)'
+                    ? 'var(--portfolio-accent)'
                     : msg.isError
                     ? 'rgba(255, 69, 58, 0.15)'
                     : 'rgba(255, 255, 255, 0.07)',
                   border: isUser
-                    ? '1px solid rgba(10, 132, 255, 0.5)'
+                    ? '1px solid var(--portfolio-accent-border)'
                     : msg.isError
                     ? '1px solid rgba(255, 69, 58, 0.4)'
                     : '1px solid rgba(255, 255, 255, 0.12)',
-                  color: isUser ? '#ffffff' : msg.isError ? '#ff6961' : 'rgba(255, 255, 255, 0.92)',
+                  color: isUser ? 'var(--portfolio-accent-contrast)' : msg.isError ? '#ff6961' : 'var(--text-main)',
                   fontSize: '13.5px',
                   lineHeight: 1.55,
                   wordBreak: 'break-word',
                   boxShadow: isUser
-                    ? '0 4px 14px rgba(10, 132, 255, 0.25)'
+                    ? '0 4px 14px var(--portfolio-accent-soft)'
                     : '0 4px 12px rgba(0, 0, 0, 0.2)',
                 }}
               >
@@ -386,7 +389,7 @@ export default function GeminiChatbot() {
 
         {/* Loading Animated State */}
         {isLoading && (
-          <div style={{ display: 'flex', justifyContent: 'flex-start', width: '100%' }}>
+          <div className="gemini-thinking-row" style={{ display: 'flex', justifyContent: 'flex-start', width: '100%' }}>
             <div
               style={{
                 padding: '10px 16px',
@@ -403,7 +406,7 @@ export default function GeminiChatbot() {
                   width: '6px',
                   height: '6px',
                   borderRadius: '50%',
-                  background: '#c5ff41',
+                  background: 'var(--portfolio-accent)',
                   animation: 'pulse 1s infinite alternate',
                 }}
               />
@@ -412,7 +415,7 @@ export default function GeminiChatbot() {
                   width: '6px',
                   height: '6px',
                   borderRadius: '50%',
-                  background: '#0a84ff',
+                  background: 'var(--portfolio-accent)',
                   animation: 'pulse 1s infinite alternate 0.2s',
                 }}
               />
@@ -421,7 +424,7 @@ export default function GeminiChatbot() {
                   width: '6px',
                   height: '6px',
                   borderRadius: '50%',
-                  background: '#bf5af2',
+                  background: 'var(--portfolio-accent)',
                   animation: 'pulse 1s infinite alternate 0.4s',
                 }}
               />
@@ -470,11 +473,12 @@ export default function GeminiChatbot() {
                 <button
                   key={idx}
                   onClick={() => handleSendMessage(prompt)}
+                  className="gemini-suggested-prompt"
                   style={{
                     background: 'rgba(255, 255, 255, 0.06)',
                     border: '1px solid rgba(255, 255, 255, 0.12)',
                     borderRadius: '12px',
-                    color: '#c5ff41',
+                    color: 'var(--portfolio-accent)',
                     fontSize: '11.5px',
                     fontWeight: 500,
                     padding: '6px 10px',
@@ -483,12 +487,12 @@ export default function GeminiChatbot() {
                     transition: 'all 0.15s ease',
                   }}
                   onMouseEnter={(e) => {
-                    e.currentTarget.style.background = 'rgba(197, 255, 65, 0.15)';
-                    e.currentTarget.style.borderColor = 'rgba(197, 255, 65, 0.4)';
+                    e.currentTarget.style.background = 'var(--portfolio-accent-soft)';
+                    e.currentTarget.style.borderColor = 'var(--portfolio-accent-border)';
                   }}
                   onMouseLeave={(e) => {
-                    e.currentTarget.style.background = 'rgba(255, 255, 255, 0.06)';
-                    e.currentTarget.style.borderColor = 'rgba(255, 255, 255, 0.12)';
+                    e.currentTarget.style.background = 'var(--portfolio-surface-soft)';
+                    e.currentTarget.style.borderColor = 'var(--portfolio-border)';
                   }}
                 >
                   {prompt}
@@ -503,6 +507,7 @@ export default function GeminiChatbot() {
 
       {/* Input Area */}
       <div
+        className="gemini-chat-input-area"
         style={{
           padding: '10px 12px',
           background: 'rgba(0, 0, 0, 0.35)',
@@ -515,6 +520,7 @@ export default function GeminiChatbot() {
         }}
       >
         <textarea
+          className="gemini-chat-input"
           ref={inputRef}
           rows={1}
           value={inputValue}
@@ -524,10 +530,10 @@ export default function GeminiChatbot() {
           disabled={isLoading}
           style={{
             flex: 1,
-            background: 'rgba(255, 255, 255, 0.06)',
-            border: '1px solid rgba(255, 255, 255, 0.14)',
+            background: 'var(--portfolio-surface-soft)',
+            border: '1px solid var(--portfolio-border)',
             borderRadius: '12px',
-            color: '#ffffff',
+            color: 'var(--text-main)',
             fontSize: '13px',
             padding: '9px 12px',
             outline: 'none',
@@ -536,8 +542,8 @@ export default function GeminiChatbot() {
             maxHeight: '80px',
             fontFamily: 'inherit',
           }}
-          onFocus={(e) => (e.target.style.borderColor = 'rgba(10, 132, 255, 0.6)')}
-          onBlur={(e) => (e.target.style.borderColor = 'rgba(255, 255, 255, 0.14)')}
+          onFocus={(e) => (e.target.style.borderColor = 'var(--portfolio-accent)')}
+          onBlur={(e) => (e.target.style.borderColor = 'var(--portfolio-border)')}
         />
 
         <button
@@ -547,11 +553,11 @@ export default function GeminiChatbot() {
           aria-label="Send message"
           style={{
             background: inputValue.trim() && !isLoading
-              ? 'linear-gradient(135deg, #0a84ff 0%, #0070f3 100%)'
-              : 'rgba(255, 255, 255, 0.08)',
+              ? 'var(--portfolio-accent)'
+              : 'var(--portfolio-surface-soft)',
             border: 'none',
             borderRadius: '12px',
-            color: inputValue.trim() && !isLoading ? '#ffffff' : 'rgba(255, 255, 255, 0.3)',
+            color: inputValue.trim() && !isLoading ? 'var(--portfolio-accent-contrast)' : 'var(--text-muted)',
             width: '36px',
             height: '36px',
             display: 'flex',

@@ -313,7 +313,7 @@ export default function HomePage() {
         {currentPage !== 'home' && (
           <div
             ref={activePageRef}
-            className="page-content active"
+            className={`page-content active${currentPage === 'about' ? '' : ' portfolio-pages'}`}
             onScroll={handlePageScroll}
           >
             {currentPage === 'about' && <AboutView />}

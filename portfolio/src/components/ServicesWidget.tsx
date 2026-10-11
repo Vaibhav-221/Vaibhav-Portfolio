@@ -10,8 +10,8 @@ export default function ServicesWidget() {
         <span
           style={{
             fontSize: '11px',
-            color: '#0a84ff',
-            background: 'rgba(10, 132, 255, 0.12)',
+            color: 'var(--portfolio-accent)',
+            background: 'var(--portfolio-accent-soft)',
             padding: '2px 8px',
             borderRadius: '10px',
             fontWeight: 600,
@@ -22,7 +22,7 @@ export default function ServicesWidget() {
       </div>
 
       <div className="service-item">
-        <div className="service-icon" style={{ color: '#0a84ff' }}>
+        <div className="service-icon" style={{ color: 'var(--portfolio-accent)' }}>
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
             <polygon points="12 2 2 7 12 12 22 7 12 2" />
             <polyline points="2 17 12 22 22 17" />
@@ -36,7 +36,7 @@ export default function ServicesWidget() {
       </div>
 
       <div className="service-item">
-        <div className="service-icon" style={{ color: '#ff9f0a' }}>
+        <div className="service-icon" style={{ color: 'var(--portfolio-accent)' }}>
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
             <circle cx="18" cy="18" r="3" />
             <circle cx="6" cy="6" r="3" />
@@ -51,7 +51,7 @@ export default function ServicesWidget() {
       </div>
 
       <div className="service-item">
-        <div className="service-icon" style={{ color: '#bf5af2' }}>
+        <div className="service-icon" style={{ color: 'var(--portfolio-accent)' }}>
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
             <path d="M12 2v4M12 18v4M4.93 4.93l2.83 2.83M16.24 16.24l2.83 2.83M2 12h4M18 12h4M4.93 19.07l2.83-2.83M16.24 7.76l2.83-2.83" />
           </svg>

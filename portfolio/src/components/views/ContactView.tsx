@@ -2,6 +2,7 @@
 
 import React, { useState } from 'react';
 import { personalInfo } from '@/data/portfolioData';
+import PortfolioPage from './PortfolioPage';
 
 export default function ContactView() {
   const [formData, setFormData] = useState({
@@ -23,19 +24,18 @@ export default function ContactView() {
   };
 
   return (
-    <div style={{ maxWidth: '900px', margin: '0 auto' }}>
-      <div style={{ marginBottom: '24px' }}>
-        <h2 style={{ fontSize: '32px', fontWeight: 700, margin: 0 }}>Get In Touch</h2>
-        <p style={{ fontSize: '14px', color: 'var(--text-muted)', margin: '4px 0 0 0' }}>
-          Have a project in mind, an internship opportunity, or an open-source collaboration? Let&apos;s connect!
-        </p>
-      </div>
-
+    <PortfolioPage
+      eyebrow="LET’S TALK"
+      title="Let’s build something useful."
+      description="Have a project in mind, an opportunity, or an open-source collaboration? Let’s connect."
+    >
+    <div className="portfolio-view-content">
       <div style={{ display: 'flex', gap: '24px', flexWrap: 'wrap' }}>
         {/* Contact Info Cards */}
         <div style={{ flex: 1, minWidth: 'min(100%, 280px)', width: '100%', display: 'flex', flexDirection: 'column', gap: '14px' }}>
           {/* Email */}
           <div
+            className="portfolio-card portfolio-contact-info portfolio-reveal"
             style={{
               display: 'flex',
               alignItems: 'center',
@@ -48,11 +48,11 @@ export default function ContactView() {
           >
             <div
               style={{
-                background: 'rgba(10, 132, 255, 0.15)',
+                background: 'var(--portfolio-accent-soft)',
                 padding: '12px',
                 borderRadius: '12px',
                 display: 'flex',
-                color: '#0a84ff',
+                color: 'var(--portfolio-accent)',
               }}
             >
               <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
@@ -82,6 +82,7 @@ export default function ContactView() {
 
           {/* Phone */}
           <div
+            className="portfolio-card portfolio-contact-info portfolio-reveal"
             style={{
               display: 'flex',
               alignItems: 'center',
@@ -94,11 +95,11 @@ export default function ContactView() {
           >
             <div
               style={{
-                background: 'rgba(48, 209, 88, 0.15)',
+                background: 'var(--portfolio-accent-soft)',
                 padding: '12px',
                 borderRadius: '12px',
                 display: 'flex',
-                color: '#30d158',
+                color: 'var(--portfolio-accent)',
               }}
             >
               <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
@@ -120,6 +121,7 @@ export default function ContactView() {
 
           {/* Location */}
           <div
+            className="portfolio-card portfolio-contact-info portfolio-reveal"
             style={{
               display: 'flex',
               alignItems: 'center',
@@ -132,11 +134,11 @@ export default function ContactView() {
           >
             <div
               style={{
-                background: 'rgba(191, 90, 242, 0.15)',
+                background: 'var(--portfolio-accent-soft)',
                 padding: '12px',
                 borderRadius: '12px',
                 display: 'flex',
-                color: '#bf5af2',
+                color: 'var(--portfolio-accent)',
               }}
             >
               <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
@@ -153,9 +155,10 @@ export default function ContactView() {
           </div>
 
           {/* Social Profiles Row */}
-          <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '10px' }}>
+          <div className="portfolio-contact-socials portfolio-reveal" style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '10px' }}>
             <a
               href={personalInfo.github}
+              className="portfolio-action-link"
               target="_blank"
               rel="noreferrer"
               style={{
@@ -181,6 +184,7 @@ export default function ContactView() {
 
             <a
               href={personalInfo.linkedin}
+              className="portfolio-action-link"
               target="_blank"
               rel="noreferrer"
               style={{
@@ -192,7 +196,7 @@ export default function ContactView() {
                 background: 'var(--glass-bg)',
                 border: '1px solid var(--glass-border)',
                 borderRadius: '14px',
-                color: '#0a84ff',
+                color: 'var(--portfolio-accent)',
                 textDecoration: 'none',
                 fontSize: '13px',
                 fontWeight: 600,
@@ -210,6 +214,7 @@ export default function ContactView() {
 
         {/* Contact Form */}
         <div
+          className="portfolio-card portfolio-contact-form portfolio-reveal"
           style={{
             flex: 1.4,
             minWidth: 'min(100%, 280px)',
@@ -340,10 +345,11 @@ export default function ContactView() {
 
               <button
                 type="submit"
+                className="portfolio-primary-button"
                 style={{
                   padding: '12px 24px',
-                  background: 'linear-gradient(135deg, #0a84ff 0%, #30d158 100%)',
-                  color: '#ffffff',
+                  background: 'var(--portfolio-accent)',
+                  color: 'var(--portfolio-accent-contrast)',
                   border: 'none',
                   borderRadius: '12px',
                   fontWeight: 600,
@@ -353,7 +359,7 @@ export default function ContactView() {
                   alignItems: 'center',
                   justifyContent: 'center',
                   gap: '8px',
-                  boxShadow: '0 4px 14px rgba(10, 132, 255, 0.3)',
+                  boxShadow: '0 4px 14px var(--portfolio-accent-soft)',
                 }}
               >
                 <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
@@ -367,5 +373,6 @@ export default function ContactView() {
         </div>
       </div>
     </div>
+    </PortfolioPage>
   );
 }

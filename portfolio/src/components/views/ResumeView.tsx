@@ -2,6 +2,7 @@
 
 import React from 'react';
 import { personalInfo, experienceData, projectsData, achievementsData } from '@/data/portfolioData';
+import PortfolioPage from './PortfolioPage';
 
 export default function ResumeView() {
   const handleDownload = () => {
@@ -14,30 +15,19 @@ export default function ResumeView() {
   };
 
   return (
-    <div style={{ maxWidth: '900px', margin: '0 auto' }}>
-      <div
-        style={{
-          display: 'flex',
-          justifyContent: 'space-between',
-          alignItems: 'center',
-          marginBottom: '24px',
-          flexWrap: 'wrap',
-          gap: '16px',
-        }}
-      >
-        <div>
-          <h2 style={{ fontSize: '32px', fontWeight: 700, margin: 0 }}>Resume</h2>
-          <p style={{ fontSize: '14px', color: 'var(--text-muted)', margin: '4px 0 0 0' }}>
-            Verified curriculum vitae, professional history, and project portfolio.
-          </p>
-        </div>
-
+    <PortfolioPage
+      eyebrow="DOCUMENT / DOWNLOAD"
+      title="Resume and experience."
+      description="A concise record of my education, engineering work, selected projects, and recognition."
+    >
+    <div className="portfolio-view-content">
+      <div className="portfolio-view-toolbar portfolio-reveal">
         <button
           onClick={handleDownload}
           style={{
             padding: '12px 22px',
-            background: 'linear-gradient(135deg, #0a84ff 0%, #0070f3 100%)',
-            color: '#ffffff',
+            background: 'var(--portfolio-accent)',
+            color: 'var(--portfolio-accent-contrast)',
             border: 'none',
             borderRadius: '12px',
             fontWeight: 600,
@@ -46,7 +36,7 @@ export default function ResumeView() {
             alignItems: 'center',
             gap: '8px',
             cursor: 'pointer',
-            boxShadow: '0 4px 14px rgba(10, 132, 255, 0.35)',
+            boxShadow: '0 4px 14px var(--portfolio-accent-soft)',
             transition: 'transform 0.15s ease, box-shadow 0.15s ease',
           }}
         >
@@ -61,6 +51,7 @@ export default function ResumeView() {
 
       {/* Resume Document Content Box */}
       <div
+        className="portfolio-card portfolio-resume-document portfolio-reveal"
         style={{
           display: 'flex',
           flexDirection: 'column',
@@ -76,7 +67,7 @@ export default function ResumeView() {
           <h1 style={{ fontSize: '32px', margin: '0 0 8px 0', fontWeight: 700, letterSpacing: '0.5px' }}>
             {personalInfo.name.toUpperCase()}
           </h1>
-          <div style={{ fontSize: '15px', color: '#0a84ff', fontWeight: 600, marginBottom: '10px' }}>
+          <div style={{ fontSize: '15px', color: 'var(--portfolio-accent)', fontWeight: 600, marginBottom: '10px' }}>
             {personalInfo.role} • {personalInfo.location}
           </div>
           <div
@@ -97,7 +88,7 @@ export default function ResumeView() {
               href={personalInfo.github}
               target="_blank"
               rel="noreferrer"
-              style={{ color: '#c5ff41', textDecoration: 'none' }}
+              style={{ color: 'var(--portfolio-accent)', textDecoration: 'none' }}
             >
               GitHub: {personalInfo.githubUsername}
             </a>
@@ -106,7 +97,7 @@ export default function ResumeView() {
               href={personalInfo.linkedin}
               target="_blank"
               rel="noreferrer"
-              style={{ color: '#0a84ff', textDecoration: 'none' }}
+              style={{ color: 'var(--portfolio-accent)', textDecoration: 'none' }}
             >
               LinkedIn Profile
             </a>
@@ -119,7 +110,7 @@ export default function ResumeView() {
             style={{
               fontSize: '16px',
               fontWeight: 700,
-              color: '#0a84ff',
+              color: 'var(--portfolio-accent)',
               marginBottom: '14px',
               textTransform: 'uppercase',
               letterSpacing: '1px',
@@ -137,7 +128,7 @@ export default function ResumeView() {
               </div>
             </div>
             <div style={{ textAlign: 'right' }}>
-              <div style={{ fontSize: '13.5px', fontWeight: 600, color: '#c5ff41' }}>
+              <div style={{ fontSize: '13.5px', fontWeight: 600, color: 'var(--portfolio-accent)' }}>
                 CGPA: {personalInfo.cgpa} / 10.0
               </div>
               <div style={{ fontSize: '12.5px', color: 'var(--text-muted)' }}>
@@ -153,7 +144,7 @@ export default function ResumeView() {
             style={{
               fontSize: '16px',
               fontWeight: 700,
-              color: '#0a84ff',
+              color: 'var(--portfolio-accent)',
               marginBottom: '16px',
               textTransform: 'uppercase',
               letterSpacing: '1px',
@@ -196,7 +187,7 @@ export default function ResumeView() {
             style={{
               fontSize: '16px',
               fontWeight: 700,
-              color: '#0a84ff',
+              color: 'var(--portfolio-accent)',
               marginBottom: '16px',
               textTransform: 'uppercase',
               letterSpacing: '1px',
@@ -221,7 +212,7 @@ export default function ResumeView() {
                     {proj.timeline}
                   </span>
                 </div>
-                <div style={{ fontSize: '12px', color: '#c5ff41', fontWeight: 500, marginBottom: '4px' }}>
+                <div style={{ fontSize: '12px', color: 'var(--portfolio-accent)', fontWeight: 500, marginBottom: '4px' }}>
                   Tech: {proj.techStack.join(' • ')}
                 </div>
                 <p style={{ fontSize: '13px', color: 'var(--text-muted)', lineHeight: 1.5, margin: 0 }}>
@@ -238,7 +229,7 @@ export default function ResumeView() {
             style={{
               fontSize: '16px',
               fontWeight: 700,
-              color: '#0a84ff',
+              color: 'var(--portfolio-accent)',
               marginBottom: '14px',
               textTransform: 'uppercase',
               letterSpacing: '1px',
@@ -257,5 +248,6 @@ export default function ResumeView() {
         </div>
       </div>
     </div>
+    </PortfolioPage>
   );
 }

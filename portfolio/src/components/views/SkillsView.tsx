@@ -2,6 +2,7 @@
 
 import React, { useState } from 'react';
 import { skillCategoriesData } from '@/data/portfolioData';
+import PortfolioPage from './PortfolioPage';
 
 export default function SkillsView() {
   const [selectedCat, setSelectedCat] = useState<string>('All');
@@ -14,17 +15,16 @@ export default function SkillsView() {
   });
 
   return (
-    <div style={{ maxWidth: '900px', margin: '0 auto' }}>
-      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: '24px', flexWrap: 'wrap', gap: '16px' }}>
-        <div>
-          <h2 style={{ fontSize: '32px', fontWeight: 700, margin: 0 }}>Technical Skills</h2>
-          <p style={{ fontSize: '14px', color: 'var(--text-muted)', margin: '4px 0 0 0' }}>
-            Comprehensive toolkit spanning full-stack web development, AI engineering, and cloud platforms.
-          </p>
-        </div>
-
+    <PortfolioPage
+      eyebrow="SYSTEMS / CAPABILITIES"
+      title="A practical technical toolkit."
+      description="Full-stack engineering, applied AI, and the tools that carry ideas from interface to production."
+    >
+    <div className="portfolio-view-content">
+      <div className="portfolio-view-toolbar portfolio-reveal">
         {/* Category Filter Pills */}
         <div
+          className="portfolio-filter"
           style={{
             display: 'flex',
             flexWrap: 'wrap',
@@ -43,8 +43,8 @@ export default function SkillsView() {
                 padding: '6px 12px',
                 borderRadius: '10px',
                 border: 'none',
-                background: selectedCat === cat ? 'rgba(255, 255, 255, 0.15)' : 'transparent',
-                color: selectedCat === cat ? '#ffffff' : 'var(--text-muted)',
+                background: selectedCat === cat ? 'var(--portfolio-accent-soft)' : 'transparent',
+                color: selectedCat === cat ? 'var(--portfolio-accent)' : 'var(--text-muted)',
                 fontSize: '12.5px',
                 fontWeight: selectedCat === cat ? 600 : 500,
                 cursor: 'pointer',
@@ -58,10 +58,11 @@ export default function SkillsView() {
       </div>
 
       {/* Skills Category Grid */}
-      <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(min(100%, 280px), 1fr))', gap: '20px' }}>
+      <div className="portfolio-card-grid">
         {displayCategories.map((cat, idx) => (
           <div
             key={idx}
+            className="portfolio-card portfolio-reveal"
             style={{
               background: 'var(--glass-bg)',
               border: '1px solid var(--glass-border)',
@@ -80,8 +81,8 @@ export default function SkillsView() {
                 style={{
                   fontSize: '11px',
                   fontWeight: 600,
-                  color: '#0a84ff',
-                  background: 'rgba(10, 132, 255, 0.12)',
+                  color: 'var(--portfolio-accent)',
+                  background: 'var(--portfolio-accent-soft)',
                   padding: '3px 8px',
                   borderRadius: '8px',
                 }}
@@ -95,8 +96,8 @@ export default function SkillsView() {
               {cat.skills.map((skill, sIdx) => (
                 <div key={sIdx}>
                   <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '6px' }}>
-                    <span style={{ fontSize: '13.5px', fontWeight: skill.highlight ? 600 : 500, color: skill.highlight ? '#ffffff' : 'var(--text-main)' }}>
-                      {skill.name} {skill.highlight && <span style={{ color: '#c5ff41', fontSize: '11px', marginLeft: '4px' }}>★</span>}
+                    <span style={{ fontSize: '13.5px', fontWeight: skill.highlight ? 600 : 500, color: skill.highlight ? 'var(--portfolio-accent)' : 'var(--text-main)' }}>
+                      {skill.name} {skill.highlight && <span style={{ color: 'var(--portfolio-accent)', fontSize: '11px', marginLeft: '4px' }}>★</span>}
                     </span>
                     <span style={{ fontSize: '12px', color: 'var(--text-muted)', fontWeight: 500 }}>
                       {skill.level}%
@@ -117,8 +118,8 @@ export default function SkillsView() {
                         width: `${skill.level}%`,
                         height: '100%',
                         background: skill.highlight
-                          ? 'linear-gradient(90deg, #0a84ff, #c5ff41)'
-                          : 'linear-gradient(90deg, rgba(255,255,255,0.4), rgba(255,255,255,0.8))',
+                          ? 'linear-gradient(90deg, var(--portfolio-accent), color-mix(in srgb, var(--portfolio-accent) 42%, transparent))'
+                          : 'linear-gradient(90deg, var(--portfolio-border), var(--text-muted))',
                         borderRadius: '3px',
                         transition: 'width 0.8s ease-in-out',
                       }}
@@ -133,6 +134,7 @@ export default function SkillsView() {
 
       {/* Cloud & Architecture Summary Pill Strip */}
       <div
+        className="portfolio-card portfolio-skills-summary portfolio-reveal"
         style={{
           marginTop: '30px',
           background: 'var(--glass-bg)',
@@ -160,8 +162,8 @@ export default function SkillsView() {
             alignItems: 'center',
             gap: '6px',
             fontSize: '12px',
-            color: '#c5ff41',
-            background: 'rgba(197, 255, 65, 0.1)',
+            color: 'var(--portfolio-accent)',
+            background: 'var(--portfolio-accent-soft)',
             padding: '6px 12px',
             borderRadius: '10px',
             fontWeight: 600,
@@ -171,5 +173,6 @@ export default function SkillsView() {
         </div>
       </div>
     </div>
+    </PortfolioPage>
   );
 }

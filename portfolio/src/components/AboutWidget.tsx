@@ -24,8 +24,8 @@ export default function AboutWidget({ onNavigate }: AboutWidgetProps) {
         <span
           style={{
             fontSize: '11px',
-            color: '#c5ff41',
-            background: 'rgba(197, 255, 65, 0.12)',
+            color: 'var(--portfolio-accent)',
+            background: 'var(--portfolio-accent-soft)',
             padding: '2px 8px',
             borderRadius: '10px',
             fontWeight: 600,
@@ -41,7 +41,7 @@ export default function AboutWidget({ onNavigate }: AboutWidgetProps) {
         Hi, I&apos;m <strong style={{ color: 'var(--text-main)', fontWeight: 600 }}>{personalInfo.name}</strong>, a Full Stack Developer and Open Source Contributor based in {personalInfo.location}. I specialize in architecting real-time web applications with Next.js, React, FastAPI, and Firebase.
       </p>
       <p>
-        Ranked in the <span style={{ color: '#c5ff41', fontWeight: 600 }}>Top 1%</span> nationwide in GSSoC &apos;26 and creator of platforms serving 500+ active students. Driven to turn complex system requirements into seamless, performant digital experiences.
+        Ranked in the <span style={{ color: 'var(--portfolio-accent)', fontWeight: 600 }}>Top 1%</span> nationwide in GSSoC &apos;26 and creator of platforms serving 500+ active students. Driven to turn complex system requirements into seamless, performant digital experiences.
       </p>
 
       {/* Mini metric counters row */}
@@ -57,7 +57,7 @@ export default function AboutWidget({ onNavigate }: AboutWidgetProps) {
       >
         {impactMetrics.slice(0, 2).map((m) => (
           <div key={m.id} style={{ display: 'flex', flexDirection: 'column' }}>
-            <span style={{ fontSize: '15px', fontWeight: 700, color: m.accent, fontFamily: 'var(--font-oswald)' }}>
+            <span style={{ fontSize: '15px', fontWeight: 700, color: 'var(--portfolio-accent)', fontFamily: 'var(--font-oswald)' }}>
               {m.value}
             </span>
             <span style={{ fontSize: '10.5px', color: 'var(--text-muted)', lineHeight: 1.2 }}>

@@ -2,48 +2,28 @@
 
 import React from 'react';
 import { experienceData, achievementsData } from '@/data/portfolioData';
+import PortfolioPage from './PortfolioPage';
 
 export default function ExperienceView() {
   return (
-    <div style={{ maxWidth: '900px', margin: '0 auto' }}>
-      <div style={{ marginBottom: '30px' }}>
-        <h2 style={{ fontSize: '32px', fontWeight: 700, margin: 0 }}>Experience &amp; Leadership</h2>
-        <p style={{ fontSize: '14px', color: 'var(--text-muted)', margin: '4px 0 0 0' }}>
-          Open-source contributions, distributed software engineering, and technical leadership milestones.
-        </p>
-      </div>
-
+    <PortfolioPage
+      eyebrow="THE JOURNEY"
+      title="How I got here."
+      description="Open-source contributions, engineering practice, and the milestones that keep moving the work forward."
+    >
+    <div className="portfolio-view-content">
       {/* Connected Timeline */}
-      <div style={{ display: 'flex', flexDirection: 'column', gap: '30px', position: 'relative', marginBottom: '40px' }}>
+      <div className="portfolio-experience-timeline">
         {/* Timeline line */}
-        <div
-          style={{
-            position: 'absolute',
-            left: '19px',
-            top: '20px',
-            bottom: '20px',
-            width: '2px',
-            background: 'var(--glass-border)',
-          }}
-        />
+        <div className="portfolio-experience-line" />
 
         {experienceData.map((exp) => (
-          <div key={exp.id} style={{ position: 'relative', paddingLeft: '50px' }}>
+          <div key={exp.id} className="portfolio-experience-entry portfolio-reveal">
             {/* Timeline Dot */}
-            <div
-              style={{
-                position: 'absolute',
-                left: '13px',
-                top: '6px',
-                width: '14px',
-                height: '14px',
-                borderRadius: '50%',
-                background: exp.color,
-                boxShadow: `0 0 0 4px ${exp.color}30`,
-              }}
-            />
+            <div className="portfolio-experience-marker" />
 
             <div
+              className="portfolio-card"
               style={{
                 background: 'var(--glass-bg)',
                 border: '1px solid var(--glass-border)',
@@ -75,16 +55,16 @@ export default function ExperienceView() {
                           fontWeight: 700,
                           padding: '2px 8px',
                           borderRadius: '8px',
-                          background: `${exp.color}18`,
-                          color: exp.color,
-                          border: `1px solid ${exp.color}40`,
+                              background: 'var(--portfolio-accent-soft)',
+                              color: 'var(--portfolio-accent)',
+                              border: '1px solid var(--portfolio-accent-border)',
                         }}
                       >
                         {exp.statusTag}
                       </span>
                     )}
                   </div>
-                  <div style={{ fontSize: '15px', fontWeight: 600, color: exp.color }}>
+                  <div style={{ fontSize: '15px', fontWeight: 600, color: 'var(--portfolio-accent)' }}>
                     {exp.company} <span style={{ color: 'var(--text-muted)', fontWeight: 400, marginLeft: '6px' }}>• {exp.type}</span>
                   </div>
                 </div>
@@ -149,10 +129,11 @@ export default function ExperienceView() {
       {/* Honors & Hackathon Achievements Grid */}
       <div>
         <h3 style={{ fontSize: '22px', fontWeight: 700, marginBottom: '20px' }}>Recognitions &amp; Hackathons</h3>
-        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(min(100%, 250px), 1fr))', gap: '16px' }}>
+        <div className="portfolio-card-grid">
           {achievementsData.map((item, idx) => (
             <div
               key={idx}
+              className="portfolio-card portfolio-reveal"
               style={{
                 background: 'var(--glass-bg)',
                 border: '1px solid var(--glass-border)',
@@ -170,8 +151,8 @@ export default function ExperienceView() {
                       fontSize: '11px',
                       fontWeight: 700,
                       textTransform: 'uppercase',
-                      color: item.color,
-                      background: `${item.color}15`,
+                      color: 'var(--portfolio-accent)',
+                      background: 'var(--portfolio-accent-soft)',
                       padding: '3px 8px',
                       borderRadius: '8px',
                     }}
@@ -182,7 +163,7 @@ export default function ExperienceView() {
                 <h4 style={{ fontSize: '16px', fontWeight: 700, margin: '0 0 6px 0', color: 'var(--text-main)' }}>
                   {item.title}
                 </h4>
-                <div style={{ fontSize: '12px', color: '#0a84ff', fontWeight: 600, marginBottom: '8px' }}>
+                <div style={{ fontSize: '12px', color: 'var(--portfolio-accent)', fontWeight: 600, marginBottom: '8px' }}>
                   {item.organization}
                 </div>
                 <p style={{ fontSize: '13px', lineHeight: 1.5, color: 'var(--text-muted)', margin: 0 }}>
@@ -194,5 +175,6 @@ export default function ExperienceView() {
         </div>
       </div>
     </div>
+    </PortfolioPage>
   );
 }

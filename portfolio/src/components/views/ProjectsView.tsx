@@ -2,6 +2,7 @@
 
 import React, { useState } from 'react';
 import { projectsData, ProjectItem } from '@/data/portfolioData';
+import PortfolioPage from './PortfolioPage';
 
 export default function ProjectsView() {
   const [filter, setFilter] = useState<string>('All');
@@ -14,17 +15,16 @@ export default function ProjectsView() {
   });
 
   return (
-    <div style={{ maxWidth: '960px', margin: '0 auto' }}>
-      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: '24px', flexWrap: 'wrap', gap: '16px' }}>
-        <div>
-          <h2 style={{ fontSize: '32px', fontWeight: 700, margin: 0 }}>Featured Projects</h2>
-          <p style={{ fontSize: '14px', color: 'var(--text-muted)', margin: '4px 0 0 0' }}>
-            Production web platforms, open-source systems, and AI-powered applications.
-          </p>
-        </div>
-
+    <PortfolioPage
+      eyebrow="SELECTED WORK"
+      title="Built to solve real problems."
+      description="Production platforms, open-source systems, and applied AI, designed around real users."
+    >
+      <div className="portfolio-view-content">
+      <div className="portfolio-view-toolbar portfolio-reveal">
         {/* Category Filter Pills */}
         <div
+          className="portfolio-filter"
           style={{
             display: 'flex',
             gap: '8px',
@@ -42,8 +42,8 @@ export default function ProjectsView() {
                 padding: '6px 14px',
                 borderRadius: '10px',
                 border: 'none',
-                background: filter === cat ? 'rgba(255, 255, 255, 0.15)' : 'transparent',
-                color: filter === cat ? '#ffffff' : 'var(--text-muted)',
+                background: filter === cat ? 'var(--portfolio-accent-soft)' : 'transparent',
+                color: filter === cat ? 'var(--portfolio-accent)' : 'var(--text-muted)',
                 fontSize: '13px',
                 fontWeight: filter === cat ? 600 : 500,
                 cursor: 'pointer',
@@ -57,10 +57,11 @@ export default function ProjectsView() {
       </div>
 
       {/* Projects Grid */}
-      <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(min(100%, 280px), 1fr))', gap: '20px' }}>
+      <div className="portfolio-card-grid">
         {filteredProjects.map((project: ProjectItem) => (
           <div
             key={project.id}
+            className="portfolio-card portfolio-reveal"
             style={{
               background: 'var(--glass-bg)',
               border: '1px solid var(--glass-border)',
@@ -75,16 +76,7 @@ export default function ProjectsView() {
             }}
           >
             {/* Top Accent Line */}
-            <div
-              style={{
-                position: 'absolute',
-                top: 0,
-                left: 0,
-                right: 0,
-                height: '3px',
-                background: `linear-gradient(90deg, ${project.color}, ${project.accentColor})`,
-              }}
-            />
+            <div className="portfolio-card-accent" />
 
             <div>
               {/* Header row */}
@@ -96,8 +88,8 @@ export default function ProjectsView() {
                       fontWeight: 700,
                       textTransform: 'uppercase',
                       letterSpacing: '0.8px',
-                      color: project.color,
-                      background: `${project.color}15`,
+                      color: 'var(--portfolio-accent)',
+                      background: 'var(--portfolio-accent-soft)',
                       padding: '3px 8px',
                       borderRadius: '8px',
                       display: 'inline-block',
@@ -128,9 +120,9 @@ export default function ProjectsView() {
                     gap: '6px',
                     padding: '4px 10px',
                     borderRadius: '8px',
-                    background: 'rgba(197, 255, 65, 0.1)',
-                    border: '1px solid rgba(197, 255, 65, 0.25)',
-                    color: '#c5ff41',
+                    background: 'var(--portfolio-accent-soft)',
+                    border: '1px solid var(--portfolio-accent-border)',
+                    color: 'var(--portfolio-accent)',
                     fontSize: '12px',
                     fontWeight: 600,
                     marginBottom: '14px',
@@ -174,8 +166,8 @@ export default function ProjectsView() {
                       fontSize: '11.5px',
                       padding: '4px 8px',
                       borderRadius: '6px',
-                      background: 'var(--glass-bg-light)',
-                      border: '1px solid var(--glass-border)',
+                      background: 'var(--portfolio-surface-soft)',
+                      border: '1px solid var(--portfolio-border)',
                       color: 'var(--text-main)',
                     }}
                   >
@@ -200,7 +192,7 @@ export default function ProjectsView() {
                     borderRadius: '10px',
                     background: 'rgba(255, 255, 255, 0.08)',
                     border: '1px solid var(--glass-border)',
-                    color: '#ffffff',
+                    color: 'var(--text-main)',
                     fontSize: '13px',
                     fontWeight: 600,
                     textDecoration: 'none',
@@ -217,6 +209,7 @@ export default function ProjectsView() {
           </div>
         ))}
       </div>
-    </div>
+      </div>
+    </PortfolioPage>
   );
 }
