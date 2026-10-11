@@ -113,7 +113,7 @@ export default function AboutView() {
             {impactMetrics.map((item, idx) => (
               <div
                 key={item.id}
-                className="about-v-glass-card"
+                className="about-v-glass-card about-v-reveal-item"
                 style={{ transitionDelay: `${idx * 0.06}s` }}
               >
                 <div className="about-v-card-accent-bar" />
@@ -134,7 +134,7 @@ export default function AboutView() {
             <span style={{ fontSize: '12px', color: 'rgba(255, 255, 255, 0.45)' }}>In-Depth Background</span>
           </div>
 
-          <div className="about-v-bio-lead-card">
+          <div className="about-v-bio-lead-card about-v-reveal-item" style={{ transitionDelay: '0.08s' }}>
             <div className="about-v-card-accent-bar" />
             <h2 className="about-v-section-heading about-v-inline-heading">
               My Background &amp; Engineering Philosophy
@@ -183,7 +183,7 @@ export default function AboutView() {
             <span style={{ fontSize: '12px', color: 'rgba(255, 255, 255, 0.45)' }}>Foundational CS</span>
           </div>
 
-          <div className="about-v-academic-card">
+          <div className="about-v-academic-card about-v-reveal-item" style={{ transitionDelay: '0.08s' }}>
             <div className="about-v-card-accent-bar" />
             <div className="about-v-academic-header">
               <div>
@@ -235,7 +235,7 @@ export default function AboutView() {
           </div>
 
           <div className="about-v-pillars-grid">
-            <div className="about-v-pillar-card">
+            <div className="about-v-pillar-card about-v-reveal-item" style={{ transitionDelay: '0.06s' }}>
               <div className="about-v-card-accent-bar" />
               <div className="about-v-pillar-header">
                 <div className="about-v-pillar-icon">
@@ -250,7 +250,7 @@ export default function AboutView() {
               </p>
             </div>
 
-            <div className="about-v-pillar-card">
+            <div className="about-v-pillar-card about-v-reveal-item" style={{ transitionDelay: '0.12s' }}>
               <div className="about-v-card-accent-bar" />
               <div className="about-v-pillar-header">
                 <div className="about-v-pillar-icon">
@@ -265,7 +265,7 @@ export default function AboutView() {
               </p>
             </div>
 
-            <div className="about-v-pillar-card">
+            <div className="about-v-pillar-card about-v-reveal-item" style={{ transitionDelay: '0.18s' }}>
               <div className="about-v-card-accent-bar" />
               <div className="about-v-pillar-header">
                 <div className="about-v-pillar-icon">
@@ -293,8 +293,12 @@ export default function AboutView() {
 
           <div className="about-v-honors-grid">
             {achievementsData.map((item, idx) => (
-              <div key={idx} className="about-v-honor-card">
-                <div className="about-v-card-accent-bar" style={{ backgroundColor: item.color }} />
+              <div
+                key={idx}
+                className="about-v-honor-card about-v-reveal-item"
+                style={{ transitionDelay: `${idx * 0.07}s` }}
+              >
+                <div className="about-v-card-accent-bar" />
                 <span className="about-v-honor-badge">{item.badge}</span>
 
                 <h4 className="about-v-honor-title">{item.title}</h4>
