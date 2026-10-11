@@ -316,19 +316,15 @@ body.light-theme .about-v-inline-heading {
    ========================================================================== */
 .about-v-reveal-item {
   opacity: 0;
-  transform: translateY(34px) scale(0.985);
-  filter: blur(6px);
+  transform: translateY(20px);
   transition:
-    opacity 0.7s cubic-bezier(0.16, 1, 0.3, 1),
-    transform 0.7s cubic-bezier(0.16, 1, 0.3, 1),
-    filter 0.7s cubic-bezier(0.16, 1, 0.3, 1);
-  will-change: opacity, transform, filter;
+    opacity 0.55s cubic-bezier(0.22, 1, 0.36, 1),
+    transform 0.55s cubic-bezier(0.22, 1, 0.36, 1);
 }
 
 .about-v-reveal-item.is-revealed {
   opacity: 1;
-  transform: translateY(0) scale(1);
-  filter: blur(0);
+  transform: translateY(0);
 }
 
 /* ==========================================================================
@@ -434,6 +430,7 @@ body.light-theme .about-v-metric-sublabel {
   gap: 18px;
   position: relative;
   box-shadow: 0 12px 36px rgba(0, 0, 0, 0.35);
+  transition: transform 0.28s cubic-bezier(0.22, 1, 0.36, 1), border-color 0.24s ease, box-shadow 0.28s ease;
 }
 
 body.light-theme .about-v-bio-lead-card {
@@ -498,6 +495,9 @@ body.light-theme .about-v-bio-quote {
   flex-direction: column;
   gap: 16px;
   box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+  position: relative;
+  overflow: hidden;
+  transition: transform 0.28s cubic-bezier(0.22, 1, 0.36, 1), border-color 0.24s ease, box-shadow 0.28s ease;
 }
 
 body.light-theme .about-v-academic-card {
@@ -577,6 +577,12 @@ body.light-theme .about-v-academic-meta {
   border: 1px solid rgba(255, 255, 255, 0.12);
   color: rgba(255, 255, 255, 0.88);
   font-weight: 500;
+  transition: background-color 0.2s ease, border-color 0.2s ease;
+}
+
+.about-v-course-tag:hover {
+  background: var(--about-accent-soft);
+  border-color: color-mix(in srgb, var(--about-accent) 48%, transparent);
 }
 
 body.light-theme .about-v-course-tag {
@@ -749,6 +755,29 @@ body.light-theme .about-v-honor-detail {
   color: #475569;
 }
 
+.about-v-glass-card:hover,
+.about-v-bio-lead-card:hover,
+.about-v-academic-card:hover,
+.about-v-pillar-card:hover,
+.about-v-honor-card:hover {
+  transform: translateY(-3px);
+  border-color: color-mix(in srgb, var(--about-accent) 58%, transparent);
+  box-shadow: 0 14px 34px rgba(0, 0, 0, 0.3), 0 0 0 1px var(--about-accent-soft);
+}
+
+body.light-theme .about-v-glass-card:hover,
+body.light-theme .about-v-bio-lead-card:hover,
+body.light-theme .about-v-academic-card:hover,
+body.light-theme .about-v-pillar-card:hover,
+body.light-theme .about-v-honor-card:hover {
+  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.1), 0 0 0 1px var(--about-accent-soft);
+}
+
+.about-v-bio-lead-card:hover .about-v-card-accent-bar,
+.about-v-academic-card:hover .about-v-card-accent-bar {
+  transform: scaleX(1);
+}
+
 /* ==========================================================================
    Reduced Motion Preferences
    ========================================================================== */
@@ -771,8 +800,7 @@ body.light-theme .about-v-honor-detail {
 
   .about-v-reveal-item {
     transform: none;
-    filter: none;
-    transition: opacity 0.25s ease;
+    transition: opacity 0.25s ease, border-color 0.22s ease, box-shadow 0.25s ease;
   }
 
   .about-v-card-accent-bar {

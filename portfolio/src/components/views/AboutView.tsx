@@ -103,18 +103,17 @@ export default function AboutView() {
         {/* ====================================================================
             Section 02: Measurable Impact Metrics (Interactive Counter Cards)
             ==================================================================== */}
-        <section className="about-v-section-block about-v-reveal-item" style={{ transitionDelay: '0.1s' }}>
-          <div className="about-v-section-header">
+        <section className="about-v-section-block">
+          <div className="about-v-section-header about-v-reveal-item">
             <span className="about-v-section-label">02 {'//'} IMPACT &amp; METRICS</span>
             <span style={{ fontSize: '12px', color: 'rgba(255, 255, 255, 0.45)' }}>Verified Outcomes</span>
           </div>
 
           <div className="about-v-metrics-grid">
-            {impactMetrics.map((item, idx) => (
+            {impactMetrics.map((item) => (
               <div
                 key={item.id}
                 className="about-v-glass-card about-v-reveal-item"
-                style={{ transitionDelay: `${idx * 0.06}s` }}
               >
                 <div className="about-v-card-accent-bar" />
                 <div className="about-v-metric-value">{item.value}</div>
@@ -128,13 +127,13 @@ export default function AboutView() {
         {/* ====================================================================
             Section 03: Narrative Bio & Engineering Philosophy
             ==================================================================== */}
-        <section className="about-v-section-block about-v-reveal-item" style={{ transitionDelay: '0.15s' }}>
-          <div className="about-v-section-header">
+        <section className="about-v-section-block">
+          <div className="about-v-section-header about-v-reveal-item">
             <span className="about-v-section-label">03 {'//'} BIOGRAPHY &amp; VISION</span>
             <span style={{ fontSize: '12px', color: 'rgba(255, 255, 255, 0.45)' }}>In-Depth Background</span>
           </div>
 
-          <div className="about-v-bio-lead-card about-v-reveal-item" style={{ transitionDelay: '0.08s' }}>
+          <div className="about-v-bio-lead-card about-v-reveal-item">
             <div className="about-v-card-accent-bar" />
             <h2 className="about-v-section-heading about-v-inline-heading">
               My Background &amp; Engineering Philosophy
@@ -177,13 +176,13 @@ export default function AboutView() {
         {/* ====================================================================
             Section 04: Academic Profile & University Rigor
             ==================================================================== */}
-        <section className="about-v-section-block about-v-reveal-item" style={{ transitionDelay: '0.2s' }}>
-          <div className="about-v-section-header">
+        <section className="about-v-section-block">
+          <div className="about-v-section-header about-v-reveal-item">
             <span className="about-v-section-label">04 {'//'} ACADEMIC PROFILE</span>
             <span style={{ fontSize: '12px', color: 'rgba(255, 255, 255, 0.45)' }}>Foundational CS</span>
           </div>
 
-          <div className="about-v-academic-card about-v-reveal-item" style={{ transitionDelay: '0.08s' }}>
+          <div className="about-v-academic-card about-v-reveal-item">
             <div className="about-v-card-accent-bar" />
             <div className="about-v-academic-header">
               <div>
@@ -228,14 +227,14 @@ export default function AboutView() {
         {/* ====================================================================
             Section 05: Core Engineering Domains (Pillars)
             ==================================================================== */}
-        <section className="about-v-section-block about-v-reveal-item" style={{ transitionDelay: '0.25s' }}>
-          <div className="about-v-section-header">
+        <section className="about-v-section-block">
+          <div className="about-v-section-header about-v-reveal-item">
             <span className="about-v-section-label">05 {'//'} CORE DISCIPLINES &amp; ARCHITECTURES</span>
             <span style={{ fontSize: '12px', color: 'rgba(255, 255, 255, 0.45)' }}>Technical Focus</span>
           </div>
 
           <div className="about-v-pillars-grid">
-            <div className="about-v-pillar-card about-v-reveal-item" style={{ transitionDelay: '0.06s' }}>
+            <div className="about-v-pillar-card about-v-reveal-item">
               <div className="about-v-card-accent-bar" />
               <div className="about-v-pillar-header">
                 <div className="about-v-pillar-icon">
@@ -250,7 +249,7 @@ export default function AboutView() {
               </p>
             </div>
 
-            <div className="about-v-pillar-card about-v-reveal-item" style={{ transitionDelay: '0.12s' }}>
+            <div className="about-v-pillar-card about-v-reveal-item">
               <div className="about-v-card-accent-bar" />
               <div className="about-v-pillar-header">
                 <div className="about-v-pillar-icon">
@@ -265,7 +264,7 @@ export default function AboutView() {
               </p>
             </div>
 
-            <div className="about-v-pillar-card about-v-reveal-item" style={{ transitionDelay: '0.18s' }}>
+            <div className="about-v-pillar-card about-v-reveal-item">
               <div className="about-v-card-accent-bar" />
               <div className="about-v-pillar-header">
                 <div className="about-v-pillar-icon">
@@ -285,8 +284,8 @@ export default function AboutView() {
         {/* ====================================================================
             Section 06: Key Hackathons & Honors Preview
             ==================================================================== */}
-        <section className="about-v-section-block about-v-reveal-item" style={{ transitionDelay: '0.3s' }}>
-          <div className="about-v-section-header">
+        <section className="about-v-section-block">
+          <div className="about-v-section-header about-v-reveal-item">
             <span className="about-v-section-label">06 {'//'} HONORS &amp; RECOGNITION</span>
             <span style={{ fontSize: '12px', color: 'rgba(255, 255, 255, 0.45)' }}>Competitive Milestones</span>
           </div>
@@ -296,7 +295,6 @@ export default function AboutView() {
               <div
                 key={idx}
                 className="about-v-honor-card about-v-reveal-item"
-                style={{ transitionDelay: `${idx * 0.07}s` }}
               >
                 <div className="about-v-card-accent-bar" />
                 <span className="about-v-honor-badge">{item.badge}</span>
