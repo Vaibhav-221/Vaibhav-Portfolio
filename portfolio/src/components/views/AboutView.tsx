@@ -1,7 +1,7 @@
 'use client';
 
 import React, { useEffect, useRef } from 'react';
-import { personalInfo, impactMetrics, achievementsData } from '@/data/portfolioData';
+import { personalInfo, impactMetrics, achievementsData, skillCategoriesData } from '@/data/portfolioData';
 import './AboutView.css';
 
 export default function AboutView() {
@@ -15,296 +15,158 @@ export default function AboutView() {
     const scrollParent = currentContainer.closest('.page-content') as HTMLElement | null;
     const revealElements = currentContainer.querySelectorAll('.about-v-reveal-item');
 
-    const updateScrollProgress = () => {
-      if (!scrollParent) return;
-      const maxScroll = Math.max(scrollParent.scrollHeight - scrollParent.clientHeight, 1);
-      const progress = maxScroll > 0 ? scrollParent.scrollTop / maxScroll : 0;
-      currentContainer.style.setProperty('--about-scroll', progress.toFixed(4));
-    };
-
     const observer = new IntersectionObserver(
       (entries) => {
         entries.forEach((entry) => {
           if (entry.isIntersecting) {
             entry.target.classList.add('is-revealed');
+            observer.unobserve(entry.target);
           }
         });
       },
       {
         root: scrollParent,
-        rootMargin: '0px 0px 8% 0px',
-        threshold: 0.08,
+        rootMargin: '0px',
+        threshold: 0.02,
       }
     );
 
     revealElements.forEach((el) => observer.observe(el));
 
-    updateScrollProgress();
-    scrollParent?.addEventListener('scroll', updateScrollProgress, { passive: true });
-    window.addEventListener('resize', updateScrollProgress);
-
     return () => {
       observer.disconnect();
-      scrollParent?.removeEventListener('scroll', updateScrollProgress);
-      window.removeEventListener('resize', updateScrollProgress);
     };
   }, []);
 
+  const terminalRows = [
+    { label: 'LOCATION', value: personalInfo.location },
+    { label: 'STATUS', value: 'Open to product and engineering roles' },
+    { label: 'EDUCATION', value: `${personalInfo.department} · ${personalInfo.institution}` },
+    { label: 'GRAD', value: 'May 2029 (Expected)' },
+    { label: 'STACK', value: 'Next.js · React · FastAPI · Node.js · Firebase' },
+    { label: 'FOCUS', value: 'Student platforms · open source · applied AI' },
+  ];
+
+  const journeyItems = [
+    {
+      period: '2025–2029',
+      title: 'B.Tech in Computer Science & Engineering',
+      detail: `${personalInfo.institution} · CGPA ${personalInfo.cgpa}`,
+    },
+    ...achievementsData.map((item) => ({
+      period: item.title.includes('2026') || item.title.includes("'26") ? '2026' : 'BUILD LOG',
+      title: item.title,
+      detail: `${item.badge} · ${item.organization}. ${item.detail}`,
+    })),
+  ];
+
   return (
     <div ref={containerRef} className="about-v-container" id="about-page-view">
-      {/* Decorative ambient lighting - non-interactive depth layers */}
-      <div className="about-v-glow-top" aria-hidden="true" />
-      <div className="about-v-glow-bottom" aria-hidden="true" />
-
       <div className="about-v-content">
-        {/* ====================================================================
-            Hero Header & Expressive Headings (References A & B Inspired)
-            ==================================================================== */}
-        <header className="about-v-hero-header">
-          {/* Eyebrow metadata & Live status badge */}
-          <div className="about-v-eyebrow-row">
-            <div className="about-v-eyebrow-tag">
-              <span>{'//'}</span> 01 · VAIBHAV SINGH · FULL-STACK DEVELOPER
-            </div>
-
-            <div className="about-v-status-pill">
-              <span className="about-v-pulsing-dot" />
-              Available for product &amp; engineering roles
-            </div>
+        <section className="about-sheet about-sheet-profile" aria-labelledby="about-profile-title">
+          <div className="about-sheet-kicker about-v-reveal-item">
+            <span>01 — ABOUT</span>
+            <span className="about-v-status-pill"><span className="about-v-pulsing-dot" /> Open to engineering roles</span>
           </div>
 
-          {/* Oversized Mask-Revealed Headline */}
-          <h1 className="about-v-headline">
-            <span className="about-v-reveal-mask">
-              <span className="about-v-reveal-text" style={{ animationDelay: '0.14s' }}>
-                Crafting
-              </span>
-            </span>
-            <span className="about-v-reveal-mask">
-              <span className="about-v-reveal-text" style={{ animationDelay: '0.28s' }}>
-                <span className="about-v-gradient-accent">full-stack</span> solutions
-              </span>
-            </span>
-            <span className="about-v-reveal-mask">
-              <span className="about-v-reveal-text" style={{ animationDelay: '0.42s' }}>
-                for real users.
-              </span>
-            </span>
-          </h1>
-
-          {/* Subtitle / Executive Summary */}
-          <p className="about-v-hero-subtitle">
-            Full Stack Developer and Open Source Contributor pursuing B.Tech in Computer Science and Engineering at
-            Veer Bahadur Singh Purvanchal University. I enjoy building practical web products, clean interfaces,
-            and reliable backend systems that make real work easier for real people.
-          </p>
-        </header>
-
-        {/* ====================================================================
-            Section 02: Measurable Impact Metrics (Interactive Counter Cards)
-            ==================================================================== */}
-        <section className="about-v-section-block">
-          <div className="about-v-section-header about-v-reveal-item">
-            <span className="about-v-section-label">02 {'//'} IMPACT &amp; METRICS</span>
-            <span style={{ fontSize: '12px', color: 'rgba(255, 255, 255, 0.45)' }}>Verified Outcomes</span>
-          </div>
-
-          <div className="about-v-metrics-grid">
-            {impactMetrics.map((item) => (
-              <div
-                key={item.id}
-                className="about-v-glass-card about-v-reveal-item"
-              >
-                <div className="about-v-card-accent-bar" />
-                <div className="about-v-metric-value">{item.value}</div>
-                <div className="about-v-metric-label">{item.label}</div>
-                <div className="about-v-metric-sublabel">{item.sublabel}</div>
-              </div>
-            ))}
-          </div>
-        </section>
-
-        {/* ====================================================================
-            Section 03: Narrative Bio & Engineering Philosophy
-            ==================================================================== */}
-        <section className="about-v-section-block">
-          <div className="about-v-section-header about-v-reveal-item">
-            <span className="about-v-section-label">03 {'//'} BIOGRAPHY &amp; VISION</span>
-            <span style={{ fontSize: '12px', color: 'rgba(255, 255, 255, 0.45)' }}>In-Depth Background</span>
-          </div>
-
-          <div className="about-v-bio-lead-card about-v-reveal-item">
-            <div className="about-v-card-accent-bar" />
-            <h2 className="about-v-section-heading about-v-inline-heading">
-              My Background &amp; Engineering Philosophy
-            </h2>
-
-            {personalInfo.bioParagraphs.map((paragraph, index) => (
-              <p key={index} className="about-v-bio-paragraph">
-                {index === 0 && (
-                  <>
-                    Hi, I&apos;m <strong>{personalInfo.name}</strong>, a{' '}
-                    <span className="about-v-bio-highlight">Full Stack Developer</span> and{' '}
-                    <span className="about-v-bio-highlight">Open Source Contributor</span> pursuing B.Tech in Computer
-                    Science and Engineering at {personalInfo.institution} (<strong>CGPA {personalInfo.cgpa}</strong>).
-                  </>
-                )}
-                {index === 1 && (
-                  <>
-                    I enjoy turning product ideas into usable software—from responsive frontends and clean UI systems to
-                    backend APIs, database flows, and deployment workflows. My focus is on building maintainable systems
-                    that feel smooth for users and reliable for teams.
-                  </>
-                )}
-                {index === 2 && (
-                  <>
-                    I&apos;ve contributed to open-source work, student-first platforms, and practical projects that solve
-                    everyday problems. I&apos;m still learning and exploring AI-assisted workflows, but my core interest remains
-                    building solid software with thoughtful engineering and collaboration.
-                  </>
-                )}
-              </p>
-            ))}
-
-            <div className="about-v-bio-quote">
-              &ldquo;Great software isn&apos;t just about writing code that compiles—it&apos;s about designing resilient
-              systems that solve authentic user problems with speed, elegance, and zero friction.&rdquo;
-            </div>
-          </div>
-        </section>
-
-        {/* ====================================================================
-            Section 04: Academic Profile & University Rigor
-            ==================================================================== */}
-        <section className="about-v-section-block">
-          <div className="about-v-section-header about-v-reveal-item">
-            <span className="about-v-section-label">04 {'//'} ACADEMIC PROFILE</span>
-            <span style={{ fontSize: '12px', color: 'rgba(255, 255, 255, 0.45)' }}>Foundational CS</span>
-          </div>
-
-          <div className="about-v-academic-card about-v-reveal-item">
-            <div className="about-v-card-accent-bar" />
-            <div className="about-v-academic-header">
-              <div>
-                <h3 className="about-v-degree-title">
-                  Bachelor of Technology (B.Tech) — {personalInfo.department}
-                </h3>
-                <p className="about-v-institution-name">{personalInfo.institution}</p>
-              </div>
-
-              <div className="about-v-cgpa-badge">
-                CGPA: {personalInfo.cgpa} / 10.0
+          <div className="about-sheet-profile-grid">
+            <div className="about-sheet-story">
+              <h1 className="about-sheet-editorial-title" id="about-profile-title">
+                <span className="about-v-reveal-mask"><span className="about-v-reveal-text" style={{ animationDelay: '0.12s' }}>I don&apos;t just write code.</span></span>
+                <span className="about-v-reveal-mask"><span className="about-v-reveal-text" style={{ animationDelay: '0.26s' }}><span className="about-v-gradient-accent">I build systems</span></span></span>
+                <span className="about-v-reveal-mask"><span className="about-v-reveal-text" style={{ animationDelay: '0.4s' }}>that solve real problems.</span></span>
+              </h1>
+              <div className="about-sheet-story-copy">
+                <p className="about-sheet-prose about-v-reveal-item">
+                  I&apos;m {personalInfo.name}, a full-stack developer and open-source contributor studying Computer Science and Engineering at {personalInfo.institution}. I build with Next.js, React, FastAPI, Node.js, and Firebase.
+                </p>
+                <p className="about-sheet-prose about-v-reveal-item">
+                  My work centers on student-first platforms, dependable APIs, and interfaces that make complex tasks straightforward. I care about the system beneath the screen as much as the experience above it.
+                </p>
               </div>
             </div>
 
-            <div className="about-v-academic-meta">
-              Duration: Aug 2025 – May 2029 (Expected) • Full-Time Degree • Focus on Core Engineering &amp; Systems
-            </div>
-
-            <div>
-              <div style={{ fontSize: '12px', fontWeight: 600, color: 'rgba(255, 255, 255, 0.6)', marginBottom: '6px', textTransform: 'uppercase', letterSpacing: '0.05em' }}>
-                Key Coursework &amp; Theoretical Foundations:
+            <aside className="about-sheet-terminal about-v-reveal-item" aria-label="Profile details">
+              <div className="about-sheet-terminal-head">
+                <span className="about-sheet-terminal-dots" aria-hidden="true"><i /><i /><i /></span>
+                <span>vaibhav@portfolio ~ $ profile</span>
               </div>
-              <div className="about-v-coursework-tags">
-                {[
-                  'Data Structures & Algorithms',
-                  'Distributed Systems',
-                  'Object-Oriented Software Design',
-                  'Database Management (SQL/NoSQL)',
-                  'Web Architectures & Protocols',
-                  'Operating Systems',
-                  'Computer Networks',
-                ].map((course, idx) => (
-                  <span key={idx} className="about-v-course-tag">
-                    {course}
-                  </span>
+              <dl className="about-sheet-terminal-body">
+                {terminalRows.map((row) => (
+                  <div className="about-sheet-terminal-row" key={row.label}>
+                    <dt>{row.label}</dt>
+                    <dd>{row.value}</dd>
+                  </div>
                 ))}
-              </div>
-            </div>
+              </dl>
+            </aside>
           </div>
+
+          <div className="about-sheet-scroll-cue" aria-hidden="true"><span /> Scroll to explore</div>
         </section>
 
-        {/* ====================================================================
-            Section 05: Core Engineering Domains (Pillars)
-            ==================================================================== */}
-        <section className="about-v-section-block">
-          <div className="about-v-section-header about-v-reveal-item">
-            <span className="about-v-section-label">05 {'//'} CORE DISCIPLINES &amp; ARCHITECTURES</span>
-            <span style={{ fontSize: '12px', color: 'rgba(255, 255, 255, 0.45)' }}>Technical Focus</span>
+        <section className="about-sheet about-sheet-impact" aria-labelledby="about-impact-title">
+          <div className="about-sheet-section-intro about-v-reveal-item">
+            <span className="about-sheet-kicker-label">02 — MEASURED IMPACT</span>
+            <h2 className="about-sheet-section-title" id="about-impact-title">Work should leave <em>evidence.</em></h2>
           </div>
-
-          <div className="about-v-pillars-grid">
-            <div className="about-v-pillar-card about-v-reveal-item">
-              <div className="about-v-card-accent-bar" />
-              <div className="about-v-pillar-header">
-                <div className="about-v-pillar-icon">
-                  ⚡
-                </div>
-                <h3 className="about-v-pillar-title">
-                  Full Stack &amp; Next.js
-                </h3>
-              </div>
-              <p className="about-v-pillar-desc">
-                Architecting performant Next.js App Router applications with Server Actions, REST APIs, TypeScript, and fluid responsive design systems.
-              </p>
-            </div>
-
-            <div className="about-v-pillar-card about-v-reveal-item">
-              <div className="about-v-card-accent-bar" />
-              <div className="about-v-pillar-header">
-                <div className="about-v-pillar-icon">
-                  🌐
-                </div>
-                <h3 className="about-v-pillar-title">
-                  Open Source &amp; Systems
-                </h3>
-              </div>
-              <p className="about-v-pillar-desc">
-                Ranked Top 1% in nationwide open source (GSSoC), delivering modular, well-tested code with Git, CI/CD, and Agile team sprint leadership.
-              </p>
-            </div>
-
-            <div className="about-v-pillar-card about-v-reveal-item">
-              <div className="about-v-card-accent-bar" />
-              <div className="about-v-pillar-header">
-                <div className="about-v-pillar-icon">
-                  🧠
-                </div>
-                <h3 className="about-v-pillar-title">
-                  AI &amp; Product Thinking
-                </h3>
-              </div>
-              <p className="about-v-pillar-desc">
-                Exploring AI-assisted workflows and prototypes to improve developer productivity, while keeping the core user value, reliability, and usability front and center.
-              </p>
-            </div>
-          </div>
-        </section>
-
-        {/* ====================================================================
-            Section 06: Key Hackathons & Honors Preview
-            ==================================================================== */}
-        <section className="about-v-section-block">
-          <div className="about-v-section-header about-v-reveal-item">
-            <span className="about-v-section-label">06 {'//'} HONORS &amp; RECOGNITION</span>
-            <span style={{ fontSize: '12px', color: 'rgba(255, 255, 255, 0.45)' }}>Competitive Milestones</span>
-          </div>
-
-          <div className="about-v-honors-grid">
-            {achievementsData.map((item, idx) => (
-              <div
-                key={idx}
-                className="about-v-honor-card about-v-reveal-item"
-              >
-                <div className="about-v-card-accent-bar" />
-                <span className="about-v-honor-badge">{item.badge}</span>
-
-                <h4 className="about-v-honor-title">{item.title}</h4>
-                <div className="about-v-honor-org">{item.organization}</div>
-                <p className="about-v-honor-detail">{item.detail}</p>
-              </div>
+          <div className="about-sheet-impact-grid">
+            {impactMetrics.map((item) => (
+              <article className="about-sheet-impact-item about-v-reveal-item" key={item.id}>
+                <span className="about-sheet-impact-index">{item.id}</span>
+                <strong>{item.value}</strong>
+                <span className="about-sheet-impact-label">{item.label}</span>
+                <span className="about-sheet-impact-detail">{item.sublabel}</span>
+              </article>
             ))}
           </div>
+        </section>
+
+        <section className="about-sheet about-sheet-matrix" aria-labelledby="about-matrix-title">
+          <div className="about-sheet-section-intro about-v-reveal-item">
+            <span className="about-sheet-kicker-label">03 — SYSTEM INTELLIGENCE</span>
+            <h2 className="about-sheet-matrix-title" id="about-matrix-title">TECHNICAL<br />MATRIX<span>.</span></h2>
+            <p className="about-sheet-section-copy">The tools I use to move an idea from interface to production.</p>
+          </div>
+          <div className="about-sheet-matrix-grid">
+            {skillCategoriesData.map((category, index) => (
+              <article className="about-sheet-matrix-group about-v-reveal-item" key={category.categoryName}>
+                <span className="about-sheet-matrix-index">{String(index + 1).padStart(2, '0')}</span>
+                <h3>{category.categoryName}</h3>
+                <ul>
+                  {category.skills.map((skill) => (
+                    <li className={skill.highlight ? 'is-highlighted' : ''} key={skill.name}>{skill.name}</li>
+                  ))}
+                </ul>
+              </article>
+            ))}
+          </div>
+        </section>
+
+        <section className="about-sheet about-sheet-journey" aria-labelledby="about-journey-title">
+          <div className="about-sheet-section-intro about-v-reveal-item">
+            <span className="about-sheet-kicker-label">04 — THE JOURNEY</span>
+            <h2 className="about-sheet-matrix-title" id="about-journey-title">HOW I GOT<br />HERE<span>.</span></h2>
+          </div>
+          <div className="about-sheet-timeline">
+            {journeyItems.map((item, index) => (
+              <article className="about-sheet-timeline-item about-v-reveal-item" key={`${item.period}-${item.title}`}>
+                <span className="about-sheet-timeline-index">{String(index + 1).padStart(2, '0')}</span>
+                <span className="about-sheet-timeline-period">{item.period}</span>
+                <div>
+                  <h3>{item.title}</h3>
+                  <p>{item.detail}</p>
+                </div>
+              </article>
+            ))}
+          </div>
+        </section>
+
+        <section className="about-sheet about-sheet-closing" aria-labelledby="about-closing-title">
+          <span className="about-sheet-kicker-label about-v-reveal-item">05 — LET&apos;S TALK</span>
+          <h2 className="about-sheet-closing-title about-v-reveal-item" id="about-closing-title">LET&apos;S BUILD<br />SOMETHING <span>USEFUL.</span></h2>
+          <p className="about-sheet-closing-copy about-v-reveal-item">For thoughtful products, practical systems, and teams that care about the details.</p>
+          <a className="about-sheet-contact-link about-v-reveal-item" href={`mailto:${personalInfo.email}`}>Start a conversation <span aria-hidden="true">-&gt;</span></a>
         </section>
       </div>
     </div>
