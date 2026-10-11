@@ -1124,14 +1124,14 @@ body.light-theme .about-sheet-prose {
 }
 
 .about-sheet-terminal::after {
-  top: 12%;
-  right: 13%;
-  width: 34px;
-  height: 74%;
-  background: linear-gradient(180deg, transparent 0%, var(--about-accent) 35%, #f4ffd2 48%, var(--about-accent) 60%, transparent 100%);
-  clip-path: polygon(48% 0, 100% 0, 59% 43%, 89% 43%, 22% 100%, 42% 55%, 12% 55%);
-  filter: drop-shadow(0 0 8px var(--about-accent));
-  transform: translateY(-10px) scale(0.82);
+  top: 10px;
+  right: 12px;
+  width: 16px;
+  height: 22px;
+  background: var(--about-accent);
+  clip-path: polygon(55% 0, 100% 0, 65% 42%, 91% 42%, 25% 100%, 43% 57%, 9% 57%);
+  filter: drop-shadow(0 0 6px var(--about-accent));
+  transform: translateY(-4px) scale(0.82);
 }
 
 .about-sheet-terminal:hover {
