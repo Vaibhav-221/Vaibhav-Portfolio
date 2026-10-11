@@ -32,8 +32,8 @@ export default function AboutView() {
       },
       {
         root: scrollParent,
-        rootMargin: '0px 0px -42px 0px',
-        threshold: 0.12,
+        rootMargin: '0px 0px 8% 0px',
+        threshold: 0.08,
       }
     );
 
@@ -76,17 +76,17 @@ export default function AboutView() {
           {/* Oversized Mask-Revealed Headline */}
           <h1 className="about-v-headline">
             <span className="about-v-reveal-mask">
-              <span className="about-v-reveal-text" style={{ animationDelay: '0.08s' }}>
+              <span className="about-v-reveal-text" style={{ animationDelay: '0.14s' }}>
                 Crafting
               </span>
             </span>
             <span className="about-v-reveal-mask">
-              <span className="about-v-reveal-text" style={{ animationDelay: '0.2s' }}>
+              <span className="about-v-reveal-text" style={{ animationDelay: '0.28s' }}>
                 <span className="about-v-gradient-accent">full-stack</span> solutions
               </span>
             </span>
             <span className="about-v-reveal-mask">
-              <span className="about-v-reveal-text" style={{ animationDelay: '0.32s' }}>
+              <span className="about-v-reveal-text" style={{ animationDelay: '0.42s' }}>
                 for real users.
               </span>
             </span>

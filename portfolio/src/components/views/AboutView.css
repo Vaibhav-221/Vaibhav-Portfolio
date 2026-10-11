@@ -128,6 +128,7 @@ body.light-theme .about-v-glow-bottom {
   display: flex;
   align-items: center;
   gap: 8px;
+  animation: aboutMetaLift 0.6s cubic-bezier(0.22, 1, 0.36, 1) 0.04s both;
 }
 
 body.light-theme .about-v-eyebrow-tag {
@@ -148,6 +149,7 @@ body.light-theme .about-v-eyebrow-tag {
   letter-spacing: 0.02em;
   box-shadow: 0 0 16px rgba(217, 255, 102, 0.15);
   transition: transform 0.2s ease, box-shadow 0.2s ease;
+  animation: aboutMetaFade 0.55s ease 0.12s both;
 }
 
 body.light-theme .about-v-status-pill {
@@ -167,6 +169,26 @@ body.light-theme .about-v-status-pill {
   background-color: var(--about-accent);
   box-shadow: 0 0 10px var(--about-accent);
   animation: pulseGlow 2s infinite ease-in-out;
+}
+
+@keyframes aboutMetaLift {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes aboutMetaFade {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
 }
 
 @keyframes pulseGlow {
@@ -204,7 +226,7 @@ body.light-theme .about-v-headline {
 .about-v-reveal-text {
   display: inline-block;
   transform: translateY(115%);
-  animation: revealUp 0.85s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+  animation: revealUp 0.9s cubic-bezier(0.16, 1, 0.3, 1) forwards;
   will-change: transform;
 }
 
@@ -236,7 +258,7 @@ body.light-theme .about-v-gradient-accent {
   margin: 4px 0 0 0;
   max-width: 820px;
   font-weight: 400;
-  animation: fadeIn 0.9s ease 0.45s forwards;
+  animation: fadeIn 0.75s cubic-bezier(0.22, 1, 0.36, 1) 0.92s forwards;
   opacity: 0;
 }
 
@@ -765,6 +787,23 @@ body.light-theme .about-v-honor-detail {
   box-shadow: 0 14px 34px rgba(0, 0, 0, 0.3), 0 0 0 1px var(--about-accent-soft);
 }
 
+.about-v-glass-card,
+.about-v-bio-lead-card,
+.about-v-academic-card,
+.about-v-pillar-card,
+.about-v-honor-card {
+  transition: transform 0.28s cubic-bezier(0.22, 1, 0.36, 1), border-color 0.24s ease, box-shadow 0.28s ease;
+  transition-delay: 0ms;
+}
+
+.about-v-glass-card:hover,
+.about-v-bio-lead-card:hover,
+.about-v-academic-card:hover,
+.about-v-pillar-card:hover,
+.about-v-honor-card:hover {
+  transition-delay: 70ms;
+}
+
 body.light-theme .about-v-glass-card:hover,
 body.light-theme .about-v-bio-lead-card:hover,
 body.light-theme .about-v-academic-card:hover,
@@ -774,15 +813,18 @@ body.light-theme .about-v-honor-card:hover {
 }
 
 .about-v-bio-lead-card:hover .about-v-card-accent-bar,
-.about-v-academic-card:hover .about-v-card-accent-bar {
+.about-v-academic-card:hover .about-v-card-accent-bar,
+.about-v-glass-card:hover .about-v-card-accent-bar,
+.about-v-pillar-card:hover .about-v-card-accent-bar,
+.about-v-honor-card:hover .about-v-card-accent-bar {
   transform: scaleX(1);
+  transition-delay: 70ms;
 }
 
 /* ==========================================================================
    Reduced Motion Preferences
    ========================================================================== */
 @media (prefers-reduced-motion: reduce) {
-  .about-v-hero-subtitle,
   .about-v-pulsing-dot {
     animation: none !important;
     transition: none !important;
@@ -793,6 +835,24 @@ body.light-theme .about-v-honor-card:hover {
   .about-v-reveal-text {
     animation-name: aboutReducedFade !important;
     animation-duration: 0.45s !important;
+    animation-timing-function: ease !important;
+    animation-fill-mode: both !important;
+    transform: none !important;
+  }
+
+  .about-v-eyebrow-tag,
+  .about-v-status-pill {
+    animation-name: aboutReducedFade !important;
+    animation-duration: 0.3s !important;
+    animation-delay: 0s !important;
+    animation-fill-mode: both !important;
+    transform: none !important;
+  }
+
+  .about-v-hero-subtitle {
+    animation-name: aboutReducedFade !important;
+    animation-duration: 0.3s !important;
+    animation-delay: 0.62s !important;
     animation-timing-function: ease !important;
     animation-fill-mode: both !important;
     transform: none !important;
