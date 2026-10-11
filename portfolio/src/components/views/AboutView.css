@@ -756,12 +756,17 @@ body.light-theme .about-v-honor-detail {
   .about-v-reveal-text,
   .about-v-hero-subtitle,
   .about-v-pulsing-dot,
-  .about-v-reveal-item,
   .about-v-card-accent-bar {
     animation: none !important;
     transition: none !important;
     transform: none !important;
     opacity: 1 !important;
+  }
+
+  .about-v-reveal-item {
+    transform: none;
+    filter: none;
+    transition: opacity 0.25s ease;
   }
 }
 

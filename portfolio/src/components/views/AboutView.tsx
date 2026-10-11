@@ -22,13 +22,6 @@ export default function AboutView() {
       currentContainer.style.setProperty('--about-scroll', progress.toFixed(4));
     };
 
-    // If reduced motion is preferred, reveal all immediately
-    if (typeof window !== 'undefined' && window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
-      revealElements.forEach((el) => el.classList.add('is-revealed'));
-      updateScrollProgress();
-      return;
-    }
-
     const observer = new IntersectionObserver(
       (entries) => {
         entries.forEach((entry) => {
