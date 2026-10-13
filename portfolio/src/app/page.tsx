@@ -1,6 +1,7 @@
 'use client';
 
 import React, { useState, useEffect, useRef, useCallback } from 'react';
+import './HomeReveal.css';
 import { PageId, Wallpaper, AppWindow } from '@/types';
 import Lockscreen from '@/components/Lockscreen';
 import Menubar from '@/components/Menubar';
@@ -24,21 +25,28 @@ import ResumeView from '@/components/views/ResumeView';
 import ContactView from '@/components/views/ContactView';
 
 const defaultWallpapers: Wallpaper[] = [
-  { type: 'image', label: 'Default', value: '/assets/images/6fba6553c9606fe12ebdc15512e1c6da.jpg' },
-  { type: 'image', label: 'Batman', value: '/assets/images/BATMAN__.jfif' },
-  { type: 'image', label: 'Dark Scenery', value: '/assets/images/090846e8bea467388a24988b6239e86d.jpg' },
-  { type: 'image', label: '4K Space', value: '/assets/images/4K_WALLPAPER.jpg' },
-  { type: 'image', label: 'Aesthetic', value: '/assets/images/download.jfif' },
-  { type: 'original', label: 'Aurora' },
-  { type: 'gradient', label: 'Nebula', value: 'linear-gradient(135deg, #1a0040 0%, #6600cc 30%, #cc00aa 60%, #ff6600 100%)' },
-  { type: 'gradient', label: 'Sunset', value: 'linear-gradient(160deg, #0d0221 0%, #8b005d 30%, #e8003d 60%, #ff8c00 85%, #ffd000 100%)' },
-  { type: 'gradient', label: 'Ocean', value: 'linear-gradient(160deg, #000428 0%, #004e92 40%, #009fff 75%, #00e4ff 100%)' },
-  { type: 'gradient', label: 'Forest', value: 'linear-gradient(160deg, #0a1a00 0%, #1a5c00 35%, #00aa44 65%, #00ff99 100%)' },
-  { type: 'gradient', label: 'Candy', value: 'linear-gradient(135deg, #fc466b 0%, #3f5efb 50%, #00d2ff 100%)' },
-  { type: 'gradient', label: 'Volcano', value: 'linear-gradient(160deg, #0d0000 0%, #7a0000 30%, #cc2200 55%, #ff6600 75%, #ffcc00 100%)' },
-  { type: 'gradient', label: 'Galaxy', value: 'linear-gradient(135deg, #020024 0%, #090979 40%, #00d4ff 100%)' },
-  { type: 'gradient', label: 'Rose', value: 'linear-gradient(135deg, #1a0010 0%, #880055 40%, #ff0088 70%, #ffaacc 100%)' },
-  { type: 'gradient', label: 'Arctic', value: 'linear-gradient(160deg, #000d1a 0%, #002244 35%, #0066cc 65%, #66ccff 100%)' },
+  { type: 'image', label: 'Default', value: '/assets/wallpapers/Default.jpg', thumbnail: '/assets/wallpapers/Default.jpg' },
+  { type: 'image', label: 'Andrew Kliatskyi', value: '/assets/wallpapers/andrew-kliatskyi.jpg', thumbnail: '/assets/wallpapers/thumbs/andrew-kliatskyi.jpg' },
+  { type: 'image', label: 'Wallpaper 02', value: '/assets/wallpapers/download-1.jpg', thumbnail: '/assets/wallpapers/thumbs/download-1.jpg' },
+  { type: 'image', label: 'Wallpaper 03', value: '/assets/wallpapers/download-2.jpg', thumbnail: '/assets/wallpapers/thumbs/download-2.jpg' },
+  { type: 'image', label: 'Fabric Ribbon', value: '/assets/wallpapers/fabric-ribbon.png', thumbnail: '/assets/wallpapers/thumbs/fabric-ribbon.jpg' },
+  { type: 'image', label: 'Ilgmyzin', value: '/assets/wallpapers/ilgmyzin-unsplash.jpg', thumbnail: '/assets/wallpapers/thumbs/ilgmyzin-unsplash.jpg' },
+  { type: 'image', label: 'iPadOS Colorful', value: '/assets/wallpapers/ipados-colorful.jpg', thumbnail: '/assets/wallpapers/thumbs/ipados-colorful.jpg' },
+  { type: 'image', label: 'iPadOS Grey', value: '/assets/wallpapers/ipados-grey.jpg', thumbnail: '/assets/wallpapers/thumbs/ipados-grey.jpg' },
+  { type: 'image', label: 'Enric Cruz Lopez', value: '/assets/wallpapers/pexels-enric-6039245.jpg', thumbnail: '/assets/wallpapers/thumbs/pexels-enric-6039245.jpg' },
+  { type: 'image', label: 'Francesco Ungaro', value: '/assets/wallpapers/pexels-francesco-12357271.jpg', thumbnail: '/assets/wallpapers/thumbs/pexels-francesco-12357271.jpg' },
+  { type: 'image', label: 'JCosta', value: '/assets/wallpapers/pexels-jcosta-14011476.jpg', thumbnail: '/assets/wallpapers/thumbs/pexels-jcosta-14011476.jpg' },
+  { type: 'image', label: 'Kechno Studio', value: '/assets/wallpapers/pexels-kechno-38615169.jpg', thumbnail: '/assets/wallpapers/thumbs/pexels-kechno-38615169.jpg' },
+  { type: 'image', label: 'Steve', value: '/assets/wallpapers/pexels-steve-30925664.jpg', thumbnail: '/assets/wallpapers/thumbs/pexels-steve-30925664.jpg' },
+  { type: 'image', label: 'Stywo', value: '/assets/wallpapers/pexels-stywo-1054222.jpg', thumbnail: '/assets/wallpapers/thumbs/pexels-stywo-1054222.jpg' },
+  { type: 'image', label: 'Vincentfotos', value: '/assets/wallpapers/pexels-vincentfotos-28947201.jpg', thumbnail: '/assets/wallpapers/thumbs/pexels-vincentfotos-28947201.jpg' },
+  { type: 'image', label: 'Purple Abstract', value: '/assets/wallpapers/purple-abstract.jpg', thumbnail: '/assets/wallpapers/thumbs/purple-abstract.jpg' },
+  { type: 'image', label: 'Sunset Colorful', value: '/assets/wallpapers/sunset-colorful.jpg', thumbnail: '/assets/wallpapers/thumbs/sunset-colorful.jpg' },
+  { type: 'image', label: 'Vivo X Fold', value: '/assets/wallpapers/vivo-x-fold.jpg', thumbnail: '/assets/wallpapers/thumbs/vivo-x-fold.jpg' },
+  { type: 'image', label: 'Windows 11 50th', value: '/assets/wallpapers/windows-11-50th.jpg', thumbnail: '/assets/wallpapers/thumbs/windows-11-50th.jpg' },
+  { type: 'image', label: 'Windows 11 Abstract', value: '/assets/wallpapers/windows-11-abstract.jpg', thumbnail: '/assets/wallpapers/thumbs/windows-11-abstract.jpg' },
+  { type: 'image', label: 'Windows 11 Light', value: '/assets/wallpapers/windows-11-stock-light.jpg', thumbnail: '/assets/wallpapers/thumbs/windows-11-stock-light.jpg' },
+  { type: 'image', label: 'Xiaomi 18 Fold', value: '/assets/wallpapers/xiaomi-18-fold.jpg', thumbnail: '/assets/wallpapers/thumbs/xiaomi-18-fold.jpg' },
 ];
 
 export default function HomePage() {
@@ -46,6 +54,7 @@ export default function HomePage() {
   const [currentPage, setCurrentPage] = useState<PageId>('home');
   const [wallpapers, setWallpapers] = useState<Wallpaper[]>(defaultWallpapers);
   const [activeWpIndex, setActiveWpIndex] = useState(0);
+  const [isLightTheme, setIsLightTheme] = useState(false);
   const [isWpPickerOpen, setIsWpPickerOpen] = useState(false);
   const [isSpotlightOpen, setIsSpotlightOpen] = useState(false);
   const [isControlCenterOpen, setIsControlCenterOpen] = useState(false);
@@ -107,23 +116,31 @@ export default function HomePage() {
     img.src = url;
   }, []);
 
-  const applyWallpaper = useCallback((index: number) => {
-    setActiveWpIndex(index);
-    const wp = wallpapers[index];
-    if (wp?.type === 'image' && wp.value) {
-      checkBrightness(wp.value, (isLight) => {
-        if (isLight) document.body.classList.add('light-theme');
-        else document.body.classList.remove('light-theme');
+  const applyWallpaperAppearance = useCallback((wallpaper?: Wallpaper) => {
+    if (wallpaper?.type === 'image' && wallpaper.value) {
+      checkBrightness(wallpaper.value, (isLight) => {
+        document.body.classList.toggle('light-theme', isLight);
+        setIsLightTheme(isLight);
       });
     } else {
       document.body.classList.remove('light-theme');
+      setIsLightTheme(false);
     }
-  }, [wallpapers, checkBrightness]);
+  }, [checkBrightness]);
+
+  const applyWallpaper = useCallback((index: number) => {
+    setActiveWpIndex(index);
+    applyWallpaperAppearance(wallpapers[index]);
+  }, [wallpapers, applyWallpaperAppearance]);
 
   // Handle page navigation
   const navigateTo = (page: PageId) => {
     setCurrentPage(page);
     setIsNavHidden(false);
+    setWindows([]);
+    setIsWpPickerOpen(false);
+    setIsSpotlightOpen(false);
+    setIsControlCenterOpen(false);
     if (page === 'home') {
       document.body.classList.remove('page-active');
     } else {
@@ -169,6 +186,8 @@ export default function HomePage() {
 
   // Window Manager operations
   const openApp = (name: string, url: string, isApp?: 'apple-music' | 'iframe') => {
+    setIsWpPickerOpen(false);
+    setIsControlCenterOpen(false);
     const id = name.replace(/\s+/g, '-').toLowerCase();
     const existing = windows.find((w) => w.id === id);
 
@@ -197,6 +216,18 @@ export default function HomePage() {
     setWindows((prev) => prev.filter((w) => w.id !== id));
   };
 
+  const toggleAppleMusic = () => {
+    setIsWpPickerOpen(false);
+    setIsSpotlightOpen(false);
+    setIsControlCenterOpen(false);
+    const existing = windows.find((win) => win.id === 'apple-music');
+    if (existing && !existing.minimized) {
+      closeWindow(existing.id);
+      return;
+    }
+    openApp('Apple Music', '', 'apple-music');
+  };
+
   const minimizeWindow = (id: string) => {
     setWindows((prev) =>
       prev.map((w) => (w.id === id ? { ...w, minimized: true } : w))
@@ -220,11 +251,23 @@ export default function HomePage() {
     const url = URL.createObjectURL(file);
     const newWp: Wallpaper = { type: 'image', label: file.name, value: url };
     setWallpapers((prev) => [...prev, newWp]);
-    applyWallpaper(wallpapers.length);
+    setActiveWpIndex(wallpapers.length);
+    applyWallpaperAppearance(newWp);
   };
 
   const toggleTheme = () => {
-    document.body.classList.toggle('light-theme');
+    const nextIsLight = !document.body.classList.contains('light-theme');
+    document.body.classList.toggle('light-theme', nextIsLight);
+    setIsLightTheme(nextIsLight);
+  };
+
+  const toggleWallpaperPicker = () => {
+    if (!isWpPickerOpen) {
+      setWindows((prev) => prev.filter((win) => win.id !== 'apple-music'));
+      setIsSpotlightOpen(false);
+      setIsControlCenterOpen(false);
+    }
+    setIsWpPickerOpen((open) => !open);
   };
 
   const activeWp = wallpapers[activeWpIndex] || wallpapers[0];
@@ -236,7 +279,7 @@ export default function HomePage() {
 
       {/* macOS Desktop */}
       <div
-        className="desktop"
+        className={`desktop${unlocked && currentPage === 'home' ? ' is-unlocked' : ''}`}
         style={{
           background:
             activeWp.type === 'image' && activeWp.value
@@ -334,9 +377,11 @@ export default function HomePage() {
 
         {/* Bottom Dock & Bar */}
         <Dock
+          currentPage={currentPage}
           onNavigate={navigateTo}
           onOpenApp={openApp}
-          onToggleWallpaperPicker={() => setIsWpPickerOpen(!isWpPickerOpen)}
+          onToggleAppleMusic={toggleAppleMusic}
+          onToggleWallpaperPicker={toggleWallpaperPicker}
         />
 
         {/* Draggable Window Manager */}
@@ -365,6 +410,7 @@ export default function HomePage() {
         {/* Wallpaper Picker */}
         <WallpaperPicker
           isOpen={isWpPickerOpen}
+          isLightTheme={isLightTheme}
           onClose={() => setIsWpPickerOpen(false)}
           wallpapers={wallpapers}
           activeWpIndex={activeWpIndex}

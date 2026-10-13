@@ -1,0 +1,541 @@
+.lockscreen .ls-bg {
+  position: absolute;
+  z-index: -2;
+  inset: 0;
+  background-image:
+    linear-gradient(90deg, rgba(4, 7, 11, 0.9) 0%, rgba(4, 7, 11, 0.68) 48%, rgba(4, 7, 11, 0.34) 100%),
+    url('/assets/wallpapers/Default.jpg');
+  background-position: center;
+  background-size: cover;
+  animation: lockscreen-wallpaper-drift 28s ease-in-out infinite alternate;
+}
+
+.lockscreen .ls-bg::after {
+  position: absolute;
+  inset: 0;
+  background-image: linear-gradient(rgba(255, 255, 255, 0.035) 1px, transparent 1px), linear-gradient(90deg, rgba(255, 255, 255, 0.035) 1px, transparent 1px);
+  background-size: 52px 52px;
+  content: '';
+  mask-image: linear-gradient(90deg, #000, transparent 78%);
+}
+
+body.light-theme .lockscreen .ls-bg {
+  opacity: 0.52;
+  background-image:
+    linear-gradient(90deg, rgba(242, 247, 240, 0.94) 0%, rgba(242, 247, 240, 0.82) 48%, rgba(242, 247, 240, 0.5) 100%),
+    url('/assets/wallpapers/Default.jpg');
+}
+
+.lockscreen .ls-topline,
+.lockscreen .ls-brand,
+.lockscreen .ls-open-state,
+.lockscreen .ls-footer,
+.lockscreen .ls-footer-note,
+.lockscreen .ls-enter-button,
+.lockscreen .ls-enter-icon {
+  display: flex;
+  align-items: center;
+}
+
+.lockscreen .ls-topline {
+  position: relative;
+  z-index: 1;
+  width: min(100%, 1440px);
+  justify-content: space-between;
+  gap: 20px;
+}
+
+.lockscreen .ls-brand {
+  gap: 12px;
+  color: var(--ls-ink);
+  font: 600 11px/1.2 var(--font-oswald), sans-serif;
+  letter-spacing: 0.08em;
+}
+
+.lockscreen .ls-brand i,
+.lockscreen .ls-label i {
+  color: var(--ls-accent);
+  font-style: normal;
+}
+
+.lockscreen .ls-brand-mark {
+  display: grid;
+  width: 34px;
+  height: 34px;
+  flex: 0 0 auto;
+  place-items: center;
+  border: 1px solid color-mix(in srgb, var(--ls-accent) 52%, transparent);
+  border-radius: 50%;
+  color: var(--ls-accent);
+  font: 600 14px/1 var(--font-oswald), sans-serif;
+  letter-spacing: 0;
+}
+
+.lockscreen .ls-open-state {
+  gap: 8px;
+  color: var(--ls-muted);
+  font: 500 10px/1.2 ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+  letter-spacing: 0.08em;
+}
+
+.lockscreen .ls-open-state i {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: var(--ls-accent);
+  box-shadow: 0 0 12px color-mix(in srgb, var(--ls-accent) 66%, transparent);
+}
+
+.lockscreen .ls-main {
+  position: relative;
+  z-index: 1;
+  display: grid;
+  width: min(100%, 1440px);
+  grid-template-columns: minmax(190px, 0.62fr) minmax(0, 1.8fr);
+  align-items: center;
+  gap: clamp(38px, 8vw, 128px);
+  margin: auto 0;
+  padding: clamp(28px, 5vh, 58px) 0;
+  animation: lockscreen-content-in 800ms cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+.lockscreen .ls-clock-block {
+  display: grid;
+  justify-items: start;
+  padding: 14px 0 14px 22px;
+  border-left: 1px solid color-mix(in srgb, var(--ls-accent) 55%, transparent);
+}
+
+.lockscreen .ls-label {
+  color: var(--ls-muted);
+  font: 500 10px/1.4 ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+  letter-spacing: 0.08em;
+}
+
+.lockscreen .ls-clock {
+  color: var(--ls-ink);
+  font: 500 clamp(54px, 7vw, 88px)/0.95 var(--font-oswald), sans-serif;
+  font-variant-numeric: tabular-nums;
+  letter-spacing: 0;
+  text-shadow: 0 8px 30px rgba(0, 0, 0, 0.18);
+}
+
+.lockscreen .ls-day {
+  margin-top: 9px;
+  color: var(--ls-ink);
+  font: 400 16px/1.3 var(--font-oswald), sans-serif;
+}
+
+.lockscreen .ls-clock-rule {
+  width: 74px;
+  height: 1px;
+  margin: 20px 0 12px;
+  background: color-mix(in srgb, var(--ls-accent) 65%, transparent);
+}
+
+.lockscreen .ls-clock-note {
+  color: var(--ls-muted);
+  font: 500 9px/1.4 ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+  letter-spacing: 0.08em;
+}
+
+.lockscreen .ls-identity {
+  min-width: 0;
+  max-width: 930px;
+}
+
+.lockscreen .ls-identity > .ls-label {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: clamp(16px, 3vh, 28px);
+}
+
+.lockscreen .ls-name {
+  margin: 0;
+  color: var(--ls-ink);
+  font: 600 clamp(66px, 12vw, 168px)/0.86 var(--font-oswald), sans-serif;
+  letter-spacing: 0;
+  text-transform: uppercase;
+  text-wrap: balance;
+}
+
+.lockscreen .ls-name span,
+.lockscreen .ls-name b {
+  color: var(--ls-accent);
+}
+
+.lockscreen .ls-name b {
+  font-weight: inherit;
+}
+
+.lockscreen .ls-description {
+  max-width: 440px;
+  margin: clamp(20px, 3vh, 30px) 0 0;
+  color: var(--ls-muted);
+  font-size: clamp(14px, 1.4vw, 17px);
+  line-height: 1.65;
+}
+
+.lockscreen .ls-specialisms {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: 22px;
+}
+
+.lockscreen .ls-specialisms span {
+  padding: 7px 9px;
+  border: 1px solid color-mix(in srgb, var(--ls-ink) 17%, transparent);
+  border-radius: 4px;
+  color: var(--ls-ink);
+  font: 500 9px/1.3 ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+}
+
+.lockscreen .ls-footer {
+  position: relative;
+  z-index: 1;
+  width: min(100%, 1440px);
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 20px;
+  animation: lockscreen-content-in 800ms 120ms cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+.lockscreen .ls-enter-button {
+  appearance: none;
+  min-width: min(100%, 310px);
+  min-height: 64px;
+  gap: 13px;
+  padding: 9px 13px;
+  border: 1px solid color-mix(in srgb, var(--ls-ink) 22%, transparent);
+  border-radius: 8px;
+  background: var(--ls-panel);
+  color: var(--ls-ink);
+  font: inherit;
+  text-align: left;
+  cursor: pointer;
+  backdrop-filter: blur(18px) saturate(140%);
+  -webkit-backdrop-filter: blur(18px) saturate(140%);
+  transition: transform 180ms ease, border-color 180ms ease, background-color 180ms ease;
+}
+
+.lockscreen .ls-enter-button:hover {
+  transform: translateY(-3px);
+  border-color: color-mix(in srgb, var(--ls-accent) 62%, transparent);
+}
+
+.lockscreen .ls-enter-button:active {
+  transform: scale(0.97);
+}
+
+.lockscreen .ls-enter-button:focus-visible {
+  outline: 2px solid var(--ls-accent);
+  outline-offset: 4px;
+}
+
+.lockscreen .ls-enter-icon {
+  width: 42px;
+  height: 42px;
+  flex: 0 0 auto;
+  justify-content: center;
+  border-radius: 6px;
+  background: var(--ls-accent);
+  color: color-mix(in srgb, var(--ls-accent) 10%, #10140d);
+}
+
+.lockscreen .ls-enter-icon svg {
+  width: 21px;
+  height: 21px;
+  transition: transform 180ms ease;
+}
+
+.lockscreen .ls-enter-button:hover .ls-enter-icon svg {
+  transform: translateY(-2px);
+}
+
+.lockscreen .ls-enter-copy {
+  display: grid;
+  min-width: 0;
+  gap: 3px;
+}
+
+.lockscreen .ls-enter-copy strong {
+  font-size: 13px;
+  font-weight: 650;
+}
+
+.lockscreen .ls-enter-copy small {
+  color: var(--ls-muted);
+  font-size: 10px;
+  line-height: 1.4;
+}
+
+.lockscreen .ls-enter-key {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  margin-left: auto;
+  color: var(--ls-muted);
+  font: 500 9px/1 ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+  white-space: nowrap;
+}
+
+.lockscreen .ls-enter-key i {
+  color: var(--ls-accent);
+  font-size: 13px;
+  font-style: normal;
+}
+
+.lockscreen .ls-footer-note {
+  justify-content: flex-end;
+  gap: clamp(14px, 3vw, 42px);
+  padding-bottom: 6px;
+  color: var(--ls-muted);
+  font: 500 9px/1.4 ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+  letter-spacing: 0.06em;
+  text-align: right;
+}
+
+@keyframes lockscreen-content-in {
+  from { opacity: 0; transform: translateY(18px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes lockscreen-wallpaper-drift {
+  from { transform: scale(1); }
+  to { transform: scale(1.045); }
+}
+
+@media (max-width: 760px) {
+  .lockscreen {
+    align-items: stretch;
+    padding: calc(env(safe-area-inset-top, 0px) + 24px) 22px calc(env(safe-area-inset-bottom, 0px) + 22px);
+  }
+
+  .lockscreen .ls-bg {
+    background-position: 58% center;
+    background-image:
+      linear-gradient(180deg, rgba(4, 7, 11, 0.5) 0%, rgba(4, 7, 11, 0.74) 48%, rgba(4, 7, 11, 0.92) 100%),
+      url('/assets/wallpapers/Default.jpg');
+  }
+
+  body.light-theme .lockscreen .ls-bg {
+    background-image:
+      linear-gradient(180deg, rgba(242, 247, 240, 0.54) 0%, rgba(242, 247, 240, 0.8) 52%, rgba(242, 247, 240, 0.94) 100%),
+      url('/assets/wallpapers/Default.jpg');
+  }
+
+  .lockscreen .ls-topline {
+    align-items: flex-start;
+  }
+
+  .lockscreen .ls-brand {
+    gap: 9px;
+    font-size: 9px;
+  }
+
+  .lockscreen .ls-brand-mark {
+    width: 30px;
+    height: 30px;
+  }
+
+  .lockscreen .ls-open-state {
+    gap: 6px;
+    padding-top: 8px;
+    font-size: 8px;
+  }
+
+  .lockscreen .ls-main {
+    grid-template-columns: minmax(0, 1fr);
+    align-content: center;
+    gap: clamp(28px, 7vh, 54px);
+    margin: auto 0;
+    padding: 34px 0;
+  }
+
+  .lockscreen .ls-clock-block {
+    grid-template-columns: auto 1fr;
+    align-items: end;
+    justify-items: start;
+    column-gap: 14px;
+    padding: 0 0 0 14px;
+  }
+
+  .lockscreen .ls-clock-block .ls-label,
+  .lockscreen .ls-clock-block .ls-clock-note {
+    grid-column: 1 / -1;
+  }
+
+  .lockscreen .ls-clock-block .ls-label {
+    margin-bottom: 5px;
+  }
+
+  .lockscreen .ls-clock {
+    font-size: clamp(50px, 15vw, 72px);
+  }
+
+  .lockscreen .ls-day {
+    margin: 0 0 7px;
+    font-size: 15px;
+  }
+
+  .lockscreen .ls-clock-rule {
+    display: none;
+  }
+
+  .lockscreen .ls-clock-note {
+    margin-top: 4px;
+  }
+
+  .lockscreen .ls-identity > .ls-label {
+    margin-bottom: 16px;
+    font-size: 9px;
+  }
+
+  .lockscreen .ls-name {
+    font-size: clamp(64px, 17vw, 104px);
+  }
+
+  .lockscreen .ls-description {
+    max-width: 320px;
+    margin-top: 18px;
+    font-size: 14px;
+  }
+
+  .lockscreen .ls-specialisms {
+    gap: 6px;
+    margin-top: 16px;
+  }
+
+  .lockscreen .ls-specialisms span {
+    padding: 6px 7px;
+    font-size: 8px;
+  }
+
+  .lockscreen .ls-footer {
+    align-items: stretch;
+    flex-direction: column;
+    gap: 16px;
+  }
+
+  .lockscreen .ls-enter-button {
+    width: 100%;
+    min-width: 0;
+    min-height: 60px;
+    gap: 10px;
+    padding: 8px;
+  }
+
+  .lockscreen .ls-enter-icon {
+    width: 40px;
+    height: 40px;
+  }
+
+  .lockscreen .ls-enter-copy strong {
+    font-size: 12px;
+  }
+
+  .lockscreen .ls-enter-copy small {
+    font-size: 9px;
+  }
+
+  .lockscreen .ls-enter-key {
+    font-size: 8px;
+  }
+
+  .lockscreen .ls-footer-note {
+    justify-content: space-between;
+    gap: 10px;
+    font-size: 8px;
+  }
+}
+
+@media (max-width: 360px) {
+  .lockscreen {
+    padding-right: 16px;
+    padding-left: 16px;
+  }
+
+  .lockscreen .ls-enter-key {
+    display: none;
+  }
+
+  .lockscreen .ls-specialisms span {
+    font-size: 7px;
+  }
+}
+
+@media (max-height: 680px) and (max-width: 760px) {
+  .lockscreen {
+    padding-top: calc(env(safe-area-inset-top, 0px) + 14px);
+    padding-bottom: calc(env(safe-area-inset-bottom, 0px) + 14px);
+  }
+
+  .lockscreen .ls-main {
+    gap: 18px;
+    padding: 14px 0;
+  }
+
+  .lockscreen .ls-clock-block {
+    padding-top: 0;
+    padding-bottom: 0;
+  }
+
+  .lockscreen .ls-identity > .ls-label {
+    margin-bottom: 10px;
+  }
+
+  .lockscreen .ls-description {
+    margin-top: 12px;
+  }
+
+  .lockscreen .ls-specialisms {
+    margin-top: 11px;
+  }
+
+  .lockscreen .ls-footer {
+    gap: 10px;
+  }
+
+  .lockscreen .ls-footer-note {
+    padding-bottom: 0;
+  }
+}
+
+@media (max-height: 640px) and (min-width: 761px) {
+  .lockscreen {
+    padding-top: 22px;
+    padding-bottom: 20px;
+  }
+
+  .lockscreen .ls-main {
+    gap: 42px;
+    padding: 18px 0;
+  }
+
+  .lockscreen .ls-name {
+    font-size: clamp(62px, 9vw, 112px);
+  }
+
+  .lockscreen .ls-description {
+    margin-top: 14px;
+  }
+
+  .lockscreen .ls-specialisms {
+    margin-top: 12px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .lockscreen,
+  .lockscreen .ls-bg,
+  .lockscreen .ls-main,
+  .lockscreen .ls-footer,
+  .lockscreen .ls-enter-button,
+  .lockscreen .ls-enter-icon svg {
+    animation: none;
+    transition-duration: 0.01ms !important;
+    transition-delay: 0ms !important;
+  }
+}

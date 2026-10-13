@@ -2,6 +2,7 @@
 
 import React, { useEffect, useRef } from 'react';
 import { personalInfo, impactMetrics, achievementsData, skillCategoriesData } from '@/data/portfolioData';
+import PageIcon from '@/components/PageIcon';
 import './AboutView.css';
 
 export default function AboutView() {
@@ -97,7 +98,7 @@ export default function AboutView() {
       <div className="about-v-content">
         <section className="about-sheet about-sheet-profile" aria-labelledby="about-profile-title">
           <div className="about-sheet-kicker about-v-reveal-item">
-            <span>01 — ABOUT</span>
+            <span className="about-sheet-about-heading"><PageIcon page="about" /> 01 — ABOUT</span>
             <span className="about-v-status-pill"><span className="about-v-pulsing-dot" /> Open to engineering roles</span>
           </div>
 

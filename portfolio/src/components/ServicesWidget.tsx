@@ -31,7 +31,7 @@ export default function ServicesWidget() {
         </div>
         <div className="service-text">
           <h4>Full Stack Engineering</h4>
-          <p>Production-ready web apps with Next.js, React, Node.js, FastAPI &amp; Tailwind CSS.</p>
+          <p>Production-ready web apps with Next.js, React, Node.js &amp; Tailwind CSS.</p>
         </div>
       </div>
 
@@ -50,17 +50,6 @@ export default function ServicesWidget() {
         </div>
       </div>
 
-      <div className="service-item">
-        <div className="service-icon" style={{ color: 'var(--portfolio-accent)' }}>
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-            <path d="M12 2v4M12 18v4M4.93 4.93l2.83 2.83M16.24 16.24l2.83 2.83M2 12h4M18 12h4M4.93 19.07l2.83-2.83M16.24 7.76l2.83-2.83" />
-          </svg>
-        </div>
-        <div className="service-text">
-          <h4>AI Integrations &amp; Cloud</h4>
-          <p>RAG pipelines, Gemini API, LangChain, ChromaDB vector search &amp; Firestore.</p>
-        </div>
-      </div>
     </div>
   );
 }

@@ -58,11 +58,13 @@ export default function GeminiChatbot() {
     setMessages(newDisplayMessages);
     setInputValue('');
     setIsLoading(true);
+    const controller = new AbortController();
+    const requestTimeout = window.setTimeout(() => controller.abort(), 30000);
 
     try {
-      // Build bounded conversation payload (only user & assistant messages, exclude welcome if empty)
+      // The welcome bubble is presentation only, not part of the model conversation.
       const chatPayload: ChatMessage[] = newDisplayMessages
-        .filter((m) => !m.isError)
+        .filter((m) => !m.isError && m.id !== 'welcome-msg')
         .map((m) => ({
           role: m.role,
           content: m.content,
@@ -72,6 +74,7 @@ export default function GeminiChatbot() {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ messages: chatPayload }),
+        signal: controller.signal,
       });
 
       const data = await res.json();
@@ -89,7 +92,11 @@ export default function GeminiChatbot() {
         },
       ]);
     } catch (err: unknown) {
-      const errMsg = err instanceof Error ? err.message : 'An error occurred.';
+      const errMsg = err instanceof Error && err.name === 'AbortError'
+        ? 'The response took too long. Please try again.'
+        : err instanceof Error
+        ? err.message
+        : 'An error occurred.';
       setErrorState(errMsg);
       setMessages((prev) => [
         ...prev,
@@ -101,6 +108,7 @@ export default function GeminiChatbot() {
         },
       ]);
     } finally {
+      window.clearTimeout(requestTimeout);
       setIsLoading(false);
       setTimeout(() => inputRef.current?.focus(), 100);
     }
@@ -255,52 +263,12 @@ export default function GeminiChatbot() {
           minWidth: 0,
         }}
       >
-        <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
-          {/* macOS window dots */}
-          <div style={{ display: 'flex', gap: '5px' }}>
-            <span style={{ width: '9px', height: '9px', borderRadius: '50%', background: '#ff5f56', display: 'inline-block' }} />
-            <span style={{ width: '9px', height: '9px', borderRadius: '50%', background: '#ffbd2e', display: 'inline-block' }} />
-            <span style={{ width: '9px', height: '9px', borderRadius: '50%', background: '#27c93f', display: 'inline-block' }} />
-          </div>
-
-          <div style={{ marginLeft: '6px', display: 'flex', alignItems: 'center', gap: '6px' }}>
-            <span style={{ fontSize: '13px', fontWeight: 600, color: 'var(--text-main)', letterSpacing: '0.3px' }}>
-              Vaibhav AI
-            </span>
-            <span
-              style={{
-                fontSize: '10px',
-                fontWeight: 600,
-                color: 'var(--portfolio-accent)',
-                background: 'var(--portfolio-accent-soft)',
-                border: '1px solid var(--portfolio-accent-border)',
-                padding: '1px 6px',
-                borderRadius: '6px',
-              }}
-            >
-              Gemini 3.8 Flash
-            </span>
-          </div>
+        <div className="gemini-chatbot-title">
+          <span className="gemini-chatbot-mark" aria-hidden="true">V</span>
+          <span>Vaibhav AI</span>
         </div>
 
-        {/* Right Status + Reset Action */}
-        <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
-          <div style={{ display: 'flex', alignItems: 'center', gap: '5px' }}>
-            <span
-              style={{
-                width: '7px',
-                height: '7px',
-                borderRadius: '50%',
-                background: 'var(--portfolio-accent)',
-                boxShadow: '0 0 6px var(--portfolio-accent)',
-                display: 'inline-block',
-              }}
-            />
-            <span style={{ fontSize: '11px', color: 'rgba(255, 255, 255, 0.65)', fontWeight: 500 }}>
-              Live Grounded
-            </span>
-          </div>
-
+        <div className="gemini-chatbot-controls">
           <button
             onClick={handleResetChat}
             title="Reset conversation"
@@ -331,6 +299,10 @@ export default function GeminiChatbot() {
       {/* Messages Scrollable Container */}
       <div
         className="gemini-chat-messages"
+        role="log"
+        aria-label="Conversation"
+        aria-live="polite"
+        aria-busy={isLoading}
         style={{
           flex: 1,
           overflowY: 'auto',
@@ -350,7 +322,7 @@ export default function GeminiChatbot() {
           return (
             <div
               key={msg.id}
-                className={`gemini-message-bubble ${isUser ? 'is-user' : ''} ${msg.isError ? 'is-error' : ''}`}
+              className={`gemini-message-row ${isUser ? 'is-user-row' : ''}`}
               style={{
                 display: 'flex',
                 justifyContent: isUser ? 'flex-end' : 'flex-start',
@@ -358,6 +330,7 @@ export default function GeminiChatbot() {
               }}
             >
               <div
+                className={`gemini-message-bubble gemini-message-enter ${isUser ? 'is-user' : ''} ${msg.isError ? 'is-error' : ''}`}
                 style={{
                   maxWidth: '86%',
                   padding: isUser ? '10px 14px' : '12px 16px',
@@ -389,49 +362,9 @@ export default function GeminiChatbot() {
 
         {/* Loading Animated State */}
         {isLoading && (
-          <div className="gemini-thinking-row" style={{ display: 'flex', justifyContent: 'flex-start', width: '100%' }}>
-            <div
-              style={{
-                padding: '10px 16px',
-                borderRadius: '16px 16px 16px 4px',
-                background: 'rgba(255, 255, 255, 0.07)',
-                border: '1px solid rgba(255, 255, 255, 0.12)',
-                display: 'flex',
-                alignItems: 'center',
-                gap: '6px',
-              }}
-            >
-              <span
-                style={{
-                  width: '6px',
-                  height: '6px',
-                  borderRadius: '50%',
-                  background: 'var(--portfolio-accent)',
-                  animation: 'pulse 1s infinite alternate',
-                }}
-              />
-              <span
-                style={{
-                  width: '6px',
-                  height: '6px',
-                  borderRadius: '50%',
-                  background: 'var(--portfolio-accent)',
-                  animation: 'pulse 1s infinite alternate 0.2s',
-                }}
-              />
-              <span
-                style={{
-                  width: '6px',
-                  height: '6px',
-                  borderRadius: '50%',
-                  background: 'var(--portfolio-accent)',
-                  animation: 'pulse 1s infinite alternate 0.4s',
-                }}
-              />
-              <span style={{ fontSize: '11.5px', color: 'rgba(255, 255, 255, 0.5)', marginLeft: '4px' }}>
-                Thinking with Gemini...
-              </span>
-            </div>
+          <div className="gemini-thinking-row" role="status" aria-label="Thinking">
+            <span className="gemini-thinking-dots" aria-hidden="true"><i /><i /><i /></span>
+            <span>Thinking</span>
           </div>
         )}
 
@@ -526,7 +459,7 @@ export default function GeminiChatbot() {
           value={inputValue}
           onChange={(e) => setInputValue(e.target.value)}
           onKeyDown={handleKeyDown}
-          placeholder="Ask anything about Vaibhav's projects or skills..."
+          placeholder="Ask about Vaibhav..."
           disabled={isLoading}
           style={{
             flex: 1,
@@ -547,28 +480,14 @@ export default function GeminiChatbot() {
         />
 
         <button
+          type="button"
+          className={`gemini-send-button${isLoading ? ' is-sending' : ''}`}
           onClick={() => handleSendMessage()}
           disabled={isLoading || !inputValue.trim()}
           title="Send message"
           aria-label="Send message"
-          style={{
-            background: inputValue.trim() && !isLoading
-              ? 'var(--portfolio-accent)'
-              : 'var(--portfolio-surface-soft)',
-            border: 'none',
-            borderRadius: '12px',
-            color: inputValue.trim() && !isLoading ? 'var(--portfolio-accent-contrast)' : 'var(--text-muted)',
-            width: '36px',
-            height: '36px',
-            display: 'flex',
-            alignItems: 'center',
-            justifyContent: 'center',
-            cursor: inputValue.trim() && !isLoading ? 'pointer' : 'default',
-            flexShrink: 0,
-            transition: 'all 0.15s ease',
-          }}
         >
-          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round">
+          <svg className="gemini-send-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round">
             <line x1="22" y1="2" x2="11" y2="13" />
             <polygon points="22 2 15 22 11 13 2 9 22 2" />
           </svg>

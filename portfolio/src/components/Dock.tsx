@@ -4,16 +4,21 @@ import React, { useRef, useState } from 'react';
 import Image from 'next/image';
 import { PageId } from '@/types';
 import { personalInfo } from '@/data/portfolioData';
+import PageIcon from './PageIcon';
 
 interface DockProps {
+  currentPage: PageId;
   onNavigate: (page: PageId) => void;
   onOpenApp: (name: string, url: string, isApp?: 'apple-music' | 'iframe') => void;
+  onToggleAppleMusic: () => void;
   onToggleWallpaperPicker: () => void;
 }
 
 export default function Dock({
+  currentPage,
   onNavigate,
   onOpenApp,
+  onToggleAppleMusic,
   onToggleWallpaperPicker,
 }: DockProps) {
   const dockRef = useRef<HTMLDivElement>(null);
@@ -26,12 +31,25 @@ export default function Dock({
     }, 550);
   };
 
-  const handleMouseMove = (e: React.MouseEvent<HTMLDivElement>) => {
+  const resetDockIcons = () => {
     if (!dockRef.current) return;
-    const icons = dockRef.current.querySelectorAll<HTMLDivElement>('.dock-icon');
+    const icons = dockRef.current.querySelectorAll<HTMLElement>('.dock-icon');
+    icons.forEach((icon) => {
+      icon.style.removeProperty('transform');
+      icon.style.removeProperty('z-index');
+    });
+  };
+
+  const handlePointerMove = (e: React.PointerEvent<HTMLDivElement>) => {
+    if (e.pointerType !== 'mouse') {
+      resetDockIcons();
+      return;
+    }
+    if (!dockRef.current) return;
+    const icons = dockRef.current.querySelectorAll<HTMLElement>('.dock-icon');
     const mouseX = e.clientX;
-    const MAX_SCALE = 1.5;
-    const RANGE = 120;
+    const MAX_SCALE = 1.14;
+    const RANGE = 88;
 
     icons.forEach((icon) => {
       const rect = icon.getBoundingClientRect();
@@ -46,65 +64,32 @@ export default function Dock({
     });
   };
 
-  const handleMouseLeave = () => {
-    if (!dockRef.current) return;
-    const icons = dockRef.current.querySelectorAll<HTMLDivElement>('.dock-icon');
-    icons.forEach((icon) => {
-      icon.style.transform = 'scale(1)';
-      icon.style.zIndex = '1';
-    });
+  const handlePointerUp = (e: React.PointerEvent<HTMLDivElement>) => {
+    if (e.pointerType !== 'mouse') resetDockIcons();
   };
+
+  const renderPageLink = (page: Exclude<PageId, 'home'>, label: string) => (
+    <button
+      key={page}
+      type="button"
+      className={`link-box${currentPage === page ? ' is-active' : ''}`}
+      aria-label={`Open ${label} section`}
+      aria-current={currentPage === page ? 'page' : undefined}
+      title={label}
+      onClick={() => onNavigate(page)}
+    >
+      <PageIcon page={page} />
+      <span className="link-text">{label}</span>
+    </button>
+  );
 
   return (
     <div className="desktop-bottom-bar">
       {/* Links (Left of Dock) */}
       <div className="links-left">
-        <a
-          href="#about"
-          className="link-box"
-          onClick={(e) => {
-            e.preventDefault();
-            onNavigate('about');
-          }}
-        >
-          <svg viewBox="0 0 24 24">
-            <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2" />
-            <circle cx="12" cy="7" r="4" />
-          </svg>
-          <span className="link-text">About</span>
-        </a>
-
-        <a
-          href="#projects"
-          className="link-box"
-          onClick={(e) => {
-            e.preventDefault();
-            onNavigate('projects');
-          }}
-        >
-          <svg viewBox="0 0 24 24">
-            <path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z" />
-          </svg>
-          <span className="link-text">Projects</span>
-        </a>
-
-        <a
-          href="#resume"
-          className="link-box"
-          onClick={(e) => {
-            e.preventDefault();
-            onNavigate('resume');
-          }}
-        >
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-            <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z" />
-            <polyline points="14 2 14 8 20 8" />
-            <line x1="16" y1="13" x2="8" y2="13" />
-            <line x1="16" y1="17" x2="8" y2="17" />
-            <polyline points="10 9 9 9 8 9" />
-          </svg>
-          <span className="link-text">Resume</span>
-        </a>
+        {renderPageLink('about', 'About')}
+        {renderPageLink('projects', 'Projects')}
+        {renderPageLink('skills', 'Skills')}
       </div>
 
       {/* Center Dock */}
@@ -112,8 +97,10 @@ export default function Dock({
         <div
           className="dock"
           ref={dockRef}
-          onMouseMove={handleMouseMove}
-          onMouseLeave={handleMouseLeave}
+          onPointerMove={handlePointerMove}
+          onPointerLeave={resetDockIcons}
+          onPointerUp={handlePointerUp}
+          onPointerCancel={resetDockIcons}
         >
           {/* GitHub */}
           <div
@@ -178,13 +165,15 @@ export default function Dock({
             <span className="dock-tooltip">LinkedIn</span>
           </div>
 
-          {/* Contact / Resume */}
-          <div
-            className={`dock-icon ${bouncingIcon === 'Contact' ? 'bouncing' : ''}`}
-            data-name="Contact"
+          {/* Home */}
+          <button
+            type="button"
+            className={`dock-icon ${bouncingIcon === 'Home' ? 'bouncing' : ''}`}
+            data-name="Home"
+            aria-label="Go to home"
             onClick={() => {
-              triggerBounce('Contact');
-              onNavigate('contact');
+              triggerBounce('Home');
+              onNavigate('home');
             }}
           >
             <div
@@ -200,12 +189,14 @@ export default function Dock({
                 boxShadow: '0 8px 16px rgba(0,0,0,0.3)',
               }}
             >
-              <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#ffffff" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z" />
+              <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#ffffff" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+                <path d="m3 10 9-7 9 7" />
+                <path d="M5 9v12h14V9" />
+                <path d="M9 21v-7h6v7" />
               </svg>
             </div>
-            <span className="dock-tooltip">Contact Me</span>
-          </div>
+            <span className="dock-tooltip">Home</span>
+          </button>
 
           {/* Free Rider HD */}
           <div
@@ -229,12 +220,14 @@ export default function Dock({
           </div>
 
           {/* Apple Music */}
-          <div
+          <button
+            type="button"
             className={`dock-icon ${bouncingIcon === 'Apple Music' ? 'bouncing' : ''}`}
             data-name="Apple Music"
+            aria-label="Toggle Apple Music"
             onClick={() => {
               triggerBounce('Apple Music');
-              onOpenApp('Apple Music', '', 'apple-music');
+              onToggleAppleMusic();
             }}
           >
             <div style={{ width: '100%', height: '100%', position: 'relative' }}>
@@ -247,7 +240,7 @@ export default function Dock({
               />
             </div>
             <span className="dock-tooltip">Apple Music</span>
-          </div>
+          </button>
 
           {/* Wallpaper Picker */}
           <div
@@ -277,49 +270,9 @@ export default function Dock({
 
       {/* Links (Right of Dock) */}
       <div className="links-right">
-        <a
-          href="#experience"
-          className="link-box"
-          onClick={(e) => {
-            e.preventDefault();
-            onNavigate('experience');
-          }}
-        >
-          <svg viewBox="0 0 24 24">
-            <rect x="2" y="7" width="20" height="14" rx="2" ry="2" />
-            <path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16" />
-          </svg>
-          <span className="link-text">Experience</span>
-        </a>
-
-        <a
-          href="#skills"
-          className="link-box"
-          onClick={(e) => {
-            e.preventDefault();
-            onNavigate('skills');
-          }}
-        >
-          <svg viewBox="0 0 24 24">
-            <polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2" />
-          </svg>
-          <span className="link-text">Skills</span>
-        </a>
-
-        <a
-          href="#contact"
-          className="link-box"
-          onClick={(e) => {
-            e.preventDefault();
-            onNavigate('contact');
-          }}
-        >
-          <svg viewBox="0 0 24 24">
-            <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z" />
-            <polyline points="22,6 12,13 2,6" />
-          </svg>
-          <span className="link-text">Contact</span>
-        </a>
+        {renderPageLink('experience', 'Experience')}
+        {renderPageLink('resume', 'Resume')}
+        {renderPageLink('contact', 'Contact')}
       </div>
     </div>
   );

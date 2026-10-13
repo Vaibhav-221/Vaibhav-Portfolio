@@ -101,25 +101,31 @@ export default function WindowManager({
               onMouseDown={(e) => !win.maximized && handleMouseDown(e, win.id)}
             >
               <div className="window-controls">
-                <div
+                <button
+                  type="button"
                   className="win-btn close"
-                  title="Close"
+                  aria-label={`Close ${win.title}`}
+                  title={`Close ${win.title}`}
                   onClick={(e) => {
                     e.stopPropagation();
                     onCloseWindow(win.id);
                   }}
                 />
-                <div
+                <button
+                  type="button"
                   className="win-btn minimize"
-                  title="Minimize"
+                  aria-label={`Minimize ${win.title}`}
+                  title={`Minimize ${win.title}`}
                   onClick={(e) => {
                     e.stopPropagation();
                     onMinimizeWindow(win.id);
                   }}
                 />
-                <div
+                <button
+                  type="button"
                   className="win-btn maximize"
-                  title="Maximize"
+                  aria-label={`${win.maximized ? 'Restore' : 'Maximize'} ${win.title}`}
+                  title={`${win.maximized ? 'Restore' : 'Maximize'} ${win.title}`}
                   onClick={(e) => {
                     e.stopPropagation();
                     onMaximizeWindow(win.id);

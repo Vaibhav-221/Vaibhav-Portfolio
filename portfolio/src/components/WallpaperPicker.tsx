@@ -5,6 +5,7 @@ import { Wallpaper } from '@/types';
 
 interface WallpaperPickerProps {
   isOpen: boolean;
+  isLightTheme: boolean;
   onClose: () => void;
   wallpapers: Wallpaper[];
   activeWpIndex: number;
@@ -15,6 +16,7 @@ interface WallpaperPickerProps {
 
 export default function WallpaperPicker({
   isOpen,
+  isLightTheme,
   onClose,
   wallpapers,
   activeWpIndex,
@@ -39,18 +41,30 @@ export default function WallpaperPicker({
       className={`wp-picker ${isOpen ? 'show' : ''}`}
       onClick={(e) => e.stopPropagation()}
     >
-      <div className="wp-picker-title">Choose Wallpaper</div>
+      <div className="wp-picker-heading">
+        <div>
+          <span className="wp-picker-eyebrow">DESKTOP / APPEARANCE</span>
+          <div className="wp-picker-title">Choose Wallpaper</div>
+        </div>
+        <span className="wp-theme-indicator" aria-live="polite">
+          <span className="wp-theme-dot" />
+          {isLightTheme ? 'Light appearance' : 'Dark appearance'}
+        </span>
+      </div>
 
-      <div className="wp-grid">
+      <div className="wp-grid" role="group" aria-label="Available wallpapers">
         {wallpapers.map((wp, i) => (
-          <div
+          <button
             key={i}
+            type="button"
             className={`wp-thumb ${activeWpIndex === i ? 'active' : ''}`}
             title={wp.label}
+            aria-label={`${wp.label} wallpaper`}
+            aria-pressed={activeWpIndex === i}
             onClick={() => onSelectWallpaper(i)}
             style={
               wp.type === 'image'
-                ? { backgroundImage: `url(${wp.value})`, backgroundSize: 'cover', backgroundPosition: 'center' }
+                ? { backgroundImage: `url(${wp.thumbnail ?? wp.value})`, backgroundSize: 'cover', backgroundPosition: 'center' }
                 : wp.type === 'gradient'
                 ? { background: wp.value }
                 : { background: 'linear-gradient(135deg, #0a0c18, #1a0533 50%, #0a3a36)' }
@@ -88,14 +102,14 @@ export default function WallpaperPicker({
                 />
               </svg>
             )}
-          </div>
+          </button>
         ))}
       </div>
 
       <div className="wp-divider" />
 
       <div className="wp-upload-row">
-        <label className="wp-upload-btn" style={{ flex: 1 }}>
+        <label className="wp-action-btn wp-upload-btn">
           <svg width="14" height="14" viewBox="0 0 16 16" fill="none" stroke="currentColor" strokeWidth="1.5">
             <path d="M8 2v9M4 6l4-4 4 4" />
             <path d="M2 13h12" strokeLinecap="round" />
@@ -110,9 +124,11 @@ export default function WallpaperPicker({
         </label>
 
         <button
-          className="wp-upload-btn"
-          style={{ flex: 1, background: 'rgba(255, 255, 255, 0.1)' }}
+          type="button"
+          className="wp-action-btn wp-theme-btn"
           onClick={onToggleTheme}
+          aria-label={`Switch to ${isLightTheme ? 'dark' : 'light'} appearance`}
+          aria-pressed={isLightTheme}
         >
           <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
             <circle cx="12" cy="12" r="5" />
@@ -125,10 +141,10 @@ export default function WallpaperPicker({
             <line x1="4.22" y1="19.78" x2="5.64" y2="18.36" />
             <line x1="18.36" y1="5.64" x2="19.78" y2="4.22" />
           </svg>
-          Theme
+          {isLightTheme ? 'Dark theme' : 'Light theme'}
         </button>
 
-        <button className="wp-close-btn" style={{ flex: 1 }} onClick={onClose}>
+        <button type="button" className="wp-action-btn wp-close-btn" onClick={onClose}>
           Done
         </button>
       </div>

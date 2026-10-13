@@ -12,6 +12,7 @@ export default function ContactView() {
     message: '',
   });
   const [submitted, setSubmitted] = useState(false);
+  const [isFormExpanded, setIsFormExpanded] = useState(false);
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
@@ -30,9 +31,9 @@ export default function ContactView() {
       description="Have a project in mind, an opportunity, or an open-source collaboration? Let’s connect."
     >
     <div className="portfolio-view-content">
-      <div style={{ display: 'flex', gap: '24px', flexWrap: 'wrap' }}>
+      <div className="portfolio-contact-layout">
         {/* Contact Info Cards */}
-        <div style={{ flex: 1, minWidth: 'min(100%, 280px)', width: '100%', display: 'flex', flexDirection: 'column', gap: '14px' }}>
+        <div className="portfolio-contact-details">
           {/* Email */}
           <div
             className="portfolio-card portfolio-contact-info portfolio-reveal"
@@ -215,22 +216,27 @@ export default function ContactView() {
         {/* Contact Form */}
         <div
           className="portfolio-card portfolio-contact-form portfolio-reveal"
-          style={{
-            flex: 1.4,
-            minWidth: 'min(100%, 280px)',
-            width: '100%',
-            background: 'var(--glass-bg)',
-            border: '1px solid var(--glass-border)',
-            padding: '24px',
-            borderRadius: '20px',
-            boxSizing: 'border-box',
-          }}
         >
-          <h3 style={{ fontSize: '18px', fontWeight: 700, marginBottom: '20px', color: 'var(--text-main)' }}>
-            Send a Direct Message
-          </h3>
+          <h3 className="portfolio-contact-form-title">Send a Direct Message</h3>
+          <button
+            type="button"
+            className="portfolio-contact-form-toggle"
+            aria-expanded={isFormExpanded}
+            aria-controls="portfolio-contact-form-body"
+            onClick={() => setIsFormExpanded((expanded) => !expanded)}
+          >
+            <span>Send a Direct Message</span>
+            <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
+              <path d="m6 9 6 6 6-6" />
+            </svg>
+          </button>
 
-          {submitted ? (
+          <div
+            id="portfolio-contact-form-body"
+            className={`portfolio-contact-form-content${isFormExpanded ? ' is-open' : ''}`}
+          >
+            <div className="portfolio-contact-form-inner">
+              {submitted ? (
             <div
               style={{
                 padding: '24px',
@@ -248,10 +254,10 @@ export default function ContactView() {
                 Your message has been noted. I will reply to you promptly.
               </div>
             </div>
-          ) : (
+              ) : (
             <form onSubmit={handleSubmit} style={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
-              <div style={{ display: 'flex', gap: '14px', flexWrap: 'wrap' }}>
-                <div style={{ flex: 1, minWidth: '130px' }}>
+              <div className="portfolio-contact-fields">
+                <div className="portfolio-contact-field">
                   <label style={{ display: 'block', fontSize: '12px', fontWeight: 600, color: 'var(--text-muted)', marginBottom: '6px' }}>
                     YOUR NAME
                   </label>
@@ -273,7 +279,7 @@ export default function ContactView() {
                     }}
                   />
                 </div>
-                <div style={{ flex: 1, minWidth: '130px' }}>
+                <div className="portfolio-contact-field">
                   <label style={{ display: 'block', fontSize: '12px', fontWeight: 600, color: 'var(--text-muted)', marginBottom: '6px' }}>
                     YOUR EMAIL
                   </label>
@@ -297,7 +303,7 @@ export default function ContactView() {
                 </div>
               </div>
 
-              <div>
+              <div className="portfolio-contact-field">
                 <label style={{ display: 'block', fontSize: '12px', fontWeight: 600, color: 'var(--text-muted)', marginBottom: '6px' }}>
                   SUBJECT
                 </label>
@@ -319,7 +325,7 @@ export default function ContactView() {
                 />
               </div>
 
-              <div>
+              <div className="portfolio-contact-field">
                 <label style={{ display: 'block', fontSize: '12px', fontWeight: 600, color: 'var(--text-muted)', marginBottom: '6px' }}>
                   MESSAGE
                 </label>
@@ -369,7 +375,9 @@ export default function ContactView() {
                 Send Message
               </button>
             </form>
-          )}
+              )}
+            </div>
+          </div>
         </div>
       </div>
     </div>

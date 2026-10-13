@@ -4,6 +4,7 @@ export interface Wallpaper {
   type: 'image' | 'gradient' | 'original';
   label: string;
   value?: string;
+  thumbnail?: string;
 }
 
 export interface AppWindow {

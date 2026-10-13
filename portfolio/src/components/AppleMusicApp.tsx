@@ -149,7 +149,7 @@ export default function AppleMusicApp() {
       }}
     >
       {/* Main Area */}
-      <div style={{ display: 'flex', flex: 1, minHeight: 0 }}>
+      <div className="apple-music-main" style={{ display: 'flex', flex: 1, minHeight: 0 }}>
         {/* Sidebar */}
         <div
           style={{
@@ -291,7 +291,7 @@ export default function AppleMusicApp() {
         </div>
 
         {/* Content Area */}
-        <div style={{ flex: 1, overflowY: 'auto', padding: '30px 30px 24px', background: '#1c1c1e' }}>
+        <div className="apple-music-content" style={{ flex: 1, overflowY: 'auto', padding: '30px 30px 24px', background: '#1c1c1e' }}>
           <div style={{ marginBottom: '24px' }}>
             <h1 style={{ fontSize: '28px', margin: '0 0 6px 0', fontWeight: 700 }}>Coding Focus</h1>
             <p style={{ color: '#8e8e93', margin: 0, fontSize: '14px' }}>
@@ -379,6 +379,7 @@ export default function AppleMusicApp() {
 
       {/* Bottom Player Bar */}
       <div
+        className="apple-music-player-bar"
         style={{
           height: '90px',
           display: 'flex',
@@ -392,7 +393,7 @@ export default function AppleMusicApp() {
           flexShrink: 0,
         }}
       >
-        <div style={{ width: '220px', minWidth: 0, display: 'flex', flexDirection: 'column' }}>
+        <div className="apple-music-track-info" style={{ width: '220px', minWidth: 0, display: 'flex', flexDirection: 'column' }}>
           <div
             style={{
               fontSize: '15px',
@@ -418,7 +419,7 @@ export default function AppleMusicApp() {
           </div>
         </div>
 
-        <div style={{ display: 'flex', alignItems: 'center', gap: '24px' }}>
+        <div className="apple-music-player-controls" style={{ display: 'flex', alignItems: 'center', gap: '24px' }}>
           <button
             onClick={playPrev}
             style={{

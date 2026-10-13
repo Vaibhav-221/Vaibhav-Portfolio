@@ -108,7 +108,13 @@ export async function generateChatResponse(
     };
   }
 
-  const ai = new GoogleGenAI({ apiKey });
+  const ai = new GoogleGenAI({
+    apiKey,
+    httpOptions: {
+      timeout: 12000,
+      retryOptions: { attempts: 1 },
+    },
+  });
   const modelName = process.env.GEMINI_MODEL || 'gemini-3.8-flash';
 
   // Format bounded conversation history for Gemini API
@@ -117,7 +123,7 @@ export async function generateChatResponse(
     parts: [{ text: m.content }],
   }));
 
-  const maxAttempts = 3;
+  const maxAttempts = 2;
   let lastErrorMsg = '';
 
   for (let attempt = 1; attempt <= maxAttempts; attempt++) {
@@ -153,9 +159,24 @@ export async function generateChatResponse(
         };
       }
 
-      // If transient 503, 429, or UNAVAILABLE, wait and retry
-      if (attempt < maxAttempts) {
-        await new Promise((resolve) => setTimeout(resolve, attempt * 1200));
+      if (lastErrorMsg.includes('NOT_FOUND') || lastErrorMsg.includes('404')) {
+        return {
+          text: '',
+          error: `The configured Gemini model (${modelName}) is unavailable. Update GEMINI_MODEL to a model enabled for this API key.`,
+        };
+      }
+
+      const isTransient =
+        lastErrorMsg.includes('503') ||
+        lastErrorMsg.includes('UNAVAILABLE') ||
+        lastErrorMsg.includes('high demand') ||
+        lastErrorMsg.includes('timeout') ||
+        lastErrorMsg.includes('408');
+
+      if (attempt < maxAttempts && isTransient) {
+        await new Promise((resolve) => setTimeout(resolve, 800));
+      } else {
+        break;
       }
     }
   }

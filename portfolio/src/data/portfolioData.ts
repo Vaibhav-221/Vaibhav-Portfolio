@@ -67,7 +67,7 @@ export interface AchievementItem {
 export interface SkillCategory {
   categoryName: string;
   iconName: string;
-  skills: { name: string; level: number; highlight?: boolean }[];
+  skills: { name: string; highlight?: boolean }[];
 }
 
 export const personalInfo: PersonalInfo = {
@@ -137,7 +137,7 @@ export const projectsData: ProjectItem[] = [
     featured: true,
     githubUrl: "https://github.com/Vaibhav-221/StatKarmyog",
     description:
-      "An intelligent skill competency mapping and automated evaluation platform that harnesses retrieval-augmented generation (RAG) to align learners' competencies with industry requirements and adaptive learning roadmaps.",
+      "Maps learner competencies to industry needs and builds adaptive learning paths with AI-assisted assessment.",
     techStack: ["React.js", "FastAPI", "Python", "Google Gemini", "LangChain", "ChromaDB", "Sentence Transformers"],
     keyHighlights: [
       "Semantic similarity indexing powered by ChromaDB vector store and Sentence Transformers",
@@ -158,7 +158,7 @@ export const projectsData: ProjectItem[] = [
     metrics: "500+ Monthly Users • 10K+ Downloads",
     githubUrl: "https://github.com/Vaibhav-221/VBSPU-PYQ-Hub",
     description:
-      "A production-grade educational platform built to provide Veer Bahadur Singh Purvanchal University engineering students with verified previous year question papers, notes, and academic guidance.",
+      "A student resource hub for verified VBSPU question papers, notes, and academic guidance.",
     techStack: ["Next.js", "Firebase Firestore", "Node.js", "Express", "Razorpay", "Tailwind CSS", "Search Console"],
     keyHighlights: [
       "Currently serving 500+ active students every month with 10,000+ recorded downloads",
@@ -178,7 +178,7 @@ export const projectsData: ProjectItem[] = [
     featured: true,
     githubUrl: "https://github.com/Vaibhav-221/Get-Me-A-Chai",
     description:
-      "A modern creator monetization platform inspired by BuyMeACoffee and Patreon, designed for developers and creators to receive direct financial sponsorships and community contributions.",
+      "A creator-support platform for sponsorships, profile discovery, and secure Razorpay-powered contributions.",
     techStack: ["Next.js App Router", "NextAuth.js", "MongoDB", "Mongoose", "Razorpay", "Tailwind CSS"],
     keyHighlights: [
       "Secure OAuth authentication and profile management utilizing NextAuth.js",
@@ -198,7 +198,7 @@ export const projectsData: ProjectItem[] = [
     featured: false,
     githubUrl: "https://github.com/Vaibhav-221/Attendance-Sarthi",
     description:
-      "A real-time attendance tracking and analytics system tailored for universities and schools to replace manual registers with synchronized cloud records and automated percentage tracking.",
+      "A school and university attendance platform with live records, role-based access, and analytics.",
     techStack: ["Next.js", "Firebase Auth", "Cloud Firestore", "Tailwind CSS", "React Context"],
     keyHighlights: [
       "Instant multi-user sync using Firebase Firestore real-time snapshot listeners",
@@ -284,55 +284,54 @@ export const skillCategoriesData: SkillCategory[] = [
     categoryName: "Languages",
     iconName: "code",
     skills: [
-      { name: "JavaScript (ES6+)", level: 90, highlight: true },
-      { name: "TypeScript", level: 85, highlight: true },
-      { name: "Python", level: 80, highlight: true },
-      { name: "HTML5 & CSS3", level: 95 },
-      { name: "SQL", level: 75 },
+      { name: "JavaScript (ES6+)", highlight: true },
+      { name: "TypeScript", highlight: true },
+      { name: "Python", highlight: true },
+      { name: "HTML5 & CSS3" },
     ],
   },
   {
     categoryName: "Frontend Engineering",
     iconName: "layout",
     skills: [
-      { name: "React.js", level: 90, highlight: true },
-      { name: "Next.js (App Router)", level: 88, highlight: true },
-      { name: "Tailwind CSS", level: 92, highlight: true },
-      { name: "Component Architecture", level: 85 },
-      { name: "Responsive & Mobile UI", level: 95 },
+      { name: "React.js", highlight: true },
+      { name: "Next.js (App Router)", highlight: true },
+      { name: "Tailwind CSS", highlight: true },
+      { name: "Component Architecture" },
+      { name: "Responsive & Mobile UI" },
     ],
   },
   {
     categoryName: "Backend & APIs",
     iconName: "server",
     skills: [
-      { name: "Node.js", level: 82, highlight: true },
-      { name: "Express.js", level: 80 },
-      { name: "FastAPI", level: 78, highlight: true },
-      { name: "RESTful API Design", level: 88 },
-      { name: "Server Actions", level: 80 },
+      { name: "Node.js", highlight: true },
+      { name: "Express.js" },
+      { name: "FastAPI", highlight: true },
+      { name: "RESTful API Design" },
+      { name: "Server Actions" },
     ],
   },
   {
     categoryName: "Databases & AI Tools",
     iconName: "database",
     skills: [
-      { name: "MongoDB & Mongoose", level: 85, highlight: true },
-      { name: "Cloud Firestore", level: 88, highlight: true },
-      { name: "ChromaDB (Vector DB)", level: 75 },
-      { name: "Google Gemini API", level: 82, highlight: true },
-      { name: "LangChain", level: 72 },
+      { name: "MongoDB & Mongoose", highlight: true },
+      { name: "Cloud Firestore", highlight: true },
+      { name: "ChromaDB (Vector DB)" },
+      { name: "Google Gemini API", highlight: true },
+      { name: "LangChain" },
     ],
   },
   {
     categoryName: "DevOps & Integrations",
     iconName: "settings",
     skills: [
-      { name: "Git & GitHub", level: 92, highlight: true },
-      { name: "Vercel & Render", level: 85 },
-      { name: "Razorpay Payments", level: 88, highlight: true },
-      { name: "NextAuth.js / Firebase Auth", level: 86, highlight: true },
-      { name: "Postman & API Testing", level: 85 },
+      { name: "Git & GitHub", highlight: true },
+      { name: "Vercel & Render" },
+      { name: "Razorpay Payments", highlight: true },
+      { name: "NextAuth.js / Firebase Auth", highlight: true },
+      { name: "Postman & API Testing" },
     ],
   },
 ];

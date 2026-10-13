@@ -1,0 +1,159 @@
+@media (min-width: 769px) {
+  .desktop .profile-widget-container {
+    overflow-x: hidden;
+    overflow-y: hidden;
+    padding-top: 4px;
+    padding-bottom: 4px;
+  }
+
+  .desktop .hero-left-column,
+  .desktop .hero-right-column {
+    gap: 16px;
+  }
+
+  .desktop .profile-widget-container::-webkit-scrollbar {
+    display: block;
+    width: 6px;
+  }
+
+  .desktop .profile-widget-container::-webkit-scrollbar-thumb {
+    border-radius: 999px;
+    background: var(--portfolio-border);
+  }
+}
+
+@media (min-width: 769px) and (max-width: 1280px), (min-width: 769px) and (max-height: 740px) {
+  .desktop .profile-widget-container {
+    overflow-y: auto;
+  }
+}
+
+@media (max-width: 768px) {
+  .desktop .profile-widget-container {
+    overflow-y: auto;
+    scrollbar-width: none;
+  }
+
+  .desktop .profile-widget-container::-webkit-scrollbar {
+    display: none;
+  }
+}
+
+@keyframes portfolioHomeEnter {
+  from {
+    opacity: 0;
+    translate: 0 16px;
+    filter: blur(4px);
+  }
+
+  to {
+    opacity: 1;
+    translate: 0 0;
+    filter: blur(0);
+  }
+}
+
+.desktop.is-unlocked .menubar {
+  animation: portfolioHomeEnter 520ms cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+.desktop.is-unlocked .profile-widget-container > .hero-left-column {
+  animation: portfolioHomeEnter 620ms cubic-bezier(0.16, 1, 0.3, 1) 80ms both;
+}
+
+.desktop.is-unlocked .profile-widget-container > .hero-right-column {
+  animation: portfolioHomeEnter 620ms cubic-bezier(0.16, 1, 0.3, 1) 140ms both;
+}
+
+.desktop.is-unlocked .profile-widget {
+  animation: portfolioHomeEnter 620ms cubic-bezier(0.16, 1, 0.3, 1) 180ms both;
+}
+
+.desktop.is-unlocked .services-widget {
+  animation: portfolioHomeEnter 620ms cubic-bezier(0.16, 1, 0.3, 1) 250ms both;
+}
+
+.desktop.is-unlocked .services-widget .service-item:nth-child(2) {
+  animation: portfolioHomeEnter 520ms cubic-bezier(0.16, 1, 0.3, 1) 320ms both;
+}
+
+.desktop.is-unlocked .services-widget .service-item:nth-child(3) {
+  animation: portfolioHomeEnter 520ms cubic-bezier(0.16, 1, 0.3, 1) 390ms both;
+}
+
+.desktop.is-unlocked .about-widget {
+  animation: portfolioHomeEnter 620ms cubic-bezier(0.16, 1, 0.3, 1) 360ms both;
+}
+
+.desktop.is-unlocked .about-widget > div:last-child > div:nth-child(1) {
+  animation: portfolioHomeEnter 500ms cubic-bezier(0.16, 1, 0.3, 1) 440ms both;
+}
+
+.desktop.is-unlocked .about-widget > div:last-child > div:nth-child(2) {
+  animation: portfolioHomeEnter 500ms cubic-bezier(0.16, 1, 0.3, 1) 500ms both;
+}
+
+.desktop.is-unlocked .gemini-chatbot-card {
+  animation: portfolioHomeEnter 620ms cubic-bezier(0.16, 1, 0.3, 1) 220ms both;
+}
+
+.desktop.is-unlocked .music-player-widget {
+  animation: portfolioHomeEnter 620ms cubic-bezier(0.16, 1, 0.3, 1) 420ms both;
+}
+
+.desktop.is-unlocked .mobile-app-icon {
+  animation: portfolioHomeEnter 520ms cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+.desktop.is-unlocked .mobile-app-icon:nth-child(1) { animation-delay: 320ms; }
+.desktop.is-unlocked .mobile-app-icon:nth-child(2) { animation-delay: 380ms; }
+.desktop.is-unlocked .mobile-app-icon:nth-child(3) { animation-delay: 440ms; }
+.desktop.is-unlocked .mobile-app-icon:nth-child(4) { animation-delay: 500ms; }
+
+.desktop.is-unlocked .desktop-bottom-bar .dock-icon {
+  animation: portfolioHomeEnter 520ms cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+.desktop.is-unlocked .desktop-bottom-bar .dock-icon:nth-child(1) { animation-delay: 460ms; }
+.desktop.is-unlocked .desktop-bottom-bar .dock-icon:nth-child(2) { animation-delay: 500ms; }
+.desktop.is-unlocked .desktop-bottom-bar .dock-icon:nth-child(3) { animation-delay: 540ms; }
+.desktop.is-unlocked .desktop-bottom-bar .dock-icon:nth-child(4) { animation-delay: 580ms; }
+.desktop.is-unlocked .desktop-bottom-bar .dock-icon:nth-child(5) { animation-delay: 620ms; }
+.desktop.is-unlocked .desktop-bottom-bar .dock-icon:nth-child(6) { animation-delay: 660ms; }
+.desktop.is-unlocked .desktop-bottom-bar .dock-icon:nth-child(7) { animation-delay: 700ms; }
+.desktop.is-unlocked .desktop-bottom-bar .dock-icon:nth-child(8) { animation-delay: 740ms; }
+
+.desktop.is-unlocked .desktop-bottom-bar .link-box {
+  animation: portfolioHomeEnter 520ms cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+.desktop.is-unlocked .desktop-bottom-bar .links-left .link-box:nth-child(1) { animation-delay: 580ms; }
+.desktop.is-unlocked .desktop-bottom-bar .links-left .link-box:nth-child(2) { animation-delay: 630ms; }
+.desktop.is-unlocked .desktop-bottom-bar .links-left .link-box:nth-child(3) { animation-delay: 680ms; }
+.desktop.is-unlocked .desktop-bottom-bar .links-right .link-box:nth-child(1) { animation-delay: 580ms; }
+.desktop.is-unlocked .desktop-bottom-bar .links-right .link-box:nth-child(2) { animation-delay: 630ms; }
+.desktop.is-unlocked .desktop-bottom-bar .links-right .link-box:nth-child(3) { animation-delay: 680ms; }
+
+.desktop.is-unlocked .mobile-page-nav {
+  animation: portfolioHomeEnter 520ms cubic-bezier(0.16, 1, 0.3, 1) 600ms both;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .desktop.is-unlocked .menubar,
+  .desktop.is-unlocked .profile-widget-container > .hero-left-column,
+  .desktop.is-unlocked .profile-widget-container > .hero-right-column,
+  .desktop.is-unlocked .profile-widget,
+  .desktop.is-unlocked .services-widget,
+  .desktop.is-unlocked .service-item,
+  .desktop.is-unlocked .about-widget,
+  .desktop.is-unlocked .about-widget > div:last-child > div,
+  .desktop.is-unlocked .gemini-chatbot-card,
+  .desktop.is-unlocked .music-player-widget,
+  .desktop.is-unlocked .mobile-app-icon,
+  .desktop.is-unlocked .desktop-bottom-bar .dock-icon,
+  .desktop.is-unlocked .desktop-bottom-bar .link-box,
+  .desktop.is-unlocked .mobile-page-nav {
+    animation-duration: 1ms !important;
+    animation-delay: 0ms !important;
+  }
+}

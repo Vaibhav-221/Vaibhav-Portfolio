@@ -20,195 +20,100 @@ export default function ProjectsView() {
       title="Built to solve real problems."
       description="Production platforms, open-source systems, and applied AI, designed around real users."
     >
-      <div className="portfolio-view-content">
-      <div className="portfolio-view-toolbar portfolio-reveal">
-        {/* Category Filter Pills */}
-        <div
-          className="portfolio-filter"
-          style={{
-            display: 'flex',
-            gap: '8px',
-            background: 'var(--glass-bg)',
-            padding: '4px',
-            borderRadius: '14px',
-            border: '1px solid var(--glass-border)',
-          }}
-        >
-          {categories.map((cat) => (
-            <button
-              key={cat}
-              onClick={() => setFilter(cat)}
-              style={{
-                padding: '6px 14px',
-                borderRadius: '10px',
-                border: 'none',
-                background: filter === cat ? 'var(--portfolio-accent-soft)' : 'transparent',
-                color: filter === cat ? 'var(--portfolio-accent)' : 'var(--text-muted)',
-                fontSize: '13px',
-                fontWeight: filter === cat ? 600 : 500,
-                cursor: 'pointer',
-                transition: 'all 0.2s ease',
-              }}
-            >
-              {cat}
-            </button>
-          ))}
+      <div className="portfolio-view-content portfolio-project-view">
+        <div className="portfolio-view-toolbar portfolio-reveal">
+          <div className="portfolio-filter" role="group" aria-label="Filter projects by category">
+            {categories.map((cat) => (
+              <button
+                key={cat}
+                type="button"
+                aria-pressed={filter === cat}
+                onClick={() => setFilter(cat)}
+              >
+                {cat}
+              </button>
+            ))}
+          </div>
         </div>
-      </div>
 
-      {/* Projects Grid */}
-      <div className="portfolio-card-grid">
-        {filteredProjects.map((project: ProjectItem) => (
-          <div
-            key={project.id}
-            className="portfolio-card portfolio-reveal"
-            style={{
-              background: 'var(--glass-bg)',
-              border: '1px solid var(--glass-border)',
-              borderRadius: '20px',
-              padding: '24px',
-              display: 'flex',
-              flexDirection: 'column',
-              justifyContent: 'space-between',
-              transition: 'transform 0.2s ease, border-color 0.2s ease',
-              position: 'relative',
-              overflow: 'hidden',
-            }}
-          >
-            {/* Top Accent Line */}
-            <div className="portfolio-card-accent" />
+        <div className="portfolio-project-grid">
+          {filteredProjects.map((project: ProjectItem, index) => (
+            <article
+              key={project.id}
+              className="portfolio-card portfolio-project-card portfolio-reveal"
+              style={{ '--project-accent': project.color, '--project-wash': project.accentColor } as React.CSSProperties}
+            >
+              <div className="portfolio-project-visual" aria-hidden="true">
+                <span className="portfolio-project-system">Build log / {project.timeline}</span>
+                <span className="portfolio-project-monogram">
+                  {project.title.split(/\s+/).map((word) => word[0]).join('').slice(0, 2)}
+                </span>
+                <span className="portfolio-project-visual-index">{String(index + 1).padStart(2, '0')}</span>
+                <span className="portfolio-project-visual-category">{project.category}</span>
+                <span className="portfolio-project-trace" />
+              </div>
 
-            <div>
-              {/* Header row */}
-              <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', gap: '10px', marginBottom: '12px' }}>
-                <div>
-                  <span
-                    style={{
-                      fontSize: '11px',
-                      fontWeight: 700,
-                      textTransform: 'uppercase',
-                      letterSpacing: '0.8px',
-                      color: 'var(--portfolio-accent)',
-                      background: 'var(--portfolio-accent-soft)',
-                      padding: '3px 8px',
-                      borderRadius: '8px',
-                      display: 'inline-block',
-                      marginBottom: '6px',
-                    }}
-                  >
-                    {project.category}
-                  </span>
-                  <h3 style={{ fontSize: '22px', fontWeight: 700, margin: '0 0 2px 0', color: 'var(--text-main)' }}>
-                    {project.title}
-                  </h3>
-                  <div style={{ fontSize: '13px', color: 'var(--text-muted)', fontWeight: 500 }}>
-                    {project.subtitle}
+              <div className="portfolio-project-content">
+                <div className="portfolio-project-heading">
+                  <div>
+                    <span className="portfolio-project-category">{project.category}</span>
+                    <h2>{project.title}</h2>
+                    <p className="portfolio-project-subtitle">{project.subtitle}</p>
+                  </div>
+                  <span className="portfolio-project-timeline">{project.timeline}</span>
+                </div>
+
+                <p className="portfolio-project-description">{project.description}</p>
+
+                <div className="portfolio-project-footer">
+                  <div className="portfolio-project-tech">
+                    {project.techStack.slice(0, 4).map((tech) => <span key={tech}>{tech}</span>)}
+                    {project.techStack.length > 4 && (
+                      <span title={project.techStack.slice(4).join(', ')}>+{project.techStack.length - 4}</span>
+                    )}
+                  </div>
+                  <div className="portfolio-project-actions">
+                    <a
+                      className="portfolio-project-action"
+                      href={project.githubUrl}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      aria-label={`View ${project.title} source code on GitHub`}
+                    >
+                      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+                        <path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09.65 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22" />
+                      </svg>
+                      <span>Source</span>
+                      <span aria-hidden="true">↗</span>
+                    </a>
+                    {project.liveUrl ? (
+                      <a
+                        className="portfolio-project-action"
+                        href={project.liveUrl}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        aria-label={`Open ${project.title} live project`}
+                      >
+                        <span>Live link</span>
+                        <span aria-hidden="true">↗</span>
+                      </a>
+                    ) : (
+                      <button
+                        type="button"
+                        className="portfolio-project-action is-unavailable"
+                        disabled
+                        title="Add this project's liveUrl in portfolioData.ts"
+                      >
+                        <span>Live link</span>
+                        <span aria-hidden="true">↗</span>
+                      </button>
+                    )}
                   </div>
                 </div>
-
-                <span style={{ fontSize: '12px', color: 'var(--text-muted)', whiteSpace: 'nowrap' }}>
-                  {project.timeline}
-                </span>
               </div>
-
-              {/* Verified Metrics Badge if present */}
-              {project.metrics && (
-                <div
-                  style={{
-                    display: 'inline-flex',
-                    alignItems: 'center',
-                    gap: '6px',
-                    padding: '4px 10px',
-                    borderRadius: '8px',
-                    background: 'var(--portfolio-accent-soft)',
-                    border: '1px solid var(--portfolio-accent-border)',
-                    color: 'var(--portfolio-accent)',
-                    fontSize: '12px',
-                    fontWeight: 600,
-                    marginBottom: '14px',
-                  }}
-                >
-                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5">
-                    <polyline points="22 7 13.5 15.5 8.5 10.5 2 17" />
-                    <polyline points="16 7 22 7 22 13" />
-                  </svg>
-                  {project.metrics}
-                </div>
-              )}
-
-              {/* Description */}
-              <p style={{ fontSize: '14px', lineHeight: 1.6, color: 'var(--text-main)', margin: '0 0 16px 0' }}>
-                {project.description}
-              </p>
-
-              {/* Key Highlights */}
-              <div style={{ marginBottom: '16px' }}>
-                <div style={{ fontSize: '12px', fontWeight: 600, textTransform: 'uppercase', color: 'var(--text-muted)', letterSpacing: '0.5px', marginBottom: '6px' }}>
-                  Key Highlights:
-                </div>
-                <ul style={{ margin: 0, paddingLeft: '18px', fontSize: '13px', color: 'var(--text-muted)', lineHeight: 1.5 }}>
-                  {project.keyHighlights.slice(0, 3).map((item, i) => (
-                    <li key={i} style={{ marginBottom: '4px' }}>
-                      {item}
-                    </li>
-                  ))}
-                </ul>
-              </div>
-            </div>
-
-            <div>
-              {/* Tech Stack Chips */}
-              <div style={{ display: 'flex', flexWrap: 'wrap', gap: '6px', marginBottom: '18px' }}>
-                {project.techStack.map((tech, i) => (
-                  <span
-                    key={i}
-                    style={{
-                      fontSize: '11.5px',
-                      padding: '4px 8px',
-                      borderRadius: '6px',
-                      background: 'var(--portfolio-surface-soft)',
-                      border: '1px solid var(--portfolio-border)',
-                      color: 'var(--text-main)',
-                    }}
-                  >
-                    {tech}
-                  </span>
-                ))}
-              </div>
-
-              {/* Action Links */}
-              <div style={{ display: 'flex', gap: '10px' }}>
-                <a
-                  href={project.githubUrl}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  style={{
-                    flex: 1,
-                    display: 'inline-flex',
-                    alignItems: 'center',
-                    justifyContent: 'center',
-                    gap: '8px',
-                    padding: '10px 14px',
-                    borderRadius: '10px',
-                    background: 'rgba(255, 255, 255, 0.08)',
-                    border: '1px solid var(--glass-border)',
-                    color: 'var(--text-main)',
-                    fontSize: '13px',
-                    fontWeight: 600,
-                    textDecoration: 'none',
-                    transition: 'background 0.2s ease',
-                  }}
-                >
-                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                    <path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22" />
-                  </svg>
-                  Source Code
-                </a>
-              </div>
-            </div>
-          </div>
-        ))}
-      </div>
+            </article>
+          ))}
+        </div>
       </div>
     </PortfolioPage>
   );
