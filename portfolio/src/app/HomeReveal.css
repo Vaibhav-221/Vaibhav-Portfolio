@@ -1,7 +1,7 @@
 @media (min-width: 769px) {
   .desktop .profile-widget-container {
     overflow-x: hidden;
-    overflow-y: hidden;
+    overflow-y: auto;
     padding-top: 4px;
     padding-bottom: 4px;
   }
@@ -13,12 +13,19 @@
 
   .desktop .profile-widget-container::-webkit-scrollbar {
     display: block;
-    width: 6px;
+    width: 9px;
+  }
+
+  .desktop .profile-widget-container::-webkit-scrollbar-track {
+    margin-block: 8px;
+    background: transparent;
   }
 
   .desktop .profile-widget-container::-webkit-scrollbar-thumb {
+    border: 2px solid transparent;
     border-radius: 999px;
-    background: var(--portfolio-border);
+    background: color-mix(in srgb, var(--portfolio-accent) 72%, transparent);
+    background-clip: padding-box;
   }
 }
 
@@ -31,111 +38,174 @@
 @media (max-width: 768px) {
   .desktop .profile-widget-container {
     overflow-y: auto;
-    scrollbar-width: none;
+    scrollbar-width: thin;
+    scrollbar-color: var(--portfolio-accent) transparent;
   }
 
   .desktop .profile-widget-container::-webkit-scrollbar {
-    display: none;
+    width: 5px;
   }
+
+  .desktop .profile-widget-container::-webkit-scrollbar-thumb {
+    border: 1px solid transparent;
+    border-radius: 999px;
+    background: color-mix(in srgb, var(--portfolio-accent) 72%, transparent);
+    background-clip: padding-box;
+  }
+
+}
+
+.home-widget-kicker {
+  color: var(--text-muted);
+  font: 600 9px/1.4 ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.home-widget-heading {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  margin-bottom: 14px;
+}
+
+.home-widget-heading h2 {
+  margin: 4px 0 0;
+  color: var(--text-main);
+  font: 600 22px/1.05 var(--font-oswald), sans-serif;
+}
+
+.home-widget-tag {
+  flex: 0 0 auto;
+  padding: 4px 7px;
+  border: 1px solid var(--portfolio-accent-border);
+  border-radius: 4px;
+  color: var(--portfolio-accent);
+  font: 500 9px/1.2 ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
 }
 
 @keyframes portfolioHomeEnter {
   from {
     opacity: 0;
-    transform: translateY(16px);
-    filter: blur(4px);
+    transform: translateY(20px) scale(0.99);
   }
 
   to {
     opacity: 1;
     transform: translateY(0);
-    filter: blur(0);
+  }
+}
+
+@keyframes portfolioDockPop {
+  0% {
+    opacity: 0;
+    transform: translateY(30px) scale(0.82);
+  }
+  68% {
+    opacity: 1;
+    transform: translateY(-3px) scale(1.03);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+@keyframes portfolioHomeEnterReduced {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
   }
 }
 
 .desktop.is-unlocked .menubar {
-  animation: portfolioHomeEnter 520ms cubic-bezier(0.16, 1, 0.3, 1) both;
+  animation: portfolioHomeEnter 340ms cubic-bezier(0.16, 1, 0.3, 1) both;
 }
 
 .desktop.is-unlocked .profile-widget-container > .hero-left-column {
-  animation: portfolioHomeEnter 620ms cubic-bezier(0.16, 1, 0.3, 1) 80ms both;
+  animation: portfolioHomeEnter 500ms cubic-bezier(0.16, 1, 0.3, 1) 100ms both;
 }
 
 .desktop.is-unlocked .profile-widget-container > .hero-right-column {
-  animation: portfolioHomeEnter 620ms cubic-bezier(0.16, 1, 0.3, 1) 140ms both;
+  animation: portfolioHomeEnter 500ms cubic-bezier(0.16, 1, 0.3, 1) 140ms both;
 }
 
 .desktop.is-unlocked .profile-widget {
-  animation: portfolioHomeEnter 620ms cubic-bezier(0.16, 1, 0.3, 1) 180ms both;
+  animation: portfolioHomeEnter 480ms cubic-bezier(0.16, 1, 0.3, 1) 160ms both;
 }
 
 .desktop.is-unlocked .services-widget {
-  animation: portfolioHomeEnter 620ms cubic-bezier(0.16, 1, 0.3, 1) 250ms both;
+  animation: portfolioHomeEnter 480ms cubic-bezier(0.16, 1, 0.3, 1) 200ms both;
 }
 
 .desktop.is-unlocked .services-widget .service-item:nth-child(2) {
-  animation: portfolioHomeEnter 520ms cubic-bezier(0.16, 1, 0.3, 1) 320ms both;
+  animation: portfolioHomeEnter 400ms cubic-bezier(0.16, 1, 0.3, 1) 250ms both;
 }
 
 .desktop.is-unlocked .services-widget .service-item:nth-child(3) {
-  animation: portfolioHomeEnter 520ms cubic-bezier(0.16, 1, 0.3, 1) 390ms both;
+  animation: portfolioHomeEnter 400ms cubic-bezier(0.16, 1, 0.3, 1) 290ms both;
 }
 
 .desktop.is-unlocked .about-widget {
-  animation: portfolioHomeEnter 620ms cubic-bezier(0.16, 1, 0.3, 1) 360ms both;
+  animation: portfolioHomeEnter 480ms cubic-bezier(0.16, 1, 0.3, 1) 220ms both;
 }
 
 .desktop.is-unlocked .about-widget > div:last-child > div:nth-child(1) {
-  animation: portfolioHomeEnter 500ms cubic-bezier(0.16, 1, 0.3, 1) 440ms both;
+  animation: portfolioHomeEnter 320ms cubic-bezier(0.16, 1, 0.3, 1) 320ms both;
 }
 
 .desktop.is-unlocked .about-widget > div:last-child > div:nth-child(2) {
-  animation: portfolioHomeEnter 500ms cubic-bezier(0.16, 1, 0.3, 1) 500ms both;
+  animation: portfolioHomeEnter 320ms cubic-bezier(0.16, 1, 0.3, 1) 360ms both;
 }
 
 .desktop.is-unlocked .gemini-chatbot-card {
-  animation: portfolioHomeEnter 620ms cubic-bezier(0.16, 1, 0.3, 1) 220ms both;
+  animation: portfolioHomeEnter 500ms cubic-bezier(0.16, 1, 0.3, 1) 170ms both;
 }
 
 .desktop.is-unlocked .music-player-widget {
-  animation: portfolioHomeEnter 620ms cubic-bezier(0.16, 1, 0.3, 1) 420ms both;
+  animation: portfolioHomeEnter 480ms cubic-bezier(0.16, 1, 0.3, 1) 340ms both;
 }
 
 .desktop.is-unlocked .mobile-app-icon {
-  animation: portfolioHomeEnter 520ms cubic-bezier(0.16, 1, 0.3, 1) both;
+  animation: portfolioHomeEnter 300ms cubic-bezier(0.16, 1, 0.3, 1) both;
 }
 
-.desktop.is-unlocked .mobile-app-icon:nth-child(1) { animation-delay: 320ms; }
-.desktop.is-unlocked .mobile-app-icon:nth-child(2) { animation-delay: 380ms; }
-.desktop.is-unlocked .mobile-app-icon:nth-child(3) { animation-delay: 440ms; }
-.desktop.is-unlocked .mobile-app-icon:nth-child(4) { animation-delay: 500ms; }
+.desktop.is-unlocked .mobile-app-icon:nth-child(1) { animation-delay: 140ms; }
+.desktop.is-unlocked .mobile-app-icon:nth-child(2) { animation-delay: 180ms; }
+.desktop.is-unlocked .mobile-app-icon:nth-child(3) { animation-delay: 220ms; }
+.desktop.is-unlocked .mobile-app-icon:nth-child(4) { animation-delay: 260ms; }
 
 .desktop.is-unlocked .desktop-bottom-bar .dock-icon {
-  animation: portfolioHomeEnter 520ms cubic-bezier(0.16, 1, 0.3, 1) both;
+  animation: portfolioDockPop 500ms cubic-bezier(0.16, 1, 0.3, 1) both;
 }
 
-.desktop.is-unlocked .desktop-bottom-bar .dock-icon:nth-child(1) { animation-delay: 460ms; }
-.desktop.is-unlocked .desktop-bottom-bar .dock-icon:nth-child(2) { animation-delay: 500ms; }
-.desktop.is-unlocked .desktop-bottom-bar .dock-icon:nth-child(3) { animation-delay: 540ms; }
-.desktop.is-unlocked .desktop-bottom-bar .dock-icon:nth-child(4) { animation-delay: 580ms; }
-.desktop.is-unlocked .desktop-bottom-bar .dock-icon:nth-child(5) { animation-delay: 620ms; }
-.desktop.is-unlocked .desktop-bottom-bar .dock-icon:nth-child(6) { animation-delay: 660ms; }
-.desktop.is-unlocked .desktop-bottom-bar .dock-icon:nth-child(7) { animation-delay: 700ms; }
-.desktop.is-unlocked .desktop-bottom-bar .dock-icon:nth-child(8) { animation-delay: 740ms; }
+.desktop.is-unlocked .desktop-bottom-bar .dock-icon:nth-child(1) { animation-delay: 100ms; }
+.desktop.is-unlocked .desktop-bottom-bar .dock-icon:nth-child(2) { animation-delay: 150ms; }
+.desktop.is-unlocked .desktop-bottom-bar .dock-icon:nth-child(3) { animation-delay: 200ms; }
+.desktop.is-unlocked .desktop-bottom-bar .dock-icon:nth-child(4) { animation-delay: 250ms; }
+.desktop.is-unlocked .desktop-bottom-bar .dock-icon:nth-child(5) { animation-delay: 300ms; }
+.desktop.is-unlocked .desktop-bottom-bar .dock-icon:nth-child(6) { animation-delay: 350ms; }
+.desktop.is-unlocked .desktop-bottom-bar .dock-icon:nth-child(7) { animation-delay: 400ms; }
+.desktop.is-unlocked .desktop-bottom-bar .dock-icon:nth-child(8) { animation-delay: 450ms; }
 
 .desktop.is-unlocked .desktop-bottom-bar .link-box {
-  animation: portfolioHomeEnter 520ms cubic-bezier(0.16, 1, 0.3, 1) both;
+  animation: portfolioHomeEnter 340ms cubic-bezier(0.16, 1, 0.3, 1) both;
 }
 
-.desktop.is-unlocked .desktop-bottom-bar .links-left .link-box:nth-child(1) { animation-delay: 580ms; }
-.desktop.is-unlocked .desktop-bottom-bar .links-left .link-box:nth-child(2) { animation-delay: 630ms; }
-.desktop.is-unlocked .desktop-bottom-bar .links-left .link-box:nth-child(3) { animation-delay: 680ms; }
-.desktop.is-unlocked .desktop-bottom-bar .links-right .link-box:nth-child(1) { animation-delay: 580ms; }
-.desktop.is-unlocked .desktop-bottom-bar .links-right .link-box:nth-child(2) { animation-delay: 630ms; }
-.desktop.is-unlocked .desktop-bottom-bar .links-right .link-box:nth-child(3) { animation-delay: 680ms; }
+.desktop.is-unlocked .desktop-bottom-bar .links-left .link-box:nth-child(1) { animation-delay: 180ms; }
+.desktop.is-unlocked .desktop-bottom-bar .links-left .link-box:nth-child(2) { animation-delay: 220ms; }
+.desktop.is-unlocked .desktop-bottom-bar .links-left .link-box:nth-child(3) { animation-delay: 260ms; }
+.desktop.is-unlocked .desktop-bottom-bar .links-right .link-box:nth-child(1) { animation-delay: 180ms; }
+.desktop.is-unlocked .desktop-bottom-bar .links-right .link-box:nth-child(2) { animation-delay: 220ms; }
+.desktop.is-unlocked .desktop-bottom-bar .links-right .link-box:nth-child(3) { animation-delay: 260ms; }
 
 .desktop.is-unlocked .mobile-page-nav {
-  animation: portfolioHomeEnter 520ms cubic-bezier(0.16, 1, 0.3, 1) 600ms both;
+  animation: portfolioHomeEnter 340ms cubic-bezier(0.16, 1, 0.3, 1) 280ms both;
 }
 
 @media (prefers-reduced-motion: reduce) {
@@ -153,7 +223,8 @@
   .desktop.is-unlocked .desktop-bottom-bar .dock-icon,
   .desktop.is-unlocked .desktop-bottom-bar .link-box,
   .desktop.is-unlocked .mobile-page-nav {
-    animation-duration: 1ms !important;
-    animation-delay: 0ms !important;
+    animation-name: portfolioHomeEnterReduced !important;
+    animation-duration: 240ms !important;
   }
 }
+

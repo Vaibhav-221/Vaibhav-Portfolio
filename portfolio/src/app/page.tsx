@@ -51,6 +51,7 @@ const defaultWallpapers: Wallpaper[] = [
 
 export default function HomePage() {
   const [unlocked, setUnlocked] = useState(false);
+  const [isHomeEntranceActive, setIsHomeEntranceActive] = useState(false);
   const [currentPage, setCurrentPage] = useState<PageId>('home');
   const [wallpapers, setWallpapers] = useState<Wallpaper[]>(defaultWallpapers);
   const [activeWpIndex, setActiveWpIndex] = useState(0);
@@ -63,8 +64,16 @@ export default function HomePage() {
   const [isNavHidden, setIsNavHidden] = useState(false);
 
   const activePageRef = useRef<HTMLDivElement>(null);
+  const homeViewRef = useRef<HTMLDivElement>(null);
+  const hasPlayedHomeEntranceRef = useRef(false);
   const lastScrollTopRef = useRef<number>(0);
   const scrollAccumulatorRef = useRef<number>(0);
+
+  useEffect(() => {
+    if (currentPage === 'home' && homeViewRef.current) {
+      homeViewRef.current.scrollTop = 0;
+    }
+  }, [currentPage]);
 
   // Viewport visual height calculation
   useEffect(() => {
@@ -136,6 +145,13 @@ export default function HomePage() {
   // Handle page navigation
   const navigateTo = (page: PageId) => {
     setCurrentPage(page);
+    if (page === 'home') {
+      window.requestAnimationFrame(() => {
+        window.requestAnimationFrame(() => {
+          homeViewRef.current?.scrollTo(0, 0);
+        });
+      });
+    }
     setIsNavHidden(false);
     setWindows([]);
     setIsWpPickerOpen(false);
@@ -272,14 +288,26 @@ export default function HomePage() {
 
   const activeWp = wallpapers[activeWpIndex] || wallpapers[0];
 
+  const handleUnlock = () => {
+    if (currentPage === 'home' && homeViewRef.current) {
+      homeViewRef.current.scrollTop = 0;
+    }
+    setUnlocked(true);
+    if (currentPage !== 'home' || hasPlayedHomeEntranceRef.current) return;
+
+    hasPlayedHomeEntranceRef.current = true;
+    setIsHomeEntranceActive(true);
+    window.setTimeout(() => setIsHomeEntranceActive(false), 1000);
+  };
+
   return (
     <main className="desktop-wrapper">
       {/* Lockscreen */}
-      <Lockscreen unlocked={unlocked} onUnlock={() => setUnlocked(true)} />
+      <Lockscreen unlocked={unlocked} onUnlock={handleUnlock} />
 
       {/* macOS Desktop */}
       <div
-        className={`desktop${unlocked && currentPage === 'home' ? ' is-unlocked' : ''}`}
+        className={`desktop${activeWp.type === 'image' ? ' has-image-wallpaper' : ''}${unlocked && currentPage === 'home' && isHomeEntranceActive ? ' is-unlocked' : ''}`}
         style={{
           background:
             activeWp.type === 'image' && activeWp.value
@@ -329,12 +357,15 @@ export default function HomePage() {
           onNavigate={navigateTo}
           onOpenSpotlight={() => setIsSpotlightOpen(true)}
           onToggleControlCenter={() => setIsControlCenterOpen(!isControlCenterOpen)}
-          onLockScreen={() => setUnlocked(false)}
+          onLockScreen={() => {
+            setIsHomeEntranceActive(false);
+            setUnlocked(false);
+          }}
         />
 
         {/* Home View Widgets: Left Bio/Services & Right Gemini AI Chatbot */}
         {currentPage === 'home' && (
-          <div className="profile-widget-container" id="home-view">
+          <div ref={homeViewRef} className="profile-widget-container" id="home-view">
             {/* Left Hero Column: Personal Bio & Specializations */}
             <div className="hero-left-column">
               <div className="widget-row">

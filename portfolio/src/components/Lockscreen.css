@@ -229,6 +229,11 @@ body.light-theme .lockscreen .ls-bg {
   transform: scale(0.97);
 }
 
+.lockscreen .ls-enter-button:disabled {
+  cursor: wait;
+  transform: none;
+}
+
 .lockscreen .ls-enter-button:focus-visible {
   outline: 2px solid var(--ls-accent);
   outline-offset: 4px;
@@ -248,6 +253,15 @@ body.light-theme .lockscreen .ls-bg {
   width: 21px;
   height: 21px;
   transition: transform 180ms ease;
+}
+
+.lockscreen .ls-enter-spinner {
+  width: 20px;
+  height: 20px;
+  border: 2px solid color-mix(in srgb, currentColor 24%, transparent);
+  border-top-color: currentColor;
+  border-radius: 50%;
+  animation: lockscreen-spinner 700ms linear infinite;
 }
 
 .lockscreen .ls-enter-button:hover .ls-enter-icon svg {
@@ -302,9 +316,27 @@ body.light-theme .lockscreen .ls-bg {
   to { opacity: 1; transform: translateY(0); }
 }
 
+@keyframes lockscreen-spinner {
+  to { transform: rotate(360deg); }
+}
+
 @keyframes lockscreen-wallpaper-drift {
   from { transform: scale(1); }
   to { transform: scale(1.045); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .lockscreen {
+    transition-duration: 180ms;
+    transition-delay: 0s;
+  }
+
+  .lockscreen .ls-bg,
+  .lockscreen .ls-main,
+  .lockscreen .ls-footer,
+  .lockscreen .ls-enter-spinner {
+    animation: none;
+  }
 }
 
 @media (max-width: 760px) {

@@ -265,7 +265,7 @@ export default function GeminiChatbot() {
       >
         <div className="gemini-chatbot-title">
           <span className="gemini-chatbot-mark" aria-hidden="true">V</span>
-          <span>Vaibhav AI</span>
+          <span>Portfolio Assistant</span>
         </div>
 
         <div className="gemini-chatbot-controls">

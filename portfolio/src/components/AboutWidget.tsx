@@ -19,26 +19,17 @@ export default function AboutWidget({ onNavigate }: AboutWidgetProps) {
         if (e.key === 'Enter' || e.key === ' ') onNavigate('about');
       }}
     >
-      <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '8px' }}>
-        <h2 style={{ margin: 0 }}>About Me</h2>
-        <span
-          style={{
-            fontSize: '11px',
-            color: 'var(--portfolio-accent)',
-            background: 'var(--portfolio-accent-soft)',
-            padding: '2px 8px',
-            borderRadius: '10px',
-            fontWeight: 600,
-            letterSpacing: '0.5px',
-          }}
-        >
-          CSE &apos;29
-        </span>
+      <div className="home-widget-heading">
+        <div>
+          <span className="home-widget-kicker">PROFILE / 01</span>
+          <h2>Built around people.</h2>
+        </div>
+        <span className="home-widget-tag">CSE &apos;29</span>
       </div>
 
 
       <p>
-        Hi, I&apos;m <strong style={{ color: 'var(--text-main)', fontWeight: 600 }}>{personalInfo.name}</strong>, a Full Stack Developer and Open Source Contributor based in {personalInfo.location}. I specialize in architecting real-time web applications with Next.js, React, FastAPI, and Firebase.
+        I&apos;m <strong style={{ color: 'var(--text-main)', fontWeight: 600 }}>{personalInfo.name}</strong>, a full-stack developer based in {personalInfo.location}, building dependable products with Next.js, React, FastAPI, and Firebase.
       </p>
       <p>
         Ranked in the <span style={{ color: 'var(--portfolio-accent)', fontWeight: 600 }}>Top 1%</span> nationwide in GSSoC &apos;26 and creator of platforms serving 500+ active students. Driven to turn complex system requirements into seamless, performant digital experiences.

@@ -14,6 +14,7 @@ const lsMonths = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep',
 export default function Lockscreen({ unlocked = false, onUnlock }: LockscreenProps) {
   const [timeStr, setTimeStr] = useState('12:00');
   const [dateStr, setDateStr] = useState('Thu Jul 17');
+  const isEntering = unlocked;
   const pointerStartY = useRef<number>(0);
 
   useEffect(() => {
@@ -94,6 +95,8 @@ export default function Lockscreen({ unlocked = false, onUnlock }: LockscreenPro
         <button
           type="button"
           className="ls-enter-button"
+          aria-busy={isEntering}
+          disabled={unlocked}
           autoFocus
           onClick={(event) => {
             event.stopPropagation();
@@ -101,13 +104,15 @@ export default function Lockscreen({ unlocked = false, onUnlock }: LockscreenPro
           }}
         >
           <span className="ls-enter-icon" aria-hidden="true">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
-              <path d="M12 19V5M6 11l6-6 6 6" />
-            </svg>
+            {isEntering ? <span className="ls-enter-spinner" /> : (
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
+                <path d="M12 19V5M6 11l6-6 6 6" />
+              </svg>
+            )}
           </span>
           <span className="ls-enter-copy">
-            <strong>Swipe up to enter</strong>
-            <small>Or press Enter / click anywhere</small>
+            <strong>{isEntering ? 'Opening portfolio...' : 'Swipe up to enter'}</strong>
+            <small aria-live="polite">{isEntering ? 'Preparing your workspace' : 'Or press Enter / click anywhere'}</small>
           </span>
           <span className="ls-enter-key" aria-hidden="true">ENTER <i>↗</i></span>
         </button>

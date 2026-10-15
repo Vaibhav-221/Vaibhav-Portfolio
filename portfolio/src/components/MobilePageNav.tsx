@@ -83,10 +83,9 @@ export default function MobilePageNav({
         onClick={() => setIsOpen((open) => !open)}
       >
         <span className="mp-menu-icon" aria-hidden="true">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round">
-            <path d="m12 2.75 2.1 6.55 6.55 2.2-6.55 2.1-2.1 6.55-2.1-6.55-6.55-2.1 6.55-2.2L12 2.75Z" />
-            <path d="m19 2 .7 2.3L22 5l-2.3.7L19 8l-.7-2.3L16 5l2.3-.7L19 2Z" />
-          </svg>
+          <span className="mp-menu-line" />
+          <span className="mp-menu-line" />
+          <span className="mp-menu-line" />
         </span>
       </button>
       <nav

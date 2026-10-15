@@ -5,20 +5,12 @@ import React from 'react';
 export default function ServicesWidget() {
   return (
     <div className="services-widget">
-      <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '14px' }}>
-        <h2 style={{ margin: 0 }}>Core Expertise</h2>
-        <span
-          style={{
-            fontSize: '11px',
-            color: 'var(--portfolio-accent)',
-            background: 'var(--portfolio-accent-soft)',
-            padding: '2px 8px',
-            borderRadius: '10px',
-            fontWeight: 600,
-          }}
-        >
-          Specializations
-        </span>
+      <div className="home-widget-heading">
+        <div>
+          <span className="home-widget-kicker">CAPABILITIES / 02</span>
+          <h2>Where I focus.</h2>
+        </div>
+        <span className="home-widget-tag">Core areas</span>
       </div>
 
       <div className="service-item">
