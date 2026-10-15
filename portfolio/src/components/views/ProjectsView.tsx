@@ -1,39 +1,76 @@
 'use client';
 
-import React, { useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { projectsData, ProjectItem } from '@/data/portfolioData';
 import PortfolioPage from './PortfolioPage';
 
 export default function ProjectsView() {
   const [filter, setFilter] = useState<string>('All');
+  const [selectedProject, setSelectedProject] = useState<ProjectItem | null>(null);
+  const dialogRef = useRef<HTMLDialogElement>(null);
 
   const categories = ['All', 'Full Stack', 'AI & ML'];
+  const filteredProjects = projectsData.filter((project) => filter === 'All' || project.category === filter);
 
-  const filteredProjects = projectsData.filter((p) => {
-    if (filter === 'All') return true;
-    return p.category === filter;
-  });
+  useEffect(() => {
+    const dialog = dialogRef.current;
+    if (!dialog) return;
+
+    let revealFrame = 0;
+    if (selectedProject) {
+      if (!dialog.open) dialog.showModal();
+      const revealItems = Array.from(dialog.querySelectorAll<HTMLElement>('.portfolio-project-dialog-reveal'));
+      revealItems.forEach((item, index) => {
+        item.classList.remove('is-revealed');
+        item.style.setProperty('--dialog-reveal-delay', `${index * 70}ms`);
+      });
+      revealFrame = window.requestAnimationFrame(() => {
+        revealItems.forEach((item) => item.classList.add('is-revealed'));
+      });
+    } else if (dialog.open) {
+      dialog.close();
+    }
+
+    return () => {
+      if (revealFrame) window.cancelAnimationFrame(revealFrame);
+    };
+  }, [selectedProject]);
+
+  const openProject = (project: ProjectItem) => setSelectedProject(project);
 
   return (
     <PortfolioPage
       eyebrow="SELECTED WORK"
-      title="Built to solve real problems."
+      title={(
+        <>
+          <span className="portfolio-project-title-mask">
+            <span className="portfolio-project-title-line" style={{ animationDelay: '0.12s' }}>Built to solve</span>
+          </span>
+          <span className="portfolio-project-title-mask">
+            <span className="portfolio-project-title-line" style={{ animationDelay: '0.26s' }}>real problems.</span>
+          </span>
+        </>
+      )}
       description="Production platforms, open-source systems, and applied AI, designed around real users."
     >
       <div className="portfolio-view-content portfolio-project-view">
         <div className="portfolio-view-toolbar portfolio-reveal">
           <div className="portfolio-filter" role="group" aria-label="Filter projects by category">
-            {categories.map((cat) => (
+            {categories.map((category) => (
               <button
-                key={cat}
+                key={category}
                 type="button"
-                aria-pressed={filter === cat}
-                onClick={() => setFilter(cat)}
+                aria-pressed={filter === category}
+                onClick={() => setFilter(category)}
               >
-                {cat}
+                {category}
               </button>
             ))}
           </div>
+          <p className="portfolio-project-count" aria-live="polite">
+            <span>{String(filteredProjects.length).padStart(2, '0')}</span>
+            {filteredProjects.length === 1 ? ' project' : ' projects'}
+          </p>
         </div>
 
         <div className="portfolio-project-grid">
@@ -41,13 +78,22 @@ export default function ProjectsView() {
             <article
               key={project.id}
               className="portfolio-card portfolio-project-card portfolio-reveal"
-              style={{ '--project-accent': project.color, '--project-wash': project.accentColor } as React.CSSProperties}
+              style={{
+                '--project-accent': project.color,
+                '--project-wash': project.accentColor,
+                '--project-reveal-delay': `${index * 75}ms`,
+              } as React.CSSProperties}
+              onClick={(event) => {
+                if ((event.target as HTMLElement).closest('button, a')) return;
+                openProject(project);
+              }}
             >
               <div className="portfolio-project-visual" aria-hidden="true">
-                <span className="portfolio-project-system">Build log / {project.timeline}</span>
+                <span className="portfolio-project-system">Project / {project.timeline}</span>
                 <span className="portfolio-project-monogram">
                   {project.title.split(/\s+/).map((word) => word[0]).join('').slice(0, 2)}
                 </span>
+                <span className="portfolio-project-orbit" />
                 <span className="portfolio-project-visual-index">{String(index + 1).padStart(2, '0')}</span>
                 <span className="portfolio-project-visual-category">{project.category}</span>
                 <span className="portfolio-project-trace" />
@@ -64,57 +110,151 @@ export default function ProjectsView() {
                 </div>
 
                 <p className="portfolio-project-description">{project.description}</p>
+                {project.metrics && <p className="portfolio-project-metrics">{project.metrics}</p>}
+
+                <div className="portfolio-project-highlight">
+                  <span>BUILD NOTE</span>
+                  <p>{project.keyHighlights[0]}</p>
+                </div>
 
                 <div className="portfolio-project-footer">
-                  <div className="portfolio-project-tech">
-                    {project.techStack.slice(0, 4).map((tech) => <span key={tech}>{tech}</span>)}
+                  <div className="portfolio-project-tech" aria-label="Technology highlights">
+                    {project.techStack.slice(0, 4).map((technology) => <span key={technology}>{technology}</span>)}
                     {project.techStack.length > 4 && (
                       <span title={project.techStack.slice(4).join(', ')}>+{project.techStack.length - 4}</span>
                     )}
                   </div>
-                  <div className="portfolio-project-actions">
+                  <div className="portfolio-project-card-actions" role="group" aria-label={`${project.title} project links`}>
                     <a
-                      className="portfolio-project-action"
+                      className="portfolio-project-action is-source"
                       href={project.githubUrl}
                       target="_blank"
                       rel="noopener noreferrer"
                       aria-label={`View ${project.title} source code on GitHub`}
                     >
-                      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+                      <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
                         <path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09.65 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22" />
                       </svg>
-                      <span>Source</span>
-                      <span aria-hidden="true">↗</span>
+                      <span>Source link</span><span aria-hidden="true">↗</span>
                     </a>
                     {project.liveUrl ? (
                       <a
-                        className="portfolio-project-action"
+                        className="portfolio-project-action is-live"
                         href={project.liveUrl}
                         target="_blank"
                         rel="noopener noreferrer"
                         aria-label={`Open ${project.title} live project`}
                       >
-                        <span>Live link</span>
-                        <span aria-hidden="true">↗</span>
+                        <span>Live link</span><span aria-hidden="true">↗</span>
                       </a>
                     ) : (
-                      <button
-                        type="button"
-                        className="portfolio-project-action is-unavailable"
-                        disabled
-                        title="Add this project's liveUrl in portfolioData.ts"
-                      >
-                        <span>Live link</span>
-                        <span aria-hidden="true">↗</span>
+                      <button type="button" className="portfolio-project-action is-unavailable" disabled title="No live demo URL is configured for this project">
+                        <span>Live unavailable</span>
                       </button>
                     )}
                   </div>
+                  <button
+                    type="button"
+                    className="portfolio-project-open"
+                    aria-haspopup="dialog"
+                    aria-controls="project-details-dialog"
+                    onClick={() => openProject(project)}
+                  >
+                    <span>Explore the full case study</span>
+                    <span aria-hidden="true">→</span>
+                  </button>
                 </div>
               </div>
             </article>
           ))}
         </div>
       </div>
+
+      <dialog
+        ref={dialogRef}
+        id="project-details-dialog"
+        className="portfolio-project-dialog"
+        aria-labelledby="project-dialog-title"
+        aria-describedby="project-dialog-overview"
+        onClose={() => setSelectedProject(null)}
+        onClick={(event) => {
+          if (event.target === event.currentTarget) event.currentTarget.close();
+        }}
+      >
+        {selectedProject && (
+          <div
+            className="portfolio-project-dialog-shell"
+            style={{ '--project-accent': selectedProject.color } as React.CSSProperties}
+          >
+            <header className="portfolio-project-dialog-header portfolio-project-dialog-reveal">
+              <div>
+                <span className="portfolio-project-dialog-eyebrow">
+                  {selectedProject.category} <span aria-hidden="true">/</span> {selectedProject.timeline}
+                </span>
+                <h2 id="project-dialog-title">{selectedProject.title}</h2>
+                <p>{selectedProject.subtitle}</p>
+              </div>
+              <button
+                type="button"
+                className="portfolio-project-dialog-close"
+                aria-label="Close project details"
+                onClick={() => dialogRef.current?.close()}
+              >
+                <span aria-hidden="true">×</span>
+              </button>
+            </header>
+
+            <div className="portfolio-project-dialog-body">
+              <section className="portfolio-project-dialog-section portfolio-project-dialog-reveal" aria-labelledby="project-overview-heading">
+                <h3 id="project-overview-heading">Overview</h3>
+                <div id="project-dialog-overview" className="portfolio-project-dialog-copy">
+                  {selectedProject.overview.map((paragraph) => <p key={paragraph}>{paragraph}</p>)}
+                </div>
+              </section>
+
+              <div className="portfolio-project-dialog-facts portfolio-project-dialog-reveal">
+                <section className="portfolio-project-dialog-section">
+                  <h3>Architecture</h3>
+                  <p>{selectedProject.architecture}</p>
+                </section>
+                <section className="portfolio-project-dialog-section">
+                  <h3>Database</h3>
+                  <p>{selectedProject.database}</p>
+                </section>
+              </div>
+
+              <section className="portfolio-project-dialog-section portfolio-project-dialog-reveal">
+                <h3>Implementation notes</h3>
+                <ul className="portfolio-project-dialog-highlights">
+                  {selectedProject.keyHighlights.map((highlight) => <li key={highlight}>{highlight}</li>)}
+                </ul>
+              </section>
+
+              <section className="portfolio-project-dialog-section portfolio-project-dialog-reveal">
+                <h3>Technology</h3>
+                <div className="portfolio-project-dialog-tech">
+                  {selectedProject.techStack.map((technology) => <span key={technology}>{technology}</span>)}
+                </div>
+              </section>
+            </div>
+
+            <footer className="portfolio-project-dialog-actions portfolio-project-dialog-reveal">
+              <a href={selectedProject.githubUrl} target="_blank" rel="noopener noreferrer" className="portfolio-project-dialog-link is-primary">
+                <span>Source code</span><span aria-hidden="true">↗</span>
+              </a>
+              {selectedProject.liveUrl ? (
+                <a href={selectedProject.liveUrl} target="_blank" rel="noopener noreferrer" className="portfolio-project-dialog-link">
+                  <span>Live project</span><span aria-hidden="true">↗</span>
+                </a>
+              ) : (
+                <button type="button" className="portfolio-project-dialog-link is-unavailable" disabled>
+                  <span>Live project unavailable</span>
+                </button>
+              )}
+            </footer>
+          </div>
+        )}
+      </dialog>
     </PortfolioPage>
   );
 }

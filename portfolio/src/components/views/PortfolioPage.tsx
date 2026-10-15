@@ -4,7 +4,7 @@ import { ReactNode, useEffect, useRef } from 'react';
 
 interface PortfolioPageProps {
   eyebrow: string;
-  title: string;
+  title: ReactNode;
   description: string;
   children: ReactNode;
 }

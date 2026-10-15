@@ -38,6 +38,9 @@ export interface ProjectItem {
   githubUrl: string;
   liveUrl?: string;
   description: string;
+  overview: string[];
+  architecture: string;
+  database: string;
   techStack: string[];
   keyHighlights: string[];
 }
@@ -134,14 +137,22 @@ export const projectsData: ProjectItem[] = [
     accentColor: "#c5ff41",
     featured: true,
     githubUrl: "https://github.com/Vaibhav-221/StatKarmyog",
+    metrics: "88 automated tests • 9 workflows • 2 evidence sources",
     description:
       "Maps learner competencies to industry needs and builds adaptive learning paths with AI-assisted assessment.",
-    techStack: ["React.js", "FastAPI", "Python", "Google Gemini", "LangChain", "ChromaDB", "Sentence Transformers"],
+    overview: [
+      "Built for Smart India Hackathon problem statement 26101, StatKarmyog gives statistical officers and organizations such as MoSPI and NSSTA an evidence-based view of competency. It moves beyond self-declared skills and course completion by combining quiz results with work-artifact evidence.",
+      "The platform maps each officer’s role to required competencies, estimates current proficiency, identifies skill gaps, recommends learning resources, and preserves assessment history so progress can be measured over time. It includes officer dashboards, competency passports, reassessment workflows, and organization-level training analytics.",
+      "Recommendations combine semantic similarity with skill-tag matching. Sentence Transformers and ChromaDB support course retrieval, while Google Gemini generates quizzes from courses, competencies, or supplied documents. A mock-iGOT service demonstrates enrollment and completion workflows, with Celery and Redis handling asynchronous events."
+    ],
+    architecture: "Three-service prototype: React and Vite frontend, Python and FastAPI application backend, and a mock-iGOT integration service.",
+    database: "SQLite with SQLAlchemy ORM.",
+    techStack: ["React", "Vite", "Ant Design", "Recharts", "Python", "FastAPI", "SQLAlchemy", "SQLite", "Gemini", "LangChain", "Sentence Transformers", "ChromaDB", "Celery", "Redis", "Pytest"],
     keyHighlights: [
-      "Semantic similarity indexing powered by ChromaDB vector store and Sentence Transformers",
-      "Dynamic prompt engineering with Google Gemini API and LangChain pipelines",
-      "Interactive assessment dashboard with instant feedback and milestone tracking",
-      "High-throughput FastAPI microservice backend connected to modern React UI"
+      "88 automated backend unit and integration tests are included in the repository",
+      "Nine primary workflows cover login, dashboards, gap analysis, quizzes, artifacts, competency passports, progress, and administration",
+      "Combines two evidence sources—quizzes and work artifacts—and retains historical competency scores",
+      "A three-service prototype connects the React frontend, FastAPI backend, and mock-iGOT integration service"
     ],
   },
   {
@@ -155,14 +166,23 @@ export const projectsData: ProjectItem[] = [
     featured: true,
     metrics: "500+ Monthly Users • 10K+ Downloads",
     githubUrl: "https://github.com/Vaibhav-221/VBSPU-PYQ-Hub",
+    liveUrl: "https://www.vbspu-pyq-hub.online",
     description:
       "A student resource hub for verified VBSPU question papers, notes, and academic guidance.",
-    techStack: ["Next.js", "Firebase Firestore", "Node.js", "Express", "Razorpay", "Tailwind CSS", "Search Console"],
+    overview: [
+      "VBSPU PYQ Hub gives students of Veer Bahadur Singh Purvanchal University free access to previous-year question papers, organized from semester to subject to year. Students can preview and download PDFs without creating an account.",
+      "The site covers all eight semesters and stores paper metadata and PDF links in Cloud Firestore. It also includes responsive navigation, dark mode, contact and newsletter forms, legal pages, and student support. Search metadata, canonical URLs, sitemap and robots files support its SEO setup.",
+      "A Node.js and Express service supports donations through Razorpay. It creates payment orders and verifies payment signatures on the server using HMAC-SHA256. The project is deployed as a live student-facing resource."
+    ],
+    architecture: "Next.js frontend with a Node.js and Express payment service; Firebase provides the cloud data layer.",
+    database: "Firebase Cloud Firestore.",
+    techStack: ["HTML", "CSS", "Tailwind CSS", "JavaScript", "Node.js", "Express", "Firestore", "Razorpay", "EmailJS", "Web3Forms", "Google Search Console"],
     keyHighlights: [
-      "Currently serving 500+ active students every month with 10,000+ recorded downloads",
-      "Ranked #1 on Google Search queries for Purvanchal University CSE semester question papers",
-      "Real-time metadata querying and indexed categorizations via Cloud Firestore",
-      "Integrated micro-support donations through secure Razorpay payment gateway"
+      "Covers all eight semesters and hosts 100+ authentic previous-year question papers",
+      "Repository reports more than 10,000 PDF downloads; resource access does not require sign-up",
+      "Three-step discovery flow: semester, subject, then paper",
+      "Three Express payment endpoints handle configuration, order creation, and payment verification",
+      "The repository contains 147 commits"
     ],
   },
   {
@@ -175,14 +195,22 @@ export const projectsData: ProjectItem[] = [
     accentColor: "#ff375f",
     featured: true,
     githubUrl: "https://github.com/Vaibhav-221/Get-Me-A-Chai",
+    liveUrl: "https://get-me-a-chai-plum.vercel.app",
     description:
       "A creator-support platform for sponsorships, profile discovery, and secure Razorpay-powered contributions.",
-    techStack: ["Next.js App Router", "NextAuth.js", "MongoDB", "Mongoose", "Razorpay", "Tailwind CSS"],
+    overview: [
+      "Get-Me-A-Chai is a creator-support platform where people can discover public username-based creator pages and send direct contributions. Creators can manage their profiles and view support through a dashboard.",
+      "Google and GitHub sign-in use NextAuth.js, with account and creator data stored in MongoDB through Mongoose. Dynamic routes make each creator page available through a personal username.",
+      "Razorpay completes the payment flow: the backend creates an order, the supporter checks out, and the server verifies the payment signature before saving payment and creator details."
+    ],
+    architecture: "Next.js App Router application with authentication, creator profile pages, dashboards, MongoDB models, and server-side payment routes.",
+    database: "MongoDB accessed through Mongoose.",
+    techStack: ["Next.js", "React", "Tailwind CSS", "NextAuth.js", "MongoDB", "Mongoose", "Razorpay", "React Toastify"],
     keyHighlights: [
-      "Secure OAuth authentication and profile management utilizing NextAuth.js",
-      "Dynamic vanity routing for creator handles with live transaction feeds and leaderboard",
-      "Server-side cryptographic Razorpay signature validation and webhook handlers",
-      "Fast database operations with Mongoose schema indexing and aggregations"
+      "Supports two OAuth providers: Google and GitHub",
+      "Includes one payment gateway, Razorpay, with server-side payment verification",
+      "Implements the complete flow from sign-in and creator profile to payment verification",
+      "The repository contains 133 commits"
     ],
   },
   {
@@ -197,12 +225,20 @@ export const projectsData: ProjectItem[] = [
     githubUrl: "https://github.com/Vaibhav-221/Attendance-Sarthi",
     description:
       "A school and university attendance platform with live records, role-based access, and analytics.",
-    techStack: ["Next.js", "Firebase Auth", "Cloud Firestore", "Tailwind CSS", "React Context"],
+    overview: [
+      "Attendance Sarthi replaces manual classroom tracking with separate workflows for students and Class Representatives. CRs can manage subjects, class information, daily schedules, and attendance; students can review schedules, records, history, and subject-level attendance trends.",
+      "Firebase Authentication handles identity and Cloud Firestore stores users, roles, classes, subjects, schedules, and date-based attendance. Real-time listeners keep schedule and attendance information current without a full page refresh.",
+      "The frontend uses Next.js and React with a responsive Tailwind CSS interface. Firebase supplies authentication and data services, so the project does not rely on a separate custom backend server."
+    ],
+    architecture: "Next.js and React frontend backed by Firebase Authentication and Cloud Firestore; no separate custom backend server.",
+    database: "Firebase Cloud Firestore.",
+    techStack: ["Next.js", "React", "Tailwind CSS", "Firebase Authentication", "Firestore", "Lucide React", "React Calendar"],
     keyHighlights: [
-      "Instant multi-user sync using Firebase Firestore real-time snapshot listeners",
-      "Role-based authorization distinguishing educators, class representatives, and students",
-      "Automated attendance shortage alerts and semester-wise percentage analytics",
-      "Lightweight, mobile-first responsive interface optimized for low network latency"
+      "Supports two primary roles: Student and Class Representative",
+      "Provides distinct attendance and class-management workflows for each role",
+      "Uses Firestore real-time synchronization for schedule and attendance updates",
+      "Includes daily, weekly, monthly, and subject-level attendance calculations",
+      "The repository contains 53 commits"
     ],
   },
 ];
