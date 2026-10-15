@@ -8,6 +8,7 @@ export default function ProjectsView() {
   const [filter, setFilter] = useState<string>('All');
   const [selectedProject, setSelectedProject] = useState<ProjectItem | null>(null);
   const dialogRef = useRef<HTMLDialogElement>(null);
+  const projectGridRef = useRef<HTMLDivElement>(null);
 
   const categories = ['All', 'Full Stack', 'AI & ML'];
   const filteredProjects = projectsData.filter((project) => filter === 'All' || project.category === filter);
@@ -35,6 +36,26 @@ export default function ProjectsView() {
       if (revealFrame) window.cancelAnimationFrame(revealFrame);
     };
   }, [selectedProject]);
+
+  useEffect(() => {
+    const grid = projectGridRef.current;
+    if (!grid) return;
+
+    const scrollParent = grid.closest('.page-content') as HTMLElement | null;
+    const cards = grid.querySelectorAll<HTMLElement>('.portfolio-project-scroll-reveal');
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach((entry) => {
+        entry.target.classList.toggle('is-in-view', entry.isIntersecting);
+      });
+    }, {
+      root: scrollParent,
+      rootMargin: '-4% 0px -8% 0px',
+      threshold: 0.12,
+    });
+
+    cards.forEach((card) => observer.observe(card));
+    return () => observer.disconnect();
+  }, [filter]);
 
   const openProject = (project: ProjectItem) => setSelectedProject(project);
 
@@ -73,11 +94,11 @@ export default function ProjectsView() {
           </p>
         </div>
 
-        <div className="portfolio-project-grid">
+        <div ref={projectGridRef} className="portfolio-project-grid">
           {filteredProjects.map((project: ProjectItem, index) => (
             <article
               key={project.id}
-              className="portfolio-card portfolio-project-card portfolio-reveal"
+              className="portfolio-card portfolio-project-card portfolio-project-scroll-reveal"
               style={{
                 '--project-accent': project.color,
                 '--project-wash': project.accentColor,
