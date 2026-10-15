@@ -29,7 +29,7 @@ export interface ProjectItem {
   id: string;
   title: string;
   subtitle: string;
-  category: 'All' | 'Full Stack' | 'AI & ML' | 'Open Source';
+  category: 'All' | 'Full Stack' | 'AI & ML' | 'Open Source' | 'Automation';
   timeline: string;
   color: string;
   accentColor: string;
@@ -239,6 +239,87 @@ export const projectsData: ProjectItem[] = [
       "Uses Firestore real-time synchronization for schedule and attendance updates",
       "Includes daily, weekly, monthly, and subject-level attendance calculations",
       "The repository contains 53 commits"
+    ],
+  },
+  {
+    id: "jarvis-voice-assistant",
+    title: "Jarvis",
+    subtitle: "Voice-Controlled Python Desktop Assistant",
+    category: "Automation",
+    timeline: "Python Desktop",
+    color: "#bf5af2",
+    accentColor: "#8b5cf6",
+    featured: false,
+    githubUrl: "https://github.com/Vaibhav-221/Jarvis",
+    metrics: "4 web shortcuts • 4 music links • 2 API integrations",
+    description: "A voice-driven desktop assistant for web shortcuts, music, news, and AI-powered questions.",
+    overview: [
+      "Jarvis is a Python desktop assistant that listens for the wake word “Jarvis” and turns recognized speech into actions or spoken responses.",
+      "It opens preset Google, Facebook, YouTube, and LinkedIn pages, plays mapped YouTube music links, retrieves news through NewsAPI, and sends general questions to OpenAI GPT-3.5 Turbo. pyttsx3 provides spoken output.",
+      "The project is a local desktop prototype. Its speech recognition depends on the configured Google speech service, while news and general answers require their respective API credentials."
+    ],
+    architecture: "A Python desktop script routes microphone-recognized commands to browser shortcuts, music links, NewsAPI, or the OpenAI chat API, then speaks responses with pyttsx3.",
+    database: "None; shortcuts and music mappings are defined in the application code.",
+    techStack: ["Python", "SpeechRecognition", "pyttsx3", "Google Speech Recognition", "NewsAPI", "OpenAI GPT-3.5 Turbo", "webbrowser"],
+    keyHighlights: [
+      "Uses the “Jarvis” wake word to start voice-command handling",
+      "Includes four preset website shortcuts and four mapped music links",
+      "Connects to NewsAPI and OpenAI GPT-3.5 Turbo for external information and Q&A",
+      "Uses pyttsx3 for spoken responses; no persistent database is configured"
+    ],
+  },
+  {
+    id: "nexora-ai-wrapper",
+    title: "Nexora AI Wrapper",
+    subtitle: "Local LLM Chat Dashboard",
+    category: "AI & ML",
+    timeline: "Local AI",
+    color: "#0a84ff",
+    accentColor: "#00d2ff",
+    featured: false,
+    githubUrl: "https://github.com/Vaibhav-221/Nexora-AI-Wrapper",
+    metrics: "Dynamic model discovery • Local Ollama API • Responsive chat UI",
+    description: "A Next.js chat dashboard that discovers local Ollama models and sends conversations to the selected model.",
+    overview: [
+      "Nexora AI Wrapper provides a chat interface for language models served by a locally running Ollama instance. Users can discover available models, choose one, and start conversations.",
+      "The Next.js API route forwards chat requests and conversation context to Ollama’s local API. The interface includes navigation, model selection, message composition, loading states, and error handling.",
+      "Conversation state is held in the browser session and is not persisted to a database, so chats reset when the application state is cleared. Ollama must be running locally for model discovery and responses."
+    ],
+    architecture: "A Next.js frontend manages chat state and calls a Next.js API route, which forwards model and conversation requests to the local Ollama service.",
+    database: "None; conversation state is held in React memory and is not persisted between sessions.",
+    techStack: ["Next.js", "React", "JavaScript", "Tailwind CSS", "Lucide React", "Ollama"],
+    keyHighlights: [
+      "Discovers and selects models provided by a local Ollama instance",
+      "Routes prompts and conversation context through a Next.js API route",
+      "Includes responsive navigation, model selection, chat, and message input UI",
+      "Requires Ollama to be running locally; chat history is not stored persistently"
+    ],
+  },
+  {
+    id: "auto-reply-bot",
+    title: "Auto Reply Bot",
+    subtitle: "Gemini-Assisted Instagram DM Automation",
+    category: "Automation",
+    timeline: "Desktop Automation",
+    color: "#ff375f",
+    accentColor: "#ff9f0a",
+    featured: false,
+    githubUrl: "https://github.com/Vaibhav-221/Auto-reply-Bot",
+    metrics: "Gemini reply generation • In-memory duplicate checks",
+    description: "A Python desktop prototype that reads visible Instagram messages and sends short Hinglish replies generated with Gemini.",
+    overview: [
+      "Auto Reply Bot automates a browser-based Instagram DM workflow from the desktop. It reads visible message text, asks Gemini 3.1 Flash Lite to generate a casual Hinglish response, then pastes and sends that response through the browser UI.",
+      "PyAutoGUI and Pyperclip drive the screen and clipboard, while an in-memory check helps avoid replying to the same detected message repeatedly during a run. The script polls periodically and waits after sending a reply.",
+      "This is an experimental, screen-coordinate-based prototype: it depends on the browser layout and visible UI, and its temporary duplicate tracking is lost when the script stops. It may need adjustment when the interface changes."
+    ],
+    architecture: "A Python loop reads visible browser content and drives clicks and keyboard input with PyAutoGUI, transfers text through Pyperclip, and requests response text from the Google Gen AI SDK.",
+    database: "None; duplicate tracking is kept in memory for the current run.",
+    techStack: ["Python", "PyAutoGUI", "Pyperclip", "Google Gen AI SDK", "Gemini 3.1 Flash Lite"],
+    keyHighlights: [
+      "Generates casual Hinglish replies using Gemini 3.1 Flash Lite",
+      "Uses PyAutoGUI and Pyperclip to interact with the visible browser interface",
+      "Checks recent detected messages against an in-memory set during each run",
+      "Relies on screen coordinates and visible UI state, so it is an experimental desktop automation prototype"
     ],
   },
 ];

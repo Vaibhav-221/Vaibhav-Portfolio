@@ -1,7 +1,7 @@
 'use client';
 
 import React, { useEffect, useRef, useState } from 'react';
-import { projectsData, ProjectItem } from '@/data/portfolioData';
+import { personalInfo, projectsData, ProjectItem } from '@/data/portfolioData';
 import PortfolioPage from './PortfolioPage';
 
 export default function ProjectsView() {
@@ -10,7 +10,7 @@ export default function ProjectsView() {
   const dialogRef = useRef<HTMLDialogElement>(null);
   const projectGridRef = useRef<HTMLDivElement>(null);
 
-  const categories = ['All', 'Full Stack', 'AI & ML'];
+  const categories = ['All', 'Full Stack', 'AI & ML', 'Automation'];
   const filteredProjects = projectsData.filter((project) => filter === 'All' || project.category === filter);
 
   useEffect(() => {
@@ -43,8 +43,9 @@ export default function ProjectsView() {
     const grid = projectGridRef.current;
     if (!grid) return;
 
+    const projectView = grid.closest('.portfolio-project-view') as HTMLElement | null;
     const scrollParent = grid.closest('.page-content') as HTMLElement | null;
-    const cards = grid.querySelectorAll<HTMLElement>('.portfolio-project-scroll-reveal');
+    const cards = projectView?.querySelectorAll<HTMLElement>('.portfolio-project-scroll-reveal') ?? [];
     const observer = new IntersectionObserver((entries) => {
       entries.forEach((entry) => {
         entry.target.classList.toggle('is-in-view', entry.isIntersecting);
@@ -191,6 +192,15 @@ export default function ProjectsView() {
             </article>
           ))}
         </div>
+
+        <section className="portfolio-project-outro portfolio-project-scroll-reveal" aria-labelledby="portfolio-project-outro-title">
+          <span className="portfolio-project-outro-kicker">BEYOND THE PORTFOLIO</span>
+          <h2 id="portfolio-project-outro-title">Want to see what else<br /><span>I&apos;m building?</span></h2>
+          <p>Explore more of my projects, experiments, and open-source contributions on GitHub.</p>
+          <a href={personalInfo.github} target="_blank" rel="noopener noreferrer">
+            <span>Explore my GitHub</span><span aria-hidden="true">↗</span>
+          </a>
+        </section>
       </div>
 
       <dialog
@@ -274,7 +284,7 @@ export default function ProjectsView() {
                 </a>
               ) : (
                 <button type="button" className="portfolio-project-dialog-link is-unavailable" disabled>
-                  <span>Live project unavailable</span>
+                  <span>Live unavailable</span>
                 </button>
               )}
             </footer>
