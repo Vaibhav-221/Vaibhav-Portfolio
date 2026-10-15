@@ -15,6 +15,7 @@ export default function ProjectsView() {
 
   useEffect(() => {
     const dialog = dialogRef.current;
+    document.body.classList.toggle('portfolio-project-dialog-open', Boolean(selectedProject));
     if (!dialog) return;
 
     let revealFrame = 0;
@@ -33,6 +34,7 @@ export default function ProjectsView() {
     }
 
     return () => {
+      document.body.classList.remove('portfolio-project-dialog-open');
       if (revealFrame) window.cancelAnimationFrame(revealFrame);
     };
   }, [selectedProject]);
@@ -261,6 +263,9 @@ export default function ProjectsView() {
 
             <footer className="portfolio-project-dialog-actions portfolio-project-dialog-reveal">
               <a href={selectedProject.githubUrl} target="_blank" rel="noopener noreferrer" className="portfolio-project-dialog-link is-primary">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+                  <path d="M12 .9a11.1 11.1 0 0 0-3.51 21.63c.56.1.76-.24.76-.54v-2.1c-3.1.67-3.76-1.32-3.76-1.32-.5-1.28-1.24-1.62-1.24-1.62-1.01-.69.08-.68.08-.68 1.12.08 1.7 1.15 1.7 1.15.99 1.69 2.6 1.2 3.23.92.1-.71.39-1.2.7-1.48-2.48-.28-5.08-1.24-5.08-5.52 0-1.22.44-2.21 1.15-2.99-.12-.28-.5-1.42.11-2.95 0 0 .94-.3 3.05 1.14a10.6 10.6 0 0 1 5.56 0c2.12-1.44 3.05-1.14 3.05-1.14.61 1.53.23 2.67.11 2.95.72.78 1.15 1.77 1.15 2.99 0 4.29-2.61 5.24-5.1 5.51.4.35.75 1.03.75 2.08v3.08c0 .3.2.65.77.54A11.1 11.1 0 0 0 12 .9Z" />
+                </svg>
                 <span>Source code</span><span aria-hidden="true">↗</span>
               </a>
               {selectedProject.liveUrl ? (

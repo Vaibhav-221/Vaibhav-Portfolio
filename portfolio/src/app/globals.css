@@ -2644,6 +2644,7 @@ body.page-active .mobile-page-nav {
   --glass-bg: rgba(15, 18, 20, 0.84);
   --glass-bg-hover: rgba(24, 28, 27, 0.96);
   --glass-bg-light: rgba(243, 245, 239, 0.06);
+  --portfolio-dialog-bg: #0d1112;
   --glass-border: var(--portfolio-border);
   --text-main: #f3f3ef;
   --text-muted: rgba(228, 234, 228, 0.64);
@@ -2672,6 +2673,7 @@ body.light-theme .page-content.portfolio-pages {
   --glass-bg: rgba(232, 238, 232, 0.82);
   --glass-bg-hover: rgba(221, 232, 222, 0.98);
   --glass-bg-light: rgba(49, 92, 67, 0.055);
+  --portfolio-dialog-bg: #f5f8f4;
   --glass-border: var(--portfolio-border);
   --text-main: #18251c;
   --text-muted: #536258;
@@ -4350,13 +4352,6 @@ body.light-theme .callback-field input {
   line-height: 0.9;
   opacity: 0.78;
   text-shadow: 0 12px 44px color-mix(in srgb, var(--project-accent) 22%, transparent);
-  transition: transform 500ms cubic-bezier(0.22, 1, 0.36, 1), opacity 300ms ease;
-}
-
-.portfolio-project-card:hover .portfolio-project-monogram,
-.portfolio-project-card:focus-within .portfolio-project-monogram {
-  transform: scale(1.06);
-  opacity: 1;
 }
 
 .portfolio-project-visual-category {
@@ -4562,19 +4557,22 @@ body.light-theme .callback-field input {
   box-shadow: 0 0 0 24px color-mix(in srgb, var(--project-accent) 4%, transparent),
     0 0 0 48px color-mix(in srgb, var(--project-accent) 3%, transparent),
     inset 0 0 70px color-mix(in srgb, var(--project-accent) 10%, transparent);
-  transform: rotate(-28deg) scaleY(0.42);
+  transform: scaleY(0.42) scale(1);
   transform-origin: center;
+  rotate: -28deg;
   animation: portfolio-project-orbit-turn 28s linear infinite;
+  transition: transform 620ms cubic-bezier(0.22, 1, 0.36, 1), filter 420ms ease;
   will-change: transform;
 }
 
 @keyframes portfolio-project-orbit-turn {
-  from { transform: rotate(-28deg) scaleY(0.42); }
-  to { transform: rotate(332deg) scaleY(0.42); }
+  from { rotate: -28deg; }
+  to { rotate: 332deg; }
 }
 
 .portfolio-project-card:hover .portfolio-project-orbit,
 .portfolio-project-card:focus-within .portfolio-project-orbit {
+  transform: scaleY(0.42) scale(1.12);
   filter: brightness(1.35);
 }
 
@@ -4756,16 +4754,20 @@ body.light-theme .callback-field input {
   overflow: hidden;
   border: 1px solid var(--portfolio-border);
   border-radius: 20px;
-  background: var(--glass-bg);
+  background: var(--portfolio-dialog-bg, #0d1112);
   color: var(--text-main);
   box-shadow: 0 32px 100px rgba(0, 0, 0, 0.42);
   overscroll-behavior: contain;
 }
 
 .portfolio-project-dialog::backdrop {
-  background: rgba(4, 7, 8, 0.66);
-  backdrop-filter: blur(8px);
-  -webkit-backdrop-filter: blur(8px);
+  background: rgba(4, 7, 8, 0.9);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+}
+
+body.portfolio-project-dialog-open .portfolio-project-orbit {
+  animation-play-state: paused !important;
 }
 
 .portfolio-project-dialog-shell {
@@ -4799,6 +4801,8 @@ body.light-theme .callback-field input {
   color: var(--text-main);
   font-family: var(--font-oswald), sans-serif;
   font-size: clamp(30px, 6vw, 48px);
+  font-weight: 700;
+  letter-spacing: -0.015em;
   line-height: 1;
   text-transform: uppercase;
   overflow-wrap: anywhere;
@@ -4914,7 +4918,7 @@ body.light-theme .callback-field input {
   gap: 10px;
   padding: 16px clamp(20px, 4vw, 38px) calc(16px + env(safe-area-inset-bottom, 0px));
   border-top: 1px solid var(--portfolio-border);
-  background: var(--glass-bg);
+  background: var(--portfolio-dialog-bg, #0d1112);
 }
 
 .portfolio-project-dialog-link {
@@ -5307,7 +5311,7 @@ body.light-theme .callback-field input {
   .portfolio-project-grid .portfolio-project-card.portfolio-project-scroll-reveal {
     transform: none;
     filter: none;
-    transition-property: opacity !important;
+    transition-property: opacity, transform, border-color, box-shadow, background-color !important;
     transition-duration: 220ms !important;
     transition-delay: 0ms !important;
   }
@@ -5326,6 +5330,10 @@ body.light-theme .callback-field input {
 
   .portfolio-project-orbit {
     animation: none !important;
+  }
+
+  .portfolio-project-grid .portfolio-project-card .portfolio-project-orbit {
+    transition: transform 220ms ease, filter 220ms ease !important;
   }
 
   .portfolio-project-dialog-reveal {
