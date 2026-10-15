@@ -82,8 +82,6 @@ export default function ResumeView() {
           >
             <span>{personalInfo.email}</span>
             <span>•</span>
-            <span>{personalInfo.phoneDisplay}</span>
-            <span>•</span>
             <a
               href={personalInfo.github}
               target="_blank"

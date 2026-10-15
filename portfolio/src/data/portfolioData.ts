@@ -7,12 +7,11 @@ export interface PersonalInfo {
   institution: string;
   cgpa: string;
   email: string;
-  phone: string;
-  phoneDisplay: string;
   location: string;
   github: string;
   githubUsername: string;
   linkedin: string;
+  twitter: string;
   bioParagraphs: string[];
   resumeUrl: string;
   resumeFileName: string;
@@ -79,12 +78,11 @@ export const personalInfo: PersonalInfo = {
   institution: "Veer Bahadur Singh Purvanchal University, Jaunpur",
   cgpa: "8.30",
   email: "vaibhavsinghcbm@gmail.com",
-  phone: "+919125355790",
-  phoneDisplay: "(+91) 91253-55790",
   location: "Pratapgarh, Uttar Pradesh, India",
   github: "https://github.com/Vaibhav-221",
   githubUsername: "Vaibhav-221",
   linkedin: "https://www.linkedin.com/in/vaibhav-singh-a9200a2b9/",
+  twitter: "https://x.com/VaibhavS92068",
   bioParagraphs: [
     "Hi, I'm Vaibhav Singh, a passionate Full Stack Developer and Open Source Contributor pursuing B.Tech in Computer Science and Engineering at Veer Bahadur Singh Purvanchal University (CGPA 8.30).",
     "I specialize in engineering high-impact, real-time web architectures and AI-driven workflows using Next.js, React, FastAPI, Node.js, and Firebase. From university platforms serving hundreds of active students to micro-funding platforms and generative AI assessment engines, I focus on delivering scalable, bulletproof software with delightful user experience.",

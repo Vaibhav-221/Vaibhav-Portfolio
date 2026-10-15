@@ -63,7 +63,7 @@ A faithfully migrated, modern, high-performance web portfolio styled as an authe
 - **Experience**: Timeline (SYPNOWEB Founder & CEO, ASDN Cybernetics Intern, Freelance Designer).
 - **Skills**: Core expertise progress bars & technology tag cloud.
 - **Resume**: Full career & academic summary with direct PDF download (`aditya-resume.pdf`).
-- **Contact**: Contact details (Email, Phone, Location, Birthday) and interactive contact form with validation and submission feedback.
+- **Contact**: Email and location details, a validated contact form, and private callback requests for manual follow-up.
 
 ### 11. Mobile-Optimized Capsule Navigation
 - Scroll-direction aware capsule bar that smoothly slides away on scroll down and reappears on scroll up.
@@ -78,6 +78,34 @@ A faithfully migrated, modern, high-performance web portfolio styled as an authe
 - **Styling**: Tailwind CSS v4 & Custom Glassmorphism CSS variables
 - **Fonts**: Oswald, Bubblegum Sans, Coiny, System UI (SF Pro)
 - **Audio Engine**: HTML5 Audio API
+
+## EmailJS Contact and Callback Setup
+
+The contact form uses `EMAILJS_TEMPLATE_ID`. Callback requests use a separate EmailJS template configured with `EMAILJS_CALLBACK_TEMPLATE_ID`. Both use the same service, public key, and server-only private key. Keep `EMAILJS_PRIVATE_KEY` out of client-side code and do not prefix it with `NEXT_PUBLIC_`.
+
+Add these values to `.env.local`:
+
+```env
+EMAILJS_SERVICE_ID=
+EMAILJS_TEMPLATE_ID=
+EMAILJS_CALLBACK_TEMPLATE_ID=
+EMAILJS_PUBLIC_KEY=
+EMAILJS_PRIVATE_KEY=
+```
+
+In the callback EmailJS template, set the recipient to your private inbox and use `{{reply_to}}` as the reply-to address. The request provides these dynamic variables:
+
+- `{{subject}}`
+- `{{full_name}}`
+- `{{from_email}}` and `{{reply_to}}`
+- `{{phone_number}}`
+- `{{call_reason}}`
+- `{{preferred_callback_date}}`
+- `{{preferred_callback_time}}`
+- `{{time_zone}}`
+- `{{submitted_at}}`
+
+Callback submissions are requests for manual follow-up, not confirmed appointments. Restart the app after changing `.env.local`.
 
 ---
 
