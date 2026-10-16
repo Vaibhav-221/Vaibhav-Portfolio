@@ -334,12 +334,12 @@ export const experienceData: ExperienceItem[] = [
     statusTag: "Top 1% Nationwide",
     color: "#ff9f0a",
     description:
-      "Selected as an active open-source contributor in India's largest developer initiative. Contributed to high-traffic repositories, resolved intricate UI/UX bugs, and collaborated across multi-region developer teams.",
+      "Contributed production fixes and interface improvements across community repositories through GirlScript Summer of Code '26.",
     achievements: [
-      "Ranked in the Top 1% nationwide out of 50,000+ registered contributors",
-      "Authored and merged 5+ production pull requests across projects including CODEVIBE and Eventra",
-      "Improved performance, layout consistency, and responsive behavior across mobile viewports",
-      "Recognized for high-impact contributions in Hacktoberfest 2026"
+      "Ranked in the Top 1% among 50,000+ registered contributors",
+      "Merged 5+ pull requests across projects including CODEVIBE and Eventra",
+      "Improved responsive layouts, interface consistency, and performance across mobile viewports",
+      "Recognized for high-impact contributions during Hacktoberfest 2026"
     ],
     skills: ["Git & GitHub", "React.js", "Next.js", "Open Source Collaboration", "Code Reviews"],
   },
@@ -352,12 +352,12 @@ export const experienceData: ExperienceItem[] = [
     statusTag: "3 Leadership Promotions",
     color: "#0a84ff",
     description:
-      "Engineered and customized responsive corporate web interfaces for international enterprise web properties. Demonstrated technical leadership and rapid problem solving across large distributed cohorts.",
+      "Built and adapted responsive interfaces for three corporate web properties during a remote internship with GAOTek Inc.",
     achievements: [
-      "Delivered responsive, production-ready layouts for 3 enterprise web properties",
-      "Awarded 3 consecutive merit promotions in a cohort of 180 interns: Assistant Squad Leader → Squad Leader → Platoon Leader",
-      "Led daily scrum standups, coordinated sprint deliverables, and reviewed technical documentation",
-      "Ensured high adherence to cross-browser compatibility and web accessibility standards"
+      "Delivered responsive layouts across three enterprise web properties",
+      "Earned three consecutive promotions in a cohort of 180 interns: Assistant Squad Leader → Squad Leader → Platoon Leader",
+      "Led daily stand-ups, coordinated sprint tasks, and reviewed technical documentation",
+      "Applied cross-browser and accessibility checks to delivered interfaces"
     ],
     skills: ["Web Development", "UI Engineering", "Team Leadership", "Scrum / Agile", "Technical Documentation"],
   },
@@ -368,28 +368,28 @@ export const achievementsData: AchievementItem[] = [
     title: "Adobe University Hackathon 2026",
     badge: "Top 416 National Qualifier",
     organization: "Adobe India",
-    detail: "Cleared 2 rigorous competitive evaluation rounds out of 3,00,000+ registrations across India.",
+    detail: "Advanced through two evaluation rounds in a competition with 300,000+ registrations across India.",
     color: "#ff375f",
   },
   {
     title: "Smart India Hackathon (SIH) 2026",
     badge: "Rank #1 University Selection",
     organization: "Ministry of Education / VBSPU",
-    detail: "Secured 1st rank in campus internal selection among 50+ competing teams and 300+ engineering students.",
+    detail: "Placed first in the university selection among 50+ teams and 300+ engineering students.",
     color: "#c5ff41",
   },
   {
     title: "GSSoC '26 Top 1% Contributor",
     badge: "National Honor",
     organization: "GirlScript Foundation",
-    detail: "Earned top 1% national rank among 50,000+ active developers with 5+ merged production pull requests.",
+    detail: "Ranked in the Top 1% among 50,000+ registered contributors, with 5+ merged pull requests.",
     color: "#ff9f0a",
   },
   {
     title: "30 Days of Building Series",
-    badge: "Developer Community",
-    organization: "LinkedIn Engineering Series",
-    detail: "Published daily engineering insights and build-in-public logs focusing on real-world web architecture.",
+    badge: "Build-in-public series",
+    organization: "LinkedIn",
+    detail: "Shared daily engineering notes and build updates focused on practical web architecture.",
     color: "#0a84ff",
   },
 ];

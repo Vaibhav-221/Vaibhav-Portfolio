@@ -8,173 +8,80 @@ export default function ExperienceView() {
   return (
     <PortfolioPage
       eyebrow="THE JOURNEY"
-      title="How I got here."
-      description="Open-source contributions, engineering practice, and the milestones that keep moving the work forward."
+      title="Work that moves forward."
+      description="A record of the teams, contributions, and milestones behind the work."
     >
-    <div className="portfolio-view-content">
-      {/* Connected Timeline */}
-      <div className="portfolio-experience-timeline">
-        {/* Timeline line */}
-        <div className="portfolio-experience-line" />
+      <div className="portfolio-view-content experience-view-content">
+        <section className="portfolio-experience-timeline" aria-label="Work and open-source experience">
+          <div className="portfolio-experience-line" aria-hidden="true" />
 
-        {experienceData.map((exp) => (
-          <div key={exp.id} className="portfolio-experience-entry portfolio-reveal">
-            {/* Timeline Dot */}
-            <div className="portfolio-experience-marker" />
+          {experienceData.map((exp, index) => (
+            <article key={exp.id} className="portfolio-experience-entry portfolio-reveal">
+              <span className="portfolio-experience-marker" aria-hidden="true" />
 
-            <div
-              className="portfolio-card"
-              style={{
-                background: 'var(--glass-bg)',
-                border: '1px solid var(--glass-border)',
-                padding: '26px',
-                borderRadius: '18px',
-                transition: 'border-color 0.2s ease',
-              }}
-            >
-              {/* Header */}
-              <div
-                style={{
-                  display: 'flex',
-                  justifyContent: 'space-between',
-                  alignItems: 'flex-start',
-                  flexWrap: 'wrap',
-                  gap: '10px',
-                  marginBottom: '14px',
-                }}
-              >
-                <div>
-                  <div style={{ display: 'flex', alignItems: 'center', gap: '10px', flexWrap: 'wrap', marginBottom: '4px' }}>
-                    <h3 style={{ fontSize: '20px', fontWeight: 700, margin: 0, color: 'var(--text-main)' }}>
-                      {exp.role}
-                    </h3>
-                    {exp.statusTag && (
-                      <span
-                        style={{
-                          fontSize: '11px',
-                          fontWeight: 700,
-                          padding: '2px 8px',
-                          borderRadius: '8px',
-                              background: 'var(--portfolio-accent-soft)',
-                              color: 'var(--portfolio-accent)',
-                              border: '1px solid var(--portfolio-accent-border)',
-                        }}
-                      >
-                        {exp.statusTag}
-                      </span>
-                    )}
+              <div className="portfolio-card experience-card">
+                <header className="experience-card-header">
+                  <div className="experience-card-heading">
+                    <span className="experience-card-index">EXPERIENCE / {String(index + 1).padStart(2, '0')}</span>
+                    <h2 className="experience-card-title">{exp.role}</h2>
+                    <p className="experience-card-organization">{exp.company}</p>
+                    <span className="experience-card-type">{exp.type}</span>
                   </div>
-                  <div style={{ fontSize: '15px', fontWeight: 600, color: 'var(--portfolio-accent)' }}>
-                    {exp.company} <span style={{ color: 'var(--text-muted)', fontWeight: 400, marginLeft: '6px' }}>• {exp.type}</span>
+
+                  <div className="experience-card-meta">
+                    <span className="experience-card-period">{exp.period}</span>
+                    {exp.statusTag && <span className="experience-card-status">{exp.statusTag}</span>}
                   </div>
+                </header>
+
+                <p className="experience-card-summary">{exp.description}</p>
+
+                <div className="experience-card-impact">
+                  <h3 className="experience-card-label">Selected impact</h3>
+                  <ul className="experience-impact-list">
+                    {exp.achievements.map((item) => <li key={item}>{item}</li>)}
+                  </ul>
                 </div>
 
-                <div
-                  style={{
-                    padding: '4px 12px',
-                    background: 'var(--glass-bg-light)',
-                    border: '1px solid var(--glass-border)',
-                    borderRadius: '20px',
-                    fontSize: '12.5px',
-                    fontWeight: 500,
-                    color: 'var(--text-muted)',
-                  }}
-                >
-                  {exp.period}
-                </div>
+                <footer className="experience-card-footer">
+                  <span className="experience-card-label">Tools &amp; practice</span>
+                  <div className="experience-skill-list">
+                    {exp.skills.map((skill) => <span className="experience-skill" key={skill}>{skill}</span>)}
+                  </div>
+                </footer>
               </div>
-
-              {/* Description */}
-              <p style={{ fontSize: '14.5px', lineHeight: 1.65, color: 'var(--text-main)', margin: '0 0 16px 0' }}>
-                {exp.description}
-              </p>
-
-              {/* Achievements Bullet Points */}
-              <div style={{ marginBottom: '16px' }}>
-                <div style={{ fontSize: '12px', fontWeight: 600, textTransform: 'uppercase', color: 'var(--text-muted)', letterSpacing: '0.6px', marginBottom: '8px' }}>
-                  Key Impact &amp; Contributions:
-                </div>
-                <ul style={{ margin: 0, paddingLeft: '18px', fontSize: '13.5px', color: 'var(--text-muted)', lineHeight: 1.6 }}>
-                  {exp.achievements.map((item, i) => (
-                    <li key={i} style={{ marginBottom: '6px' }}>
-                      {item}
-                    </li>
-                  ))}
-                </ul>
-              </div>
-
-              {/* Skills Tags */}
-              <div style={{ display: 'flex', flexWrap: 'wrap', gap: '8px' }}>
-                {exp.skills.map((s, i) => (
-                  <span
-                    key={i}
-                    style={{
-                      fontSize: '11.5px',
-                      padding: '4px 10px',
-                      borderRadius: '6px',
-                      background: 'var(--glass-bg-light)',
-                      border: '1px solid var(--glass-border)',
-                      color: 'var(--text-main)',
-                    }}
-                  >
-                    {s}
-                  </span>
-                ))}
-              </div>
-            </div>
-          </div>
-        ))}
-      </div>
-
-      {/* Honors & Hackathon Achievements Grid */}
-      <div>
-        <h3 style={{ fontSize: '22px', fontWeight: 700, marginBottom: '20px' }}>Recognitions &amp; Hackathons</h3>
-        <div className="portfolio-card-grid">
-          {achievementsData.map((item, idx) => (
-            <div
-              key={idx}
-              className="portfolio-card portfolio-reveal"
-              style={{
-                background: 'var(--glass-bg)',
-                border: '1px solid var(--glass-border)',
-                borderRadius: '16px',
-                padding: '22px',
-                display: 'flex',
-                flexDirection: 'column',
-                justifyContent: 'space-between',
-              }}
-            >
-              <div>
-                <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '10px' }}>
-                  <span
-                    style={{
-                      fontSize: '11px',
-                      fontWeight: 700,
-                      textTransform: 'uppercase',
-                      color: 'var(--portfolio-accent)',
-                      background: 'var(--portfolio-accent-soft)',
-                      padding: '3px 8px',
-                      borderRadius: '8px',
-                    }}
-                  >
-                    {item.badge}
-                  </span>
-                </div>
-                <h4 style={{ fontSize: '16px', fontWeight: 700, margin: '0 0 6px 0', color: 'var(--text-main)' }}>
-                  {item.title}
-                </h4>
-                <div style={{ fontSize: '12px', color: 'var(--portfolio-accent)', fontWeight: 600, marginBottom: '8px' }}>
-                  {item.organization}
-                </div>
-                <p style={{ fontSize: '13px', lineHeight: 1.5, color: 'var(--text-muted)', margin: 0 }}>
-                  {item.detail}
-                </p>
-              </div>
-            </div>
+            </article>
           ))}
-        </div>
+        </section>
+
+        <section className="experience-recognition" aria-labelledby="experience-recognition-title">
+          <header className="experience-recognition-header portfolio-reveal">
+            <span className="experience-section-eyebrow">RECOGNITION / BUILD LOG</span>
+            <h2 className="experience-recognition-title" id="experience-recognition-title">Milestones beyond the role.</h2>
+            <p className="experience-recognition-description">
+              Hackathon selections, community recognition, and a steady practice of sharing the build.
+            </p>
+          </header>
+
+          <div className="portfolio-card-grid experience-recognition-grid">
+            {achievementsData.map((item, index) => (
+              <article
+                key={item.title}
+                className="portfolio-card portfolio-reveal experience-recognition-card"
+              >
+                <div className="experience-recognition-topline">
+                  <span className="experience-recognition-index">{String(index + 1).padStart(2, '0')}</span>
+                  <span className="experience-recognition-badge">{item.badge}</span>
+                </div>
+                <p className="experience-recognition-organization">{item.organization}</p>
+                <h3 className="experience-recognition-name">{item.title}</h3>
+                <p className="experience-recognition-detail">{item.detail}</p>
+                <span className="experience-recognition-rule" aria-hidden="true" />
+              </article>
+            ))}
+          </div>
+        </section>
       </div>
-    </div>
     </PortfolioPage>
   );
 }
