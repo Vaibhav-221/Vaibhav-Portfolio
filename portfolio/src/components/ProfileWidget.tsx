@@ -102,6 +102,7 @@ export default function ProfileWidget({ onNavigate, onOpenApp }: ProfileWidgetPr
                 src="/assets/images/freerider.jfif"
                 alt="Game"
                 fill
+                unoptimized
                 sizes="52px"
                 style={{ objectFit: 'cover', borderRadius: '22.5%' }}
               />

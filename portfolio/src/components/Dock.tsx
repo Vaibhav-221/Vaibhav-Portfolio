@@ -212,6 +212,7 @@ export default function Dock({
                 src="/assets/images/freerider.jfif"
                 alt="Free Rider HD"
                 fill
+                unoptimized
                 sizes="56px"
                 style={{ objectFit: 'cover', borderRadius: '14px', transform: 'scale(0.95)', filter: 'drop-shadow(0 8px 16px rgba(0,0,0,0.4))' }}
               />
