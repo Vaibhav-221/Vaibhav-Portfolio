@@ -137,6 +137,7 @@ export const projectsData: ProjectItem[] = [
     accentColor: "#c5ff41",
     featured: true,
     githubUrl: "https://github.com/Vaibhav-221/StatKarmyog",
+    liveUrl: "https://statkarmyog.vercel.app/",
     metrics: "88 automated tests • 9 workflows • 2 evidence sources",
     description:
       "Maps learner competencies to industry needs and builds adaptive learning paths with AI-assisted assessment.",
@@ -166,7 +167,7 @@ export const projectsData: ProjectItem[] = [
     featured: true,
     metrics: "500+ Monthly Users • 10K+ Downloads",
     githubUrl: "https://github.com/Vaibhav-221/VBSPU-PYQ-Hub",
-    liveUrl: "https://www.vbspu-pyq-hub.online",
+    liveUrl: "https://www.vbspu-pyq-hub.online/",
     description:
       "A student resource hub for verified VBSPU question papers, notes, and academic guidance.",
     overview: [
@@ -195,7 +196,7 @@ export const projectsData: ProjectItem[] = [
     accentColor: "#ff375f",
     featured: true,
     githubUrl: "https://github.com/Vaibhav-221/Get-Me-A-Chai",
-    liveUrl: "https://get-me-a-chai-plum.vercel.app",
+    liveUrl: "https://get-me-a-chai-vaibhav.vercel.app/",
     description:
       "A creator-support platform for sponsorships, profile discovery, and secure Razorpay-powered contributions.",
     overview: [
@@ -223,6 +224,7 @@ export const projectsData: ProjectItem[] = [
     accentColor: "#34e89e",
     featured: false,
     githubUrl: "https://github.com/Vaibhav-221/Attendance-Sarthi",
+    liveUrl: "https://attendance-tracker-system-mu.vercel.app/",
     description:
       "A school and university attendance platform with live records, role-based access, and analytics.",
     overview: [
