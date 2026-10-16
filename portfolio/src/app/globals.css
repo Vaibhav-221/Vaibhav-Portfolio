@@ -32,6 +32,10 @@
   --portfolio-accent-soft: rgba(217, 255, 102, 0.12);
   --portfolio-accent-border: rgba(217, 255, 102, 0.34);
   --portfolio-accent-contrast: #10140d;
+  --mobile-menu-bg: #d9ff66;
+  --mobile-menu-hover-bg: #c9ed5a;
+  --mobile-menu-foreground: #10140d;
+  --mobile-menu-border: #10140d;
   --portfolio-border: rgba(243, 245, 239, 0.14);
   --portfolio-surface-soft: rgba(243, 245, 239, 0.055);
   --mobile-nav-scrim: rgba(3, 5, 6, 0.96);
@@ -60,6 +64,10 @@ body.light-theme {
   --portfolio-accent-soft: rgba(49, 92, 67, 0.1);
   --portfolio-accent-border: rgba(49, 92, 67, 0.28);
   --portfolio-accent-contrast: #f6f8f4;
+  --mobile-menu-bg: #315c43;
+  --mobile-menu-hover-bg: #244b36;
+  --mobile-menu-foreground: #ffffff;
+  --mobile-menu-border: #163b28;
   --portfolio-border: rgba(49, 75, 56, 0.18);
   --mobile-nav-scrim: #f1f5f1;
 }
@@ -2094,6 +2102,13 @@ body.page-active .mobile-page-nav {
   to { opacity: 1; }
 }
 
+@keyframes mobileMenuTogglePop {
+  0% { transform: scale(1) rotate(0deg); }
+  38% { transform: scale(0.88) rotate(-7deg); }
+  72% { transform: scale(1.05) rotate(2deg); }
+  100% { transform: scale(1) rotate(0deg); }
+}
+
 @keyframes mobilePageItemReveal {
   from {
     opacity: 0;
@@ -2197,33 +2212,34 @@ body.page-active .mobile-page-nav {
     position: relative;
     z-index: 2;
     display: grid;
-    width: 46px;
-    height: 46px;
+    width: 48px;
+    height: 48px;
     place-items: center;
     padding: 0;
-    border: 1px solid var(--portfolio-accent-border);
-    border-radius: 13px;
-    background: var(--portfolio-accent);
-    color: var(--portfolio-accent-contrast);
-    box-shadow: 0 8px 22px rgba(0, 0, 0, 0.28);
-    backdrop-filter: blur(22px) saturate(180%);
-    -webkit-backdrop-filter: blur(22px) saturate(180%);
+    border: 2px solid var(--mobile-menu-border);
+    border-radius: 14px;
+    background: var(--mobile-menu-bg);
+    color: var(--mobile-menu-foreground);
     cursor: pointer;
     -webkit-tap-highlight-color: transparent;
-    transition: transform 180ms ease, background-color 180ms ease, border-color 180ms ease;
+    transition: transform 260ms cubic-bezier(0.2, 0.8, 0.2, 1), background-color 220ms ease, border-color 220ms ease;
   }
 
   .mobile-page-nav.mp-menu-open .mp-menu-toggle {
     position: absolute;
     top: calc(env(safe-area-inset-top, 0px) + var(--menubar-h) + 8px);
     right: 12px;
+    animation: mobileMenuTogglePop 440ms cubic-bezier(0.16, 1, 0.3, 1) both;
   }
 
   .mp-menu-toggle:hover {
-    transform: translateY(-1px);
-    border-color: var(--portfolio-accent-border);
-    background: var(--portfolio-accent);
-    filter: brightness(1.08);
+    transform: translateY(-2px) scale(1.025);
+    background: var(--mobile-menu-hover-bg);
+    border-color: var(--mobile-menu-border);
+  }
+
+  .mp-menu-toggle:active {
+    transform: scale(0.92);
   }
 
   .mp-menu-toggle:focus-visible,
@@ -2237,31 +2253,44 @@ body.page-active .mobile-page-nav {
     width: 22px;
     height: 22px;
     flex-direction: column;
-    align-items: center;
+    align-items: flex-start;
     justify-content: center;
-    gap: 5px;
+    gap: 4px;
+    transition: transform 260ms cubic-bezier(0.2, 0.8, 0.2, 1);
   }
 
   .mp-menu-line {
     display: block;
-    width: 18px;
+    width: 19px;
     height: 2px;
     flex: 0 0 auto;
     border-radius: 999px;
     background: currentColor;
-    transition: transform 220ms cubic-bezier(0.2, 0.8, 0.2, 1), opacity 160ms ease;
+    transition: width 260ms cubic-bezier(0.2, 0.8, 0.2, 1), transform 320ms cubic-bezier(0.16, 1, 0.3, 1), opacity 180ms ease, background-color 220ms ease;
+  }
+
+  .mp-menu-line:nth-child(2) {
+    width: 12px;
+    background: currentColor;
+  }
+
+  .mp-menu-line:nth-child(3) {
+    width: 16px;
   }
 
   .mp-menu-toggle[aria-expanded='true'] .mp-menu-line:nth-child(1) {
-    transform: translateY(7px) rotate(45deg);
+    width: 19px;
+    transform: translateY(6px) rotate(45deg);
   }
 
   .mp-menu-toggle[aria-expanded='true'] .mp-menu-line:nth-child(2) {
     opacity: 0;
+    transform: scaleX(0.2);
   }
 
   .mp-menu-toggle[aria-expanded='true'] .mp-menu-line:nth-child(3) {
-    transform: translateY(-7px) rotate(-45deg);
+    width: 19px;
+    transform: translateY(-6px) rotate(-45deg);
   }
 
   .mp-menu-panel {
@@ -5887,6 +5916,10 @@ body.portfolio-project-dialog-open .portfolio-project-orbit {
   .mp-menu-panel,
   .mp-nav-btn {
     transition-duration: 0.01ms !important;
+  }
+
+  .mobile-page-nav.mp-menu-open .mp-menu-toggle {
+    animation: none !important;
   }
 
   .mp-menu-line {
