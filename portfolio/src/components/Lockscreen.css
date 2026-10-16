@@ -379,14 +379,19 @@ body.light-theme .lockscreen .ls-bg {
   }
 
   .lockscreen .ls-main {
-    grid-template-columns: minmax(0, 1fr);
-    align-content: center;
-    gap: clamp(28px, 7vh, 54px);
-    margin: auto 0;
-    padding: 34px 0;
+    position: absolute;
+    inset: 0;
+    display: block;
+    width: 100%;
+    margin: 0;
+    padding: 0;
+    pointer-events: none;
   }
 
   .lockscreen .ls-clock-block {
+    position: absolute;
+    top: clamp(62px, 10vh, 84px);
+    left: 8px;
     grid-template-columns: auto 1fr;
     align-items: end;
     justify-items: start;
@@ -404,7 +409,7 @@ body.light-theme .lockscreen .ls-bg {
   }
 
   .lockscreen .ls-clock {
-    font-size: clamp(50px, 15vw, 72px);
+    font-size: clamp(42px, 12vw, 56px);
   }
 
   .lockscreen .ls-day {
@@ -423,6 +428,15 @@ body.light-theme .lockscreen .ls-bg {
   .lockscreen .ls-identity > .ls-label {
     margin-bottom: 16px;
     font-size: 9px;
+  }
+
+  .lockscreen .ls-identity {
+    position: absolute;
+    top: 50%;
+    right: 22px;
+    left: 22px;
+    max-width: none;
+    transform: translateY(-50%);
   }
 
   .lockscreen .ls-name {
@@ -489,6 +503,15 @@ body.light-theme .lockscreen .ls-bg {
     padding-left: 16px;
   }
 
+    .lockscreen .ls-clock-block {
+      left: 2px;
+    }
+
+    .lockscreen .ls-identity {
+      right: 16px;
+      left: 16px;
+    }
+
   .lockscreen .ls-enter-key {
     display: none;
   }
@@ -505,13 +528,26 @@ body.light-theme .lockscreen .ls-bg {
   }
 
   .lockscreen .ls-main {
-    gap: 18px;
-    padding: 14px 0;
+    inset: 0;
+    padding: 0;
   }
 
   .lockscreen .ls-clock-block {
+    top: clamp(54px, 9vh, 68px);
     padding-top: 0;
     padding-bottom: 0;
+  }
+
+  .lockscreen .ls-clock {
+    font-size: clamp(38px, 11vw, 48px);
+  }
+
+  .lockscreen .ls-identity {
+    top: 49%;
+  }
+
+  .lockscreen .ls-name {
+    font-size: clamp(52px, 15vw, 84px);
   }
 
   .lockscreen .ls-identity > .ls-label {
