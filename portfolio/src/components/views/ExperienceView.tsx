@@ -7,6 +7,7 @@ import PortfolioPage from './PortfolioPage';
 export default function ExperienceView() {
   return (
     <PortfolioPage
+      className="portfolio-page-experience"
       eyebrow="THE JOURNEY"
       title="Work that moves forward."
       description="A record of the teams, contributions, and milestones behind the work."

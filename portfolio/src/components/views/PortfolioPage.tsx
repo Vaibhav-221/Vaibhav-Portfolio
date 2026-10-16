@@ -6,10 +6,11 @@ interface PortfolioPageProps {
   eyebrow: string;
   title: ReactNode;
   description: string;
+  className?: string;
   children: ReactNode;
 }
 
-export default function PortfolioPage({ eyebrow, title, description, children }: PortfolioPageProps) {
+export default function PortfolioPage({ eyebrow, title, description, className, children }: PortfolioPageProps) {
   const pageRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
@@ -43,7 +44,7 @@ export default function PortfolioPage({ eyebrow, title, description, children }:
   }, []);
 
   return (
-    <div className="portfolio-page" ref={pageRef}>
+    <div className={`portfolio-page${className ? ` ${className}` : ''}`} ref={pageRef}>
       <header className="portfolio-page-header portfolio-reveal is-visible">
         <span className="portfolio-page-eyebrow">PORTFOLIO / {eyebrow}</span>
         <h1 className="portfolio-page-title">{title}</h1>

@@ -2116,6 +2116,19 @@ body.page-active .mobile-page-nav {
   }
 }
 
+@keyframes experiencePageEnter {
+  from {
+    opacity: 0;
+    filter: blur(5px);
+    transform: translateY(14px) scale(0.996);
+  }
+  to {
+    opacity: 1;
+    filter: blur(0);
+    transform: translateY(0) scale(1);
+  }
+}
+
 @keyframes mobileMotionSafeFadeIn {
   from { opacity: 0; }
   to { opacity: 1; }
@@ -2812,6 +2825,10 @@ body.light-theme .page-content.portfolio-pages {
   margin: 0 auto;
   color: var(--text-main);
   animation: portfolioPageEnter 680ms cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+.portfolio-page-experience {
+  animation: experiencePageEnter 620ms cubic-bezier(0.22, 1, 0.36, 1) both;
 }
 
 .portfolio-page-header {
@@ -3689,9 +3706,9 @@ body.light-theme .profile-widget-container .gemini-chatbot-card [style*="var(--p
 
 .portfolio-experience-entry.portfolio-reveal {
   opacity: 0;
-  filter: blur(7px);
-  transform: translateY(34px) scale(0.985);
-  transition: opacity 720ms cubic-bezier(0.22, 1, 0.36, 1), transform 720ms cubic-bezier(0.22, 1, 0.36, 1), filter 720ms cubic-bezier(0.22, 1, 0.36, 1);
+  filter: blur(4px);
+  transform: translateY(22px) scale(0.992);
+  transition: opacity 640ms cubic-bezier(0.22, 1, 0.36, 1), transform 640ms cubic-bezier(0.22, 1, 0.36, 1), filter 640ms cubic-bezier(0.22, 1, 0.36, 1);
 }
 
 .portfolio-experience-entry.portfolio-reveal.is-visible {
@@ -3704,9 +3721,9 @@ body.light-theme .profile-widget-container .gemini-chatbot-card [style*="var(--p
 
 .experience-recognition-card.portfolio-reveal {
   opacity: 0;
-  filter: blur(6px);
-  transform: translateY(28px) scale(0.985);
-  transition: opacity 680ms cubic-bezier(0.22, 1, 0.36, 1), transform 680ms cubic-bezier(0.22, 1, 0.36, 1), filter 680ms cubic-bezier(0.22, 1, 0.36, 1), border-color 250ms ease, box-shadow 320ms ease, background-color 250ms ease !important;
+  filter: blur(3px);
+  transform: translateY(20px) scale(0.992);
+  transition: opacity 620ms cubic-bezier(0.22, 1, 0.36, 1), transform 620ms cubic-bezier(0.22, 1, 0.36, 1), filter 620ms cubic-bezier(0.22, 1, 0.36, 1), border-color 460ms ease, box-shadow 460ms cubic-bezier(0.22, 1, 0.36, 1), background-color 460ms ease !important;
 }
 
 .experience-recognition-card.portfolio-reveal.is-visible {
@@ -3717,12 +3734,60 @@ body.light-theme .profile-widget-container .gemini-chatbot-card [style*="var(--p
 
 .experience-recognition-card.portfolio-reveal.is-visible:hover,
 .experience-recognition-card.portfolio-reveal.is-visible:focus-within {
-  transform: translateY(-4px) scale(1);
+  transform: translateY(-3px) scale(1.006);
+  box-shadow: 0 17px 36px rgba(0, 0, 0, 0.2), 0 0 16px var(--portfolio-accent-soft);
 }
 
 .experience-recognition-card.portfolio-reveal:nth-child(2) { transition-delay: 80ms !important; }
-.experience-recognition-card.portfolio-reveal:nth-child(3) { transition-delay: 160ms !important; }
-.experience-recognition-card.portfolio-reveal:nth-child(4) { transition-delay: 240ms !important; }
+.experience-recognition-card.portfolio-reveal:nth-child(3) { transition-delay: 150ms !important; }
+.experience-recognition-card.portfolio-reveal:nth-child(4) { transition-delay: 220ms !important; }
+
+.experience-card,
+.experience-recognition-card {
+  transition: transform 560ms cubic-bezier(0.22, 1, 0.36, 1), border-color 560ms ease, box-shadow 560ms cubic-bezier(0.22, 1, 0.36, 1), background-color 560ms ease;
+  will-change: transform;
+}
+
+.experience-card::after,
+.experience-recognition-card::after {
+  position: absolute;
+  z-index: 0;
+  inset: 0;
+  border-radius: inherit;
+  background: radial-gradient(ellipse at 100% 0%, color-mix(in srgb, var(--portfolio-accent) 9%, transparent), transparent 52%);
+  content: '';
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 560ms cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.experience-card > *,
+.experience-recognition-card > * {
+  position: relative;
+  z-index: 2;
+}
+
+.experience-card:hover::after,
+.experience-card:focus-within::after,
+.experience-recognition-card:hover::after,
+.experience-recognition-card:focus-within::after {
+  opacity: 1;
+}
+
+.experience-card:hover,
+.experience-card:focus-within,
+.experience-recognition-card:hover,
+.experience-recognition-card:focus-within {
+  background:
+    radial-gradient(ellipse at 100% 0%, color-mix(in srgb, var(--portfolio-accent) 12%, transparent), transparent 42%),
+    var(--glass-bg) !important;
+}
+
+.experience-card:hover,
+.experience-card:focus-within {
+  transform: translateY(-2px) scale(1.003);
+  box-shadow: 0 17px 36px rgba(0, 0, 0, 0.2), 0 0 16px var(--portfolio-accent-soft);
+}
 
 .portfolio-resume-toolbar {
   justify-content: flex-end;
@@ -5750,8 +5815,13 @@ body.portfolio-project-dialog-open .portfolio-project-orbit {
   .experience-recognition-card.portfolio-reveal {
     transform: none;
     filter: none;
-    transition-duration: 0.01ms !important;
+    transition: opacity 240ms ease !important;
     transition-delay: 0ms !important;
+  }
+
+  .portfolio-page-experience .experience-card:hover,
+  .portfolio-page-experience .experience-recognition-card:hover {
+    transform: translateY(-2px) scale(1.004) !important;
   }
 
   .portfolio-project-grid .portfolio-project-card.portfolio-project-scroll-reveal {
@@ -5863,6 +5933,36 @@ body.portfolio-project-dialog-open .portfolio-project-orbit {
   .contact-success-mark,
   .contact-success-kicker span {
     animation: none !important;
+  }
+
+  .portfolio-page-experience .experience-card {
+    transition: border-color 420ms ease, box-shadow 420ms cubic-bezier(0.22, 1, 0.36, 1) !important;
+  }
+
+  .portfolio-page-experience .experience-recognition-card.portfolio-reveal {
+    transition: opacity 240ms ease, border-color 420ms ease, box-shadow 420ms cubic-bezier(0.22, 1, 0.36, 1) !important;
+  }
+
+  .portfolio-page-experience .experience-card::before,
+  .portfolio-page-experience .experience-recognition-card::before {
+    transition: transform 300ms cubic-bezier(0.2, 0.7, 0.2, 1) !important;
+  }
+
+  .portfolio-page-experience .experience-card::after,
+  .portfolio-page-experience .experience-recognition-card::after {
+    transition: opacity 420ms cubic-bezier(0.22, 1, 0.36, 1) !important;
+  }
+
+  .portfolio-page-experience .experience-card:hover,
+  .portfolio-page-experience .experience-card:focus-within,
+  .portfolio-page-experience .experience-recognition-card:hover,
+  .portfolio-page-experience .experience-recognition-card:focus-within {
+    transform: translateY(-2px) scale(1.004) !important;
+    border-color: var(--portfolio-accent-border) !important;
+    background:
+      radial-gradient(ellipse at 100% 0%, color-mix(in srgb, var(--portfolio-accent) 12%, transparent), transparent 42%),
+      var(--glass-bg) !important;
+    box-shadow: 0 15px 34px rgba(0, 0, 0, 0.18), 0 0 14px var(--portfolio-accent-soft) !important;
   }
 }
 
