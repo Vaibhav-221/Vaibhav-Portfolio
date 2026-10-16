@@ -199,9 +199,11 @@ export default function Dock({
           </button>
 
           {/* Free Rider HD */}
-          <div
-            className={`dock-icon hide-on-mobile ${bouncingIcon === 'Free Rider HD' ? 'bouncing' : ''}`}
+          <button
+            type="button"
+            className={`dock-icon ${bouncingIcon === 'Free Rider HD' ? 'bouncing' : ''}`}
             data-name="Free Rider HD"
+            aria-label="Open Free Rider HD game"
             onClick={() => {
               triggerBounce('Free Rider HD');
               onOpenApp('Free Rider HD', 'https://www.freeriderhd.com/', 'iframe');
@@ -218,12 +220,12 @@ export default function Dock({
               />
             </div>
             <span className="dock-tooltip">Free Rider HD</span>
-          </div>
+          </button>
 
           {/* Apple Music */}
           <button
             type="button"
-            className={`dock-icon ${bouncingIcon === 'Apple Music' ? 'bouncing' : ''}`}
+            className={`dock-icon hide-on-mobile ${bouncingIcon === 'Apple Music' ? 'bouncing' : ''}`}
             data-name="Apple Music"
             aria-label="Toggle Apple Music"
             onClick={() => {

@@ -1,6 +1,6 @@
 'use client';
 
-import React from 'react';
+import React, { useState } from 'react';
 import Image from 'next/image';
 import { PageId } from '@/types';
 import { personalInfo } from '@/data/portfolioData';
@@ -8,9 +8,18 @@ import { personalInfo } from '@/data/portfolioData';
 interface ProfileWidgetProps {
   onNavigate: (page: PageId) => void;
   onOpenApp: (name: string, url: string, isApp?: 'apple-music' | 'iframe') => void;
+  onToggleAppleMusic: () => void;
 }
 
-export default function ProfileWidget({ onNavigate, onOpenApp }: ProfileWidgetProps) {
+export default function ProfileWidget({ onNavigate, onOpenApp, onToggleAppleMusic }: ProfileWidgetProps) {
+  const [bouncingIcon, setBouncingIcon] = useState<string | null>(null);
+
+  const triggerBounce = (name: string) => {
+    setBouncingIcon(null);
+    requestAnimationFrame(() => setBouncingIcon(name));
+    window.setTimeout(() => setBouncingIcon((current) => current === name ? null : current), 260);
+  };
+
   return (
     <>
       <div className="profile-widget group relative overflow-hidden">
@@ -73,9 +82,14 @@ export default function ProfileWidget({ onNavigate, onOpenApp }: ProfileWidgetPr
       {/* Mobile App Grid (Only visible on mobile) */}
       <div className="mobile-apps-grid hide-on-desktop">
         {/* Mail */}
-        <div
-          className="mobile-app-icon"
-          onClick={() => window.open(`https://mail.google.com/mail/?view=cm&fs=1&to=${personalInfo.email}`, '_blank')}
+        <button
+          type="button"
+          className={`mobile-app-icon ${bouncingIcon === 'Mail' ? 'bouncing' : ''}`}
+          aria-label="Open Mail"
+          onClick={() => {
+            triggerBounce('Mail');
+            window.open(`https://mail.google.com/mail/?view=cm&fs=1&to=${personalInfo.email}`, '_blank');
+          }}
         >
           <div className="mobile-app-squircle">
             <div style={{ position: 'relative', width: '100%', height: '100%' }}>
@@ -89,35 +103,20 @@ export default function ProfileWidget({ onNavigate, onOpenApp }: ProfileWidgetPr
             </div>
           </div>
           <span>Mail</span>
-        </div>
-
-        {/* Game */}
-        <div
-          className="mobile-app-icon"
-          onClick={() => onOpenApp('Free Rider HD', 'https://www.freeriderhd.com/', 'iframe')}
-        >
-          <div className="mobile-app-squircle">
-            <div style={{ position: 'relative', width: '100%', height: '100%' }}>
-              <Image
-                src="/assets/images/freerider.jfif"
-                alt="Game"
-                fill
-                unoptimized
-                sizes="52px"
-                style={{ objectFit: 'cover', borderRadius: '22.5%' }}
-              />
-            </div>
-          </div>
-          <span>Game</span>
-        </div>
+        </button>
 
         {/* Projects */}
-        <div
-          className="mobile-app-icon"
-          onClick={() => onNavigate('projects')}
+        <button
+          type="button"
+          className={`mobile-app-icon ${bouncingIcon === 'Projects' ? 'bouncing' : ''}`}
+          aria-label="Open Projects section"
+          onClick={() => {
+            triggerBounce('Projects');
+            onNavigate('projects');
+          }}
         >
           <div className="mobile-app-squircle mobile-app-squircle--glass">
-            <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+            <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
               <rect x="3" y="3" width="7" height="7" rx="1.5" />
               <rect x="14" y="3" width="7" height="7" rx="1.5" />
               <rect x="3" y="14" width="7" height="7" rx="1.5" />
@@ -125,12 +124,41 @@ export default function ProfileWidget({ onNavigate, onOpenApp }: ProfileWidgetPr
             </svg>
           </div>
           <span>Projects</span>
-        </div>
+        </button>
+
+        {/* Apple Music */}
+        <button
+          type="button"
+          className={`mobile-app-icon ${bouncingIcon === 'Apple Music' ? 'bouncing' : ''}`}
+          aria-label="Toggle Apple Music"
+          onClick={() => {
+            triggerBounce('Apple Music');
+            onToggleAppleMusic();
+          }}
+        >
+          <div className="mobile-app-squircle">
+            <div style={{ position: 'relative', width: '100%', height: '100%' }}>
+              <Image
+                src="/assets/icons/vecteezy_apple-music-logo-square-rounded-apple-music-logo-apple_55138482.png"
+                alt=""
+                fill
+                sizes="52px"
+                style={{ objectFit: 'contain', transform: 'scale(1.08)' }}
+              />
+            </div>
+          </div>
+          <span>Apple Music</span>
+        </button>
 
         {/* Resume */}
-        <div
-          className="mobile-app-icon"
-          onClick={() => onNavigate('resume')}
+        <button
+          type="button"
+          className={`mobile-app-icon ${bouncingIcon === 'Resume' ? 'bouncing' : ''}`}
+          aria-label="Open Resume section"
+          onClick={() => {
+            triggerBounce('Resume');
+            onNavigate('resume');
+          }}
         >
           <div className="mobile-app-squircle mobile-app-squircle--glass">
             <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
@@ -142,7 +170,7 @@ export default function ProfileWidget({ onNavigate, onOpenApp }: ProfileWidgetPr
             </svg>
           </div>
           <span>Resume</span>
-        </div>
+        </button>
       </div>
     </>
   );

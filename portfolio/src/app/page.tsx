@@ -369,7 +369,11 @@ export default function HomePage() {
             {/* Left Hero Column: Personal Bio & Specializations */}
             <div className="hero-left-column">
               <div className="widget-row">
-                <ProfileWidget onNavigate={navigateTo} onOpenApp={openApp} />
+                <ProfileWidget
+                  onNavigate={navigateTo}
+                  onOpenApp={openApp}
+                  onToggleAppleMusic={toggleAppleMusic}
+                />
                 <ServicesWidget />
               </div>
               <AboutWidget onNavigate={navigateTo} />
